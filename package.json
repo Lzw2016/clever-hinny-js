@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "scripts": {
+    "init": "yarn install"
+  },
+  "workspaces": [
+    "types",
+    "core",
+    "data",
+    "server",
+    "test"
+  ]
+}

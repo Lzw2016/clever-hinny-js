@@ -19,10 +19,7 @@
     "checkJs": true,
     "declaration": true,
     "skipLibCheck": true,
-    "lib": [
-      "ES5",
-      "ES6"
-    ]
+    "lib": []
   },
   "exclude": [
     "dist"

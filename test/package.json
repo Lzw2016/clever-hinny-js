@@ -5,5 +5,8 @@
   "scripts": {
   },
   "devDependencies": {
+    "@hinny/core": "0.0.1",
+    "@hinny/data": "0.0.1",
+    "@hinny/server": "0.0.1"
   }
 }
