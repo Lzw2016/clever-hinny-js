@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    // "baseUrl": ".",
+    "outDir": "./build",
+    "allowJs": true,
+    "target": "ES5",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "inlineSources": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "checkJs": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "typeRoots": [
+      "../core/src",
+      "../data/src",
+      "../server/src"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
+}

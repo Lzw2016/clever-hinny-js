@@ -1,5 +1,5 @@
 {
-  "name": "@hinny/data",
+  "name": "@hinny/server",
   "version": "0.0.1",
   "description": "clever-hinny Web开发js模块",
   "main": "index.js",
