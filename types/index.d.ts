@@ -1,3 +1,5 @@
+// 发布到@types http://definitelytyped.org/guides/contributing.html
+
 interface Console {
     /**
      * XXXXXXXXXXX
