@@ -1,7 +1,7 @@
 {
   "name": "@hinny/data",
   "version": "0.0.1",
-  "description": "clever-hinny数据访问js模块",
+  "description": "clever-hinny数据库交互js模块",
   "main": "index.js",
   "scripts": {
   },
