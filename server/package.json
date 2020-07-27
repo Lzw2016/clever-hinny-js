@@ -1,0 +1,33 @@
+{
+  "name": "@hinny/data",
+  "version": "0.0.1",
+  "description": "clever-hinny Web开发js模块",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lzw2016/clever-hinny-js.git"
+  },
+  "keywords": [
+    "web",
+    "mvc",
+    "http",
+    "graaljs",
+    "j2v8",
+    "nashorn",
+    "serverjs",
+    "hinny",
+    "clever-hinny",
+    "java",
+    "js",
+    "javascript",
+    "typescript"
+  ],
+  "author": "lizw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lzw2016/clever-hinny-js/issues"
+  },
+  "homepage": "https://github.com/Lzw2016/clever-hinny-js#readme"
+}
