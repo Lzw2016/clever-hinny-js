@@ -10,13 +10,13 @@ console.log(a)
 
 const log = LoggerFactory.getLogger("aaa");
 
-log.debug("aaaa = {}", 121);
+log.debug("abc = {}", 121);
 
 
-var js01 = require("./01");
+const js01 = require("./01");
 
-var fuc = function (a: number, b: number) {
-    var sum = a + b + js01.fuc(a, b);
+const fuc = function (a: number, b: number) {
+    const sum = a + b + js01.fuc(a, b);
     print(a + "+" + b + "+fuc(a, b) = " + sum);
     return sum;
 }
