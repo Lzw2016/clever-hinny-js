@@ -1,5 +1,5 @@
 {
-  "name": "@hinny/data",
+  "name": "@hinny/data-jdbc",
   "version": "0.0.1",
   "description": "clever-hinny数据库交互js模块",
   "main": "index.js",

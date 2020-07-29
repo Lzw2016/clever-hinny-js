@@ -6,7 +6,7 @@
   "workspaces": [
     "types",
     "core",
-    "data",
+    "data-jdbc",
     "server",
     "test"
   ]

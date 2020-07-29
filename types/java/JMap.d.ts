@@ -1,0 +1,3 @@
+interface JMap<K, V> {
+
+}
