@@ -1,19 +1,22 @@
-type StrKeyMap = ObjMap<string, object>;
+interface StrKeyMap {
+    [name: string]: object
+}
 
 export interface JdbcDataSource {
-    // /**
-    //  * 获取数据库类型
-    //  */
-    // public DbType getDbType() {
-    // /**
-    //  * 当前数据源是否关闭
-    //  */
-    // public boolean isClosed() {
-    // /**
-    //  * 关闭当前数据源
-    //  */
-    // @Override
-    // public void close()
+    /**
+     * 获取数据库类型
+     */
+    getDbType(): DbType;
+
+    /**
+     * 当前数据源是否关闭
+     */
+    isClosed(): boolean;
+
+    /**
+     * 关闭当前数据源
+     */
+    close(): void;
 
     // --------------------------------------------------------------------------------------------
     // Query 操作
@@ -27,12 +30,12 @@ export interface JdbcDataSource {
      */
     queryMap(sql: string, paramMap: StrKeyMap): StrKeyMap;
 
-    // /**
-    //  * 查询一条数据，返回一个Map
-    //  *
-    //  * @param sql sql脚本，参数格式[:param]
-    //  */
-    // public Map<String, Object> queryMap(String sql) {
+    /**
+     * 查询一条数据，返回一个Map
+     *
+     * @param sql sql脚本，参数格式[:param]
+     */
+    queryMap(sql: string): StrKeyMap;
 
     // /**
     //  * 查询多条数据，返回一个Map数组
@@ -42,12 +45,12 @@ export interface JdbcDataSource {
     //  */
     // public List<Map<String, Object>> queryList(String sql, Map<String, Object> paramMap) {
 
-    // /**
-    //  * 查询多条数据，返回一个Map数组
-    //  *
-    //  * @param sql sql脚本，参数格式[:param]
-    //  */
-    // public List<Map<String, Object>> queryList(String sql) {
+    /**
+     * 查询多条数据，返回一个Map数组
+     *
+     * @param sql sql脚本，参数格式[:param]
+     */
+    queryList(sql: string): JList<StrKeyMap>;
 
     // /**
     //  * 查询返回一个 String
@@ -452,8 +455,6 @@ export interface JdbcDataSource {
     //  * @see org.springframework.transaction.TransactionDefinition
     //  */
     // public <T> T beginReadOnlyTX(TransactionCallback<T> action) {
-
-
 
 
 }

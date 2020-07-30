@@ -30,6 +30,6 @@
     ]
   },
   "exclude": [
-    "dist"
+    "./dist"
   ]
 }

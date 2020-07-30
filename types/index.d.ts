@@ -13,7 +13,3 @@
 /// <reference path="print.d.ts" />
 /// <reference path="logger.d.ts" />
 /// <reference path="assert.d.ts" />
-
-interface ObjMap<K, V> {
-    [key: K]: V;
-}
