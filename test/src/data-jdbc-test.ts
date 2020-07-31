@@ -8,7 +8,7 @@ const jdbc = jdbcDatabase.getDefault();
 
 const t01 = function () {
     const resList = jdbc.queryList("select * from `clever-template`.tb_order_main limit 3");
-    log.info("resList -> {}", JSON.stringify(resList));
+    log.info("resList -> {}", resList);
     console.log("resList -> ", resList[1]);
     // console.log("order_id -> ", resList[0].get("order_id"));
 }

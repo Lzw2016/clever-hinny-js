@@ -58,22 +58,22 @@ interface JBigDecimal {
 
 interface JObject {
     /**
-     * 创建Java byte 值
+     * 创建Java byte 值 (-128~127)
      */
     asJByte(arg: number | string): JByte;
 
     /**
-     * 创建Java short 值
+     * 创建Java short 值 (-32,768 ~ 32,767)
      */
     asJShort(arg: number | string): JShort;
 
     /**
-     * 创建Java int 值
+     * 创建Java int 值 (-2,147,483,648 ~ 2,147,483,647)
      */
     asJInt(arg: number | string): JInt;
 
     /**
-     * 创建Java long 值
+     * 创建Java long 值 (-9,223,372,036,854,774,808 ~ 9,223,372,036,854,774,807)
      */
     asJLong(arg: number | string): JLong;
 
@@ -109,13 +109,13 @@ interface JObject {
 
     /**
      * 创建Java java.util.Date 对象,支持以下格式<br />
-     * 1. <br />
-     * 2. <br />
-     * 3. <br />
-     * 4. <br />
-     * 5. <br />
+     * "yyyy-MM-dd HH:mm:ss" <br />
+     * "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" <br />
+     * "EEE MMM dd HH:mm:ss zzz yyyy" <br />
+     * "yyyy-MM-dd" <br />
+     * "HH:mm:ss" <br />
      */
-    asJDate(arg: string): JDate;
+    asJDate(arg: string | Date): JDate;
 
     /**
      * 创建Java java.math.BigDecimal 对象
