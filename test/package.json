@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
+    "test-tsc": "tsc -w"
   },
   "devDependencies": {
     "@hinny/core": "0.0.1",

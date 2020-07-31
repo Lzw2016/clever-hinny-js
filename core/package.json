@@ -4,6 +4,7 @@
   "description": "clever-hinny核心js模块",
   "main": "index.js",
   "scripts": {
+    "data-core": "tsc -w"
   },
   "repository": {
     "type": "git",
