@@ -1,6 +1,6 @@
-import { AnyEntity, jdbcDatabase } from "@hinny/data-jdbc";
+import {AnyEntity, jdbcDatabase} from "@hinny/data-jdbc";
 
-const log = LoggerFactory.getLogger("/test/src/data-jdbc-test.ts");
+const log = LoggerFactory.getLogger(__filename);
 
 interface Entity extends AnyEntity {
     order_id: JString;

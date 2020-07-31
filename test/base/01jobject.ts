@@ -1,4 +1,4 @@
-const log = LoggerFactory.getLogger("01jobject.ts")
+const log = LoggerFactory.getLogger(__filename);
 
 const t01 = function () {
     log.info("# asJByte         -> {}", JObject.asJByte(1));
@@ -10,7 +10,7 @@ const t01 = function () {
     log.info("# asJChar         -> {}", JObject.asJChar('a'));
     log.info("# asJString       -> {}", JObject.asJString('abc123456'));
     log.info("# asJDate         -> {}", JObject.asJDate('2020-07-31 22:02:12'));
-    log.info("# asJBigDecimal   -> {}", JObject.asJBigDecimal('1354741564564568989.564948989745189789454894894864'));
+    log.info("# asJBigDecimal   -> {}", JObject.asJBigDecimal('1354741344987654323456765434567564564568989.564948989745189789454894894864'));
 }
 
 const t02 = function () {
@@ -24,7 +24,7 @@ const t02 = function () {
     log.info("# asJString       -> {}", JObject.asJString('abc123456'));
     log.info("# asJDate         -> {}", JObject.asJDate(new Date()));
     log.info("# asJDate         -> {}", JObject.asJDate(new Date().getTime()));
-    log.info("# asJBigDecimal   -> {}", JObject.asJBigDecimal('1354741564564568989.564948989745189789454894894864'));
+    log.info("# asJBigDecimal   -> {}", JObject.asJBigDecimal('1354741344987654323456765434567564564568989.564948989745189789454894894864'));
 }
 
 export {

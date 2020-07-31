@@ -568,15 +568,15 @@ export interface JdbcConfig {
 
 export interface JdbcInfo {
     /** 数据库驱动名称: com.mysql.cj.jdbc.Driver */
-    driverClassName: string;
+    readonly driverClassName: string;
     /** 数据库链接url: jdbc:mysql://host:3306/db-name */
-    jdbcUrl: string;
+    readonly jdbcUrl: string;
     /** 是否自动提交 */
-    isAutoCommit: boolean;
+    readonly isAutoCommit: boolean;
     /** 是否只读 */
-    isReadOnly: boolean;
+    readonly isReadOnly: boolean;
     /** 数据库类型 */
-    dbType: DbType;
+    readonly dbType: DbType;
 }
 
 export enum DbType {

@@ -110,6 +110,7 @@ interface JObject {
     /**
      * 创建Java java.util.Date 对象,支持以下格式<br />
      * "yyyy-MM-dd HH:mm:ss" <br />
+     * "yyyy-MM-dd HH:mm:ss.SSS" <br />
      * "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" <br />
      * "EEE MMM dd HH:mm:ss zzz yyyy" <br />
      * "yyyy-MM-dd" <br />
