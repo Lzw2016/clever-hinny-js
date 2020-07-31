@@ -3,6 +3,7 @@
 /// <reference path="nashorn.d.ts" />
 
 // Java标准库
+/// <reference path="java/BaseTypes.d.ts" />
 /// <reference path="java/JList.d.ts" />
 /// <reference path="java/JMap.d.ts" />
 /// <reference path="java/JSet.d.ts" />
