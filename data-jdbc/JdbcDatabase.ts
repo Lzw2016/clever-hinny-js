@@ -1,8 +1,28 @@
-interface StrKeyMap {
-    [name: string]: object
+/**
+ * SQL参数类型
+ */
+export type SqlParamType = JChar | JString | JInt | JLong | JDouble | JBigDecimal | JBoolean | JDate;
+
+/**
+ * SQL参数Map
+ */
+export interface SqlParamMap {
+    [name: string]: SqlParamType
 }
 
-export interface JdbcDataSource {
+/**
+ * 数据库字段值类型
+ */
+export type SqlFieldType = JChar | JString | JInt | JLong | JDouble | JBigDecimal | JBoolean | JDate;
+
+/**
+ * 通用数据库实体类型
+ */
+export interface AnyEntity {
+    [name: string]: SqlFieldType;
+}
+
+export interface JdbcDataSource<T = AnyEntity> {
     /**
      * 获取数据库类型
      */
@@ -28,14 +48,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryMap(sql: string, paramMap: StrKeyMap): StrKeyMap;
+    queryMap(sql: string, paramMap: SqlParamMap): T;
 
     /**
      * 查询一条数据，返回一个Map
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryMap(sql: string): StrKeyMap;
+    queryMap(sql: string): T;
 
     // /**
     //  * 查询多条数据，返回一个Map数组
@@ -50,7 +70,7 @@ export interface JdbcDataSource {
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryList(sql: string): JList<StrKeyMap>;
+    queryList(sql: string): JList<T>;
 
     // /**
     //  * 查询返回一个 String
@@ -463,7 +483,7 @@ export interface JdbcDatabase {
     /**
      * 获取默认数据源
      */
-    getDefault(): JdbcDataSource;
+    getDefault<T = AnyEntity>(): JdbcDataSource<T>;
 
     /**
      * 获取默认数据源名称
@@ -475,7 +495,7 @@ export interface JdbcDatabase {
      *
      * @param name 数据源名称
      */
-    getDataSource(name: string): JdbcDataSource | null;
+    getDataSource<T = AnyEntity>(name: string): JdbcDataSource<T> | null;
 
     /**
      * 判断数据源是否存在
@@ -490,7 +510,7 @@ export interface JdbcDatabase {
      * @param name       数据源名称
      * @param jdbcConfig 数据源配置
      */
-    add(name: string, jdbcConfig: JdbcConfig): JdbcDataSource;
+    add<T = AnyEntity>(name: string, jdbcConfig: JdbcConfig): JdbcDataSource<T>;
 
     /**
      * 删除数据源

@@ -115,7 +115,7 @@ interface JObject {
      * "yyyy-MM-dd" <br />
      * "HH:mm:ss" <br />
      */
-    asJDate(arg: string | Date): JDate;
+    asJDate(arg: string | number | Date): JDate;
 
     /**
      * 创建Java java.math.BigDecimal 对象

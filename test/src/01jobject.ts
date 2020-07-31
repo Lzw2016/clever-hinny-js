@@ -23,6 +23,7 @@ const t02 = function () {
     log.info("# asJChar         -> {}", JObject.asJChar('a'));
     log.info("# asJString       -> {}", JObject.asJString('abc123456'));
     log.info("# asJDate         -> {}", JObject.asJDate(new Date()));
+    log.info("# asJDate         -> {}", JObject.asJDate(new Date().getTime()));
     log.info("# asJBigDecimal   -> {}", JObject.asJBigDecimal('1354741564564568989.564948989745189789454894894864'));
 }
 
