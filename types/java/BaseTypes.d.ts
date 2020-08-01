@@ -45,6 +45,23 @@ type JString = string;
  */
 interface JDate {
     java_util_Date: "java.util.Date";
+
+    /**
+     * 返回自 1970 年 1 月 1 日 00:00:00 GMT 以来此 Date 对象表示的毫秒数。
+     */
+    getTime(): JLong;
+
+    /**
+     * 如果对象相同，则返回 true；否则，返回 false
+     */
+    equals(obj: JObject): JBoolean;
+
+    /**
+     * 比较两个日期的顺序。
+     * @param anotherDate - 要比较的 Date。
+     * 如果参数 Date 等于此 Date，则返回值 0；如果此 Date 在 Date 参数之前，则返回小于 0 的值；如果此 Date 在 Date 参数之后，则返回大于 0 的值。
+     */
+    compareTo(anotherDate: JDate): JInt;
 }
 
 /**
