@@ -56,6 +56,42 @@ interface JBigDecimal {
     java_math_BigDecimal: "java.math.BigDecimal";
 }
 
+/**
+ * java.math.BigInteger 类型，不要在JavaScript/TypeScript环境中创建该类型对象<br />
+ * 请使用内置对象“JObject”创建该类型实例<br />
+ * @see JObject
+ */
+interface JBigInteger {
+    java_math_BigInteger: "java.math.BigInteger";
+}
+
+/**
+ * java.sql.Timestamp 类型，不要在JavaScript/TypeScript环境中创建该类型对象<br />
+ * 请使用内置对象“JObject”创建该类型实例<br />
+ * @see JObject
+ */
+interface JSqlTimestamp {
+    java_sql_Timestamp: "java.sql.Timestamp";
+}
+
+/**
+ * java.sql.Time 类型，不要在JavaScript/TypeScript环境中创建该类型对象<br />
+ * 请使用内置对象“JObject”创建该类型实例<br />
+ * @see JObject
+ */
+interface JSqlTime {
+    java_sql_Time: "java.sql.Time";
+}
+
+/**
+ * java.sql.Date 类型，不要在JavaScript/TypeScript环境中创建该类型对象<br />
+ * 请使用内置对象“JObject”创建该类型实例<br />
+ * @see JObject
+ */
+interface JSqlDate {
+    java_sql_Time: "java.sql.Date";
+}
+
 interface JObject {
     /**
      * 创建Java byte 值 (-128~127)
@@ -124,6 +160,16 @@ interface JObject {
     asJBigDecimal(arg: string): JBigDecimal;
 
     // TODO 补充常用类型
+
+    /**
+     * 把jdbc时间类型转换成 java.util.Date 类型
+     */
+    toJDate(arg: JSqlDate | JSqlTime | JSqlTimestamp): JDate;
+
+    /**
+     * BigInteger 转换成 JInt
+     */
+    toJInt(arg: JBigInteger): JInt;
 }
 
 declare const JObject: JObject;
