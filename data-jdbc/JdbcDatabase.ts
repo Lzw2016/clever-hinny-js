@@ -7,13 +7,13 @@ export type SqlParamType = JChar | JString | JInt | JLong | JDouble | JBigDecima
  * SQL参数Map
  */
 export interface SqlParamMap {
-    [name: string]: SqlParamType
+    [name: string]: SqlParamType;
 }
 
 /**
  * 数据库字段值类型
  */
-export type SqlFieldType = JChar | JString | JInt | JLong | JDouble | JBigDecimal | JBoolean | JDate;
+export type SqlFieldType = JChar | JString | JInt | JLong | JDouble | JBigDecimal | JBoolean | JDate | JSqlDate | JSqlTime | JSqlTimestamp;
 
 /**
  * 通用数据库实体类型

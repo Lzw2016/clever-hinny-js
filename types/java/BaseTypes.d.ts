@@ -159,6 +159,36 @@ interface JObject {
      */
     asJBigDecimal(arg: string): JBigDecimal;
 
+    /**
+     * 创建 java.util.List 集合
+     * @param args 集合元素
+     */
+    asJList<T>(...args: T): JList<T>;
+
+    /**
+     * 创建 java.util.List 集合
+     * @param args 数组
+     */
+    asJList<T>(args: Array<T> | T[]): JList<T>;
+
+    /**
+     * 创建 java.util.Set 集合
+     * @param args 集合元素
+     */
+    asJSet<T>(...args: T): JSet<T>;
+
+    /**
+     * 创建 java.util.Set 集合
+     * @param args 数组
+     */
+    asJSet<T>(args: Array<T> | T[]): JSet<T>;
+
+    /**
+     * 创建 java.util.Map 集合
+     * @param arg JavaScript对象
+     */
+    asJMap<K, V>(arg: object): JMap<K, V>;
+
     // TODO 补充常用类型
 
     /**
