@@ -17,13 +17,15 @@ const jdbc = jdbcDatabase.getDefault<Entity>();
 const t01 = function () {
     log.info("DbType -> {}", jdbc.getDbType());
     const resList = jdbc.queryList("select * from `clever-template`.tb_order_main limit 3");
-    // log.info("resList -> {}", [resList]);
+    log.info("resList -> {}", resList[0]);
     // log.info("order_id -> {}", resList[1].get("order_id"));
     log.info("order_id -> {}", resList[1].total_price);
     // const b = resList[1].b;
     // const d = resList[1].d;
     // console.log("### -> ", b, d);
 }
+
+
 
 export {
     t01,

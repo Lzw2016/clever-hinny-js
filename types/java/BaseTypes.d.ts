@@ -93,7 +93,7 @@ interface JSqlTime {
  * 请使用内置对象“JObject”创建该类型实例<br />
  * @see JObject
  */
-interface JSqlDate {
+interface JSqlDate extends JDate {
     java_sql_Time: "java.sql.Date";
 }
 
@@ -207,4 +207,18 @@ interface JObject {
     toJInt(arg: JBigInteger): JInt;
 }
 
+interface Interop {
+    fromJList<T>(list: JList<T>): T[];
+
+    fromJArray<T>(...array: T): T[];
+
+    fromJMap<T>(obj: T): T;
+
+    fromJMap<T>(map: JMap<string, any>): T;
+
+    fromJDate(date: JDate): Date;
+}
+
 declare const JObject: JObject;
+
+declare const Interop: Interop;
