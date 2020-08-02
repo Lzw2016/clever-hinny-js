@@ -208,13 +208,13 @@ interface JObject {
 }
 
 interface Interop {
-    fromJList<T>(list: JList<T>): T[];
+    // fromJList<T>(list: JList<T>): T[];
 
-    fromJArray<T>(...array: T): T[];
+    // fromJArray<T>(...array: T): T[];
 
-    fromJMap<T>(obj: T): T;
+    fromJMap<T extends JMap>(obj: T): T;
 
-    fromJMap<T>(map: JMap<string, any>): T;
+    // fromJMap<T>(map: JMap<string, any>): T;
 
     fromJDate(date: JDate): Date;
 }

@@ -18,11 +18,11 @@ export type SqlFieldType = JChar | JString | JInt | JLong | JDouble | JBigDecima
 /**
  * 通用数据库实体类型
  */
-export interface AnyEntity {
+export interface AnyEntity extends JMap<string, SqlFieldType> {
     [name: string]: SqlFieldType;
 }
 
-export interface JdbcDataSource<T = AnyEntity> {
+export interface JdbcDataSource {
     /**
      * 获取数据库类型
      */
@@ -48,14 +48,14 @@ export interface JdbcDataSource<T = AnyEntity> {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryMap(sql: string, paramMap: SqlParamMap): T;
+    queryMap<T = AnyEntity>(sql: string, paramMap: SqlParamMap): T;
 
     /**
      * 查询一条数据，返回一个Map
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryMap(sql: string): T;
+    queryMap<T = AnyEntity>(sql: string): T;
 
     // /**
     //  * 查询多条数据，返回一个Map数组
@@ -70,7 +70,7 @@ export interface JdbcDataSource<T = AnyEntity> {
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryList(sql: string): JList<T>;
+    queryList<T = AnyEntity>(sql: string): JList<T>;
 
     // /**
     //  * 查询返回一个 String
@@ -483,7 +483,7 @@ export interface JdbcDatabase {
     /**
      * 获取默认数据源
      */
-    getDefault<T = AnyEntity>(): JdbcDataSource<T>;
+    getDefault(): JdbcDataSource;
 
     /**
      * 获取默认数据源名称
@@ -495,7 +495,7 @@ export interface JdbcDatabase {
      *
      * @param name 数据源名称
      */
-    getDataSource<T = AnyEntity>(name: string): JdbcDataSource<T> | null;
+    getDataSource(name: string): JdbcDataSource | null;
 
     /**
      * 判断数据源是否存在
@@ -510,7 +510,7 @@ export interface JdbcDatabase {
      * @param name       数据源名称
      * @param jdbcConfig 数据源配置
      */
-    add<T = AnyEntity>(name: string, jdbcConfig: JdbcConfig): JdbcDataSource<T>;
+    add(name: string, jdbcConfig: JdbcConfig): JdbcDataSource;
 
     /**
      * 删除数据源
