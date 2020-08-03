@@ -22,6 +22,36 @@ export interface AnyEntity extends JMap<string, SqlFieldType> {
     [name: string]: SqlFieldType;
 }
 
+export interface BatchData {
+    /**
+     * 列名称集合
+     */
+    readonly columnNames: JList<string>;
+    /**
+     * 列类型集合
+     */
+    readonly columnTypes: JList<JInt>;
+    /**
+     * 列宽(列数)
+     */
+    readonly columnCount: JInt;
+    /**
+     * 当前批次数
+     */
+    readonly rowDataList: JList<JMap<string, SqlFieldType>>;
+    /**
+     * 当前读取的行数
+     */
+    readonly rowCount: JInt;
+}
+
+/**
+ * 游标读取数据回调函数
+ */
+export interface QueryConsumer {
+    (batchData: BatchData): void;
+}
+
 export interface JdbcDataSource {
     /**
      * 获取数据库类型
@@ -187,14 +217,14 @@ export interface JdbcDataSource {
     //  */
     // public void query(String sql, Map<String, Object> paramMap, int batchSize, Consumer<BatchData> consumer) {
 
-    // /**
-    //  * 查询多条数据(大量数据)，使用游标读取
-    //  *
-    //  * @param sql       sql脚本，参数格式[:param]
-    //  * @param batchSize 一个批次的数据量
-    //  * @param consumer  游标批次读取数据消费者
-    //  */
-    // public void query(String sql, int batchSize, Consumer<BatchData> consumer) {
+    /**
+     * 查询多条数据(大量数据)，使用游标读取
+     *
+     * @param sql       sql脚本，参数格式[:param]
+     * @param batchSize 一个批次的数据量
+     * @param consumer  游标批次读取数据消费者
+     */
+    query(sql: string, batchSize: JInt, consumer: QueryConsumer): void
 
     // /**
     //  * 查询多条数据(大量数据)，使用游标读取

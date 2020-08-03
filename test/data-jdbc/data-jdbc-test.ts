@@ -1,4 +1,4 @@
-import { AnyEntity, jdbcDatabase } from "@hinny/data-jdbc";
+import {AnyEntity, jdbcDatabase} from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 
@@ -47,7 +47,16 @@ limit 3
     log.info("[resList]                         -> {}", [resList]);
 }
 
+const t03 = function () {
+    const sql = "select * from `clever-template`.tb_order_main limit 3";
+    jdbc.query(sql, 1, bd => {
+        console.log("bd -> ", bd)
+    });
+}
+
+
 export {
     t01,
     t02,
+    t03,
 }
