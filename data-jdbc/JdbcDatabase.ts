@@ -22,36 +22,194 @@ export interface AnyEntity extends JMap<string, SqlFieldType> {
     [name: string]: SqlFieldType;
 }
 
-export interface BatchData {
+export interface BatchData<T = AnyEntity> {
     /**
      * 列名称集合
      */
-    readonly columnNames: JList<string>;
+    getColumnNames(): JList<string>;
+
     /**
      * 列类型集合
      */
-    readonly columnTypes: JList<JInt>;
+    getColumnTypes(): JList<JInt>;
+
     /**
      * 列宽(列数)
      */
-    readonly columnCount: JInt;
+    getColumnCount(): JInt;
+
     /**
      * 当前批次数
      */
-    readonly rowDataList: JList<JMap<string, SqlFieldType>>;
+    getRowDataList(): JList<T>;
+
     /**
      * 当前读取的行数
      */
-    readonly rowCount: JInt;
+    getRowCount(): JInt;
+
+    /**
+     * 返回当前批次数据量
+     */
+    getBatchCount(): JInt;
+}
+
+export interface RowData<T = AnyEntity> {
+    /**
+     * 列名称集合
+     */
+    getColumnNames(): JList<string>;
+
+    /**
+     * 列类型集合
+     */
+    getColumnTypes(): JList<JInt>;
+
+    /**
+     * 列宽(列数)
+     */
+    getColumnCount(): JInt;
+
+    /**
+     * 当前行数据
+     */
+    getRowData(): T;
+
+    /**
+     * 当前读取的行数
+     */
+    getRowCount(): JInt;
+}
+
+/**
+ * 游标读取数据回调函数(批量读取)
+ */
+export interface BatchQueryCallback<T = AnyEntity> {
+    (batchData: BatchData<T>): void;
 }
 
 /**
  * 游标读取数据回调函数
  */
-export interface QueryConsumer {
-    (batchData: BatchData): void;
+export interface QueryCallback<T = AnyEntity> {
+    (batchData: RowData<T>): void;
 }
 
+/**
+ * 排序类型
+ */
+export enum SortType {
+    /**
+     * 由小到大排序
+     */
+    ASC = "ASC",
+    /**
+     * 由大到小排序
+     */
+    DESC = "DESC",
+}
+
+/**
+ * 查询排序参数
+ */
+export interface QueryBySort {
+    /**
+     * 排序字段(单字段排序-低优先级)
+     */
+    orderField?: string;
+    /**
+     * 排序类型ASC DESC(单字段排序-低优先级)
+     */
+    sort?: SortType;
+
+    /**
+     * 排序字段集合(多字段排序-高优先级)
+     */
+    orderFields?: Array<string>;
+    /**
+     * 排序类型 ASC DESC(多字段排序-高优先级)
+     */
+    sorts?: Array<SortType>;
+
+    /**
+     * 排序字段 映射Map
+     */
+    fieldsMapping?: JMap<string, string>;
+}
+
+/**
+ * 查询分页参数
+ */
+export interface QueryByPage extends QueryBySort {
+    /**
+     * 每页的数据量(1 <= pageSize <= 100)
+     */
+    pageSize?: JInt;
+    /**
+     * 当前页面的页码数(pageNo >= 1)
+     */
+    pageNo?: JInt;
+    /**
+     * 是否进行 count 查询
+     */
+    isSearchCount?: JBoolean;
+}
+
+export interface OrderItem {
+    /**
+     * 需要进行排序的字段
+     */
+    getColumn(): string;
+
+    /**
+     * 是否正序排列，默认 true
+     */
+    isAsc(): JBoolean;
+}
+
+/**
+ * 分页查询返回值
+ */
+export interface IPage<T = AnyEntity> {
+    /**
+     * 当前页，默认 1
+     */
+    getCurrent(): JLong;
+
+    /**
+     * 获取排序信息，排序的字段和正反序
+     */
+    orders(): JList<OrderItem>;
+
+    /**
+     * 当前分页总页数
+     */
+    getPages(): JLong;
+
+    /**
+     * 分页记录列表
+     */
+    getRecords(): JList<T>;
+
+    /**
+     * 进行 count 查询 【 默认: true 】
+     */
+    isSearchCount(): JBoolean;
+
+    /**
+     * 当前分页总页数
+     */
+    getSize(): JLong;
+
+    /**
+     * 当前满足条件总行数
+     */
+    getTotal(): JLong;
+}
+
+/**
+ * JDBC数据库操作对象
+ */
 export interface JdbcDataSource {
     /**
      * 获取数据库类型
@@ -102,120 +260,120 @@ export interface JdbcDataSource {
      */
     queryList<T = AnyEntity>(sql: string): JList<T>;
 
-    // /**
-    //  * 查询返回一个 String
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param paramMap 参数(可选)，参数格式[:param]
-    //  */
-    // public String queryString(String sql, Map<String, Object> paramMap) {
+    /**
+     * 查询返回一个 String
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param paramMap 参数(可选)，参数格式[:param]
+     */
+    queryString(sql: string, paramMap: SqlParamMap): string;
 
-    // /**
-    //  * 查询返回一个 String
-    //  *
-    //  * @param sql sql脚本，参数格式[:param]
-    //  */
-    // public String queryString(String sql) {
+    /**
+     * 查询返回一个 String
+     *
+     * @param sql sql脚本，参数格式[:param]
+     */
+    queryString(sql: string): string;
 
-    // /**
-    //  * 查询返回一个 Long
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param paramMap 参数(可选)，参数格式[:param]
-    //  */
-    // public Long queryLong(String sql, Map<String, Object> paramMap) {
+    /**
+     * 查询返回一个 Long
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param paramMap 参数(可选)，参数格式[:param]
+     */
+    queryLong(sql: string, paramMap: SqlParamMap): JLong;
 
-    // /**
-    //  * 查询返回一个 Long
-    //  *
-    //  * @param sql sql脚本，参数格式[:param]
-    //  */
-    // public Long queryLong(String sql) {
+    /**
+     * 查询返回一个 Long
+     *
+     * @param sql sql脚本，参数格式[:param]
+     */
+    queryLong(sql: string): JLong;
 
-    // /**
-    //  * 查询返回一个 Double
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param paramMap 参数(可选)，参数格式[:param]
-    //  */
-    // public Double queryDouble(String sql, Map<String, Object> paramMap) {
+    /**
+     * 查询返回一个 Double
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param paramMap 参数(可选)，参数格式[:param]
+     */
+    queryDouble(sql: string, paramMap: SqlParamMap): JDouble;
 
-    // /**
-    //  * 查询返回一个 Double
-    //  *
-    //  * @param sql sql脚本，参数格式[:param]
-    //  */
-    // public Double queryDouble(String sql) {
+    /**
+     * 查询返回一个 Double
+     *
+     * @param sql sql脚本，参数格式[:param]
+     */
+    queryDouble(sql: string): JDouble;
 
-    // /**
-    //  * 查询返回一个 Double
-    //  *
-    //  * @param sql sql脚本，参数格式[:param]
-    //  */
-    // public Double queryDouble(String sql) {
+    /**
+     * 查询返回一个 Double
+     *
+     * @param sql sql脚本，参数格式[:param]
+     */
+    queryDouble(sql: string): JDouble;
 
-    // /**
-    //  * 查询返回一个 BigDecimal
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param paramMap 参数(可选)，参数格式[:param]
-    //  */
-    // public BigDecimal queryBigDecimal(String sql, Map<String, Object> paramMap) {
+    /**
+     * 查询返回一个 BigDecimal
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param paramMap 参数(可选)，参数格式[:param]
+     */
+    queryBigDecimal(sql: string, paramMap: SqlParamMap): JBigDecimal;
 
-    // /**
-    //  * 查询返回一个 BigDecimal
-    //  *
-    //  * @param sql sql脚本，参数格式[:param]
-    //  */
-    // public BigDecimal queryBigDecimal(String sql) {
+    /**
+     * 查询返回一个 BigDecimal
+     *
+     * @param sql sql脚本，参数格式[:param]
+     */
+    queryBigDecimal(sql: string): JBigDecimal
 
-    // /**
-    //  * 查询返回一个 Boolean
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param paramMap 参数(可选)，参数格式[:param]
-    //  */
-    // public Boolean queryBoolean(String sql, Map<String, Object> paramMap) {
+    /**
+     * 查询返回一个 Boolean
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param paramMap 参数(可选)，参数格式[:param]
+     */
+    queryBoolean(sql: string, paramMap: SqlParamMap): JBoolean;
 
-    // /**
-    //  * 查询返回一个 Boolean
-    //  *
-    //  * @param sql sql脚本，参数格式[:param]
-    //  */
-    // public Boolean queryBoolean(String sql) {
+    /**
+     * 查询返回一个 Boolean
+     *
+     * @param sql sql脚本，参数格式[:param]
+     */
+    queryBoolean(sql: string): JBoolean;
 
-    // /**
-    //  * 查询返回一个 Date
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param paramMap 参数(可选)，参数格式[:param]
-    //  */
-    // public Date queryDate(String sql, Map<String, Object> paramMap) {
+    /**
+     * 查询返回一个 Date
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param paramMap 参数(可选)，参数格式[:param]
+     */
+    queryDate(sql: string, paramMap: SqlParamMap): JDate;
 
-    // /**
-    //  * 查询返回一个 Date
-    //  *
-    //  * @param sql sql脚本，参数格式[:param]
-    //  */
-    // public Date queryDate(String sql) {
+    /**
+     * 查询返回一个 Date
+     *
+     * @param sql sql脚本，参数格式[:param]
+     */
+    queryDate(sql: string): JDate;
 
-    // /**
-    //  * SQL Count(获取一个SQL返回的数据总量)
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param paramMap 参数(可选)，参数格式[:param]
-    //  */
-    // public long queryCount(String sql, Map<String, Object> paramMap) {
+    /**
+     * SQL Count(获取一个SQL返回的数据总量)
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param paramMap 参数(可选)，参数格式[:param]
+     */
+    queryCount(sql: string, paramMap: SqlParamMap): JLong;
 
-    // /**
-    //  * 查询多条数据(大量数据)，使用游标读取
-    //  *
-    //  * @param sql       sql脚本，参数格式[:param]
-    //  * @param paramMap  参数(可选)，参数格式[:param]
-    //  * @param batchSize 一个批次的数据量
-    //  * @param consumer  游标批次读取数据消费者
-    //  */
-    // public void query(String sql, Map<String, Object> paramMap, int batchSize, Consumer<BatchData> consumer) {
+    /**
+     * 查询多条数据(大量数据)，使用游标读取
+     *
+     * @param sql       sql脚本，参数格式[:param]
+     * @param paramMap  参数(可选)，参数格式[:param]
+     * @param batchSize 一个批次的数据量
+     * @param consumer  游标批次读取数据消费者
+     */
+    query<T = AnyEntity>(sql: string, paramMap: SqlParamMap, batchSize: JInt, consumer: BatchQueryCallback<T>): void;
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -224,51 +382,51 @@ export interface JdbcDataSource {
      * @param batchSize 一个批次的数据量
      * @param consumer  游标批次读取数据消费者
      */
-    query(sql: string, batchSize: JInt, consumer: QueryConsumer): void
+    query<T = AnyEntity>(sql: string, batchSize: JInt, consumer: BatchQueryCallback<T>): void
 
-    // /**
-    //  * 查询多条数据(大量数据)，使用游标读取
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param paramMap 参数(可选)，参数格式[:param]
-    //  * @param consumer 游标读取数据消费者
-    //  */
-    // public void query(String sql, Map<String, Object> paramMap, Consumer<RowData> consumer) {
+    /**
+     * 查询多条数据(大量数据)，使用游标读取
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param consumer 游标读取数据消费者
+     */
+    query<T = AnyEntity>(sql: string, paramMap: SqlParamMap, consumer: QueryCallback<T>): void;
 
-    // /**
-    //  * 查询多条数据(大量数据)，使用游标读取
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param consumer 游标读取数据消费者
-    //  */
-    // public void query(String sql, Consumer<RowData> consumer) {
+    /**
+     * 查询多条数据(大量数据)，使用游标读取
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param consumer 游标读取数据消费者
+     */
+    query<T = AnyEntity>(sql: string, consumer: QueryCallback<T>): void;
 
-    // /**
-    //  * 排序查询
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param sort     排序配置
-    //  * @param paramMap 参数，参数格式[:param]
-    //  */
-    // public List<Map<String, Object>> queryBySort(String sql, QueryBySort sort, Map<String, Object> paramMap) {
+    /**
+     * 排序查询
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param sort     排序配置
+     * @param paramMap 参数，参数格式[:param]
+     */
+    queryBySort<T = AnyEntity>(sql: string, sort: QueryBySort, paramMap: SqlParamMap): JList<T>
 
-    // /**
-    //  * 排序查询
-    //  *
-    //  * @param sql  sql脚本，参数格式[:param]
-    //  * @param sort 排序配置
-    //  */
-    // public List<Map<String, Object>> queryBySort(String sql, QueryBySort sort) {
+    /**
+     * 排序查询
+     *
+     * @param sql  sql脚本，参数格式[:param]
+     * @param sort 排序配置
+     */
+    queryBySort<T = AnyEntity>(sql: string, sort: QueryBySort): JList<T>;
 
-    // /**
-    //  * 分页查询(支持排序)，返回分页对象
-    //  *
-    //  * @param sql        sql脚本，参数格式[:param]
-    //  * @param pagination 分页配置(支持排序)
-    //  * @param paramMap   参数，参数格式[:param]
-    //  * @param countQuery 是否要执行count查询(可选)
-    //  */
-    // public IPage<Map<String, Object>> queryByPage(String sql, QueryByPage pagination, Map<String, Object> paramMap, boolean countQuery) {
+    /**
+     * 分页查询(支持排序)，返回分页对象
+     *
+     * @param sql        sql脚本，参数格式[:param]
+     * @param pagination 分页配置(支持排序)
+     * @param paramMap   参数，参数格式[:param]
+     * @param countQuery 是否要执行count查询(可选)
+     */
+    queryByPage<T = AnyEntity>(sql: string, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
 
     // /**
     //  * 分页查询(支持排序)，返回分页对象
@@ -297,7 +455,7 @@ export interface JdbcDataSource {
     //  * @param sql      sql脚本，参数格式[:param]
     //  * @param paramMap 参数(可选)，参数格式[:param]
     //  */
-    // public int update(String sql, Map<String, Object> paramMap) {
+    // public int update(String sql, paramMap: SqlParamMap) {
 
     // /**
     //  * 执行更新SQL，返回更新影响数据量
@@ -362,7 +520,7 @@ export interface JdbcDataSource {
     //  * @param sql      sql脚本，参数格式[:param]
     //  * @param paramMap 参数(可选)，参数格式[:param]
     //  */
-    // public InsertResult insert(String sql, Map<String, Object> paramMap) {
+    // public InsertResult insert(String sql, paramMap: SqlParamMap) {
 
     // /**
     //  * 执行insert SQL，返回数据库自增主键值和新增数据量

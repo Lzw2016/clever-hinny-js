@@ -1,4 +1,4 @@
-import {AnyEntity, jdbcDatabase} from "@hinny/data-jdbc";
+import { AnyEntity, jdbcDatabase } from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 
@@ -48,15 +48,27 @@ limit 3
 }
 
 const t03 = function () {
-    const sql = "select * from `clever-template`.tb_order_main limit 3";
-    jdbc.query(sql, 1, bd => {
-        console.log("bd -> ", bd)
+    const sql = "select * from `clever-template`.tb_order_main limit 87";
+    jdbc.query<Entity>(sql, 10, batchData => {
+        log.info("batchData -> BatchCount={} | order_id={}", batchData.getBatchCount(), Interop.fromJMap(batchData.getRowDataList()[0]).order_id)
+    });
+
+    const sql2 = "select * from `clever-template`.tb_order_main limit :limit";
+    jdbc.query<Entity>(sql2, {limit: 66}, rowData => {
+        log.info("batchData -> BatchCount={} | order_id={}", rowData.getRowCount(), Interop.fromJMap(rowData.getRowData()).order_id)
     });
 }
 
+const t04 = function () {
+    const sql = "select * from `clever-template`.tb_order_main";
+    const page = jdbc.queryByPage(sql, {pageSize: 3}, {}, true);
+    log.info("page              --> {}", page);
+    log.info("page.getRecords() --> {}", page.getRecords());
+}
 
 export {
     t01,
     t02,
     t03,
+    t04,
 }
