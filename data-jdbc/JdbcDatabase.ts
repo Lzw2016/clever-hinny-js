@@ -1,7 +1,7 @@
 /**
  * SQL参数类型
  */
-export type SqlParamType = JChar | JString | JInt | JLong | JDouble | JBigDecimal | JBoolean | JDate;
+export type SqlParamType = JChar | JString | JInt | JLong | JDouble | JBigDecimal | JBoolean | JDate | Date | number | string | boolean | null;
 
 /**
  * SQL参数Map
@@ -57,13 +57,13 @@ export interface JdbcDataSource {
      */
     queryMap<T = AnyEntity>(sql: string): T;
 
-    // /**
-    //  * 查询多条数据，返回一个Map数组
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param paramMap 参数(可选)，参数格式[:param]
-    //  */
-    // public List<Map<String, Object>> queryList(String sql, Map<String, Object> paramMap) {
+    /**
+     * 查询多条数据，返回一个Map数组
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param paramMap 参数(可选)，参数格式[:param]
+     */
+    queryList<T = AnyEntity>(sql: string, paramMap: SqlParamMap): JList<T>;
 
     /**
      * 查询多条数据，返回一个Map数组

@@ -30,6 +30,24 @@ const t01 = function () {
 }
 
 
+const t02 = function () {
+    const sql = `
+select * from \`clever-template\`.tb_order_main
+    where site_id=:site_id 
+        and total_price>:total_price 
+        and create_at>:create_at
+limit 3
+    `;
+    const resList = jdbc.queryList<Entity>(sql, {
+        site_id: '1111111112',
+        total_price: 0.01000,
+        // create_at: JObject.asJDate('2019-07-12 20:02:45'),
+        create_at: new Date(2019, 7, 12, 20, 2, 45),
+    });
+    log.info("[resList]                         -> {}", [resList]);
+}
+
 export {
     t01,
+    t02,
 }
