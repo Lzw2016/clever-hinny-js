@@ -134,13 +134,13 @@ export interface QueryBySort {
     /**
      * 排序字段 映射Map
      */
-    fieldsMapping?: JMap<string, string>;
+    fieldsMapping: { [name: string]: string };
 }
 
 /**
  * 查询分页参数
  */
-export interface QueryByPage extends QueryBySort {
+export interface QueryByPage extends Partial<QueryBySort> {
     /**
      * 每页的数据量(1 <= pageSize <= 100)
      */
@@ -205,6 +205,150 @@ export interface IPage<T = AnyEntity> {
      * 当前满足条件总行数
      */
     getTotal(): JLong;
+}
+
+export interface KeyHolder {
+    /**
+     * 所有自动生成的key
+     */
+    getKeysList(): JList<JMap<string, SqlFieldType>>;
+
+    /**
+     * 当keysList只有一个元素时，才有这个值，值就是那个元素
+     */
+    getKeys(): JMap<string, SqlFieldType>;
+
+    /**
+     * 当keys只有一个元素时，才有这个值，值就是那个元素的value <br />
+     * 一般是自增长主键值
+     */
+    getKey(): any;
+}
+
+/**
+ * sql insert 返回值
+ */
+export interface InsertResult {
+    /**
+     * 新增数据量
+     */
+    getInsertCount(): JInt;
+
+    /**
+     * Insert时，数据库自动生成的key
+     */
+    getKeyHolder(): KeyHolder;
+
+    /**
+     * 当更新数据只有一个自动生成的key时，才会有这个字段，其值就是自动生成的key的值<br />
+     * 一般是自增长主键值
+     */
+    getKeyHolderValue(): any;
+}
+
+/**
+ * 事务状态
+ */
+export interface TransactionStatus {
+    /**
+     * 将底层会话刷新到数据存储（如果适用）
+     */
+    flush(): void;
+
+    /**
+     * 此事务是否在内部携带保存点，即是否已基于保存点创建为嵌套事务
+     */
+    hasSavepoint(): JBoolean;
+
+    /**
+     * 此事务是否已完成，即是否已提交或回滚
+     */
+    isCompleted(): JBoolean;
+
+    /**
+     * 当前事务是否为新事务；否则将参与现有事务，或者可能不会首先在实际事务中运行
+     */
+    isNewTransaction(): JBoolean;
+
+    /**
+     * 事务是否已标记为仅回滚（由应用程序或事务基础结构标记）
+     */
+    isRollbackOnly(): JBoolean;
+
+    /**
+     * 仅设置事务回滚。这将指示事务管理器事务的唯一可能结果可能是回滚，作为引发异常的替代方法，后者将反过来触发回滚
+     */
+    setRollbackOnly(): void;
+}
+
+/**
+ * 事务内操作回调函数
+ */
+export interface ActionInTX<T = any> {
+    (status: TransactionStatus): T;
+}
+
+/**
+ * 事务隔离级别
+ */
+export enum IsolationLevel {
+    /**
+     * 使用底层数据存储的默认隔离级别
+     */
+    DEFAULT = -1,
+    /**
+     * 未提交读<br />
+     * 可能发生脏读、不可重复读和幻象读
+     */
+    READ_UNCOMMITTED = 1,
+    /**
+     * 提交读<br />
+     * 可能发生不可重复读和幻象读
+     */
+    READ_COMMITTED = 2,
+    /**
+     * 可重读读<br />
+     * 可能发生虚读
+     */
+    REPEATABLE_READ = 4,
+    /**
+     * 串行化
+     */
+    SERIALIZABLE = 8
+}
+
+/**
+ * 事务传递特性
+ */
+export enum Propagation {
+    /**
+     * 如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。这是最常见的选择
+     */
+    REQUIRED = 0,
+    /**
+     * 支持当前事务，如果当前没有事务，就以非事务方式执行
+     */
+    SUPPORTS = 1,
+    /**
+     * 使用当前的事务，如果当前没有事务，就抛出异常
+     */
+    MANDATORY = 2,
+    /**
+     * 新建事务，如果当前存在事务，把当前事务挂起
+     */
+    REQUIRES_NEW = 3,
+    /**
+     * 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起
+     */
+    NOT_SUPPORTED = 4,
+    /**
+     * 以非事务方式执行，如果当前存在事务，则抛出异常
+     */
+    NEVER = 5,
+    /**
+     * 如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与PROPAGATION_REQUIRED类 似的操作
+     */
+    NESTED = 6
 }
 
 /**
@@ -428,245 +572,228 @@ export interface JdbcDataSource {
      */
     queryByPage<T = AnyEntity>(sql: string, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
 
-    // /**
-    //  * 分页查询(支持排序)，返回分页对象
-    //  *
-    //  * @param sql        sql脚本，参数格式[:param]
-    //  * @param pagination 分页配置(支持排序)
-    //  * @param countQuery 是否要执行count查询(可选)
-    //  */
-    // public IPage<Map<String, Object>> queryByPage(String sql, QueryByPage pagination, boolean countQuery) {
+    /**
+     * 分页查询(支持排序)，返回分页对象
+     *
+     * @param sql        sql脚本，参数格式[:param]
+     * @param pagination 分页配置(支持排序)
+     * @param countQuery 是否要执行count查询(可选)
+     */
+    queryByPage<T = AnyEntity>(sql: string, pagination: QueryByPage, countQuery: JBoolean): IPage<T>;
 
-    // /**
-    //  * 分页查询(支持排序)，返回分页对象
-    //  *
-    //  * @param sql        sql脚本，参数格式[:param]
-    //  * @param pagination 分页配置(支持排序)
-    //  */
-    // public IPage<Map<String, Object>> queryByPage(String sql, QueryByPage pagination) {
+    /**
+     * 分页查询(支持排序)，返回分页对象
+     *
+     * @param sql        sql脚本，参数格式[:param]
+     * @param pagination 分页配置(支持排序)
+     */
+    queryByPage<T = AnyEntity>(sql: string, pagination: QueryByPage): IPage<T>;
 
     // --------------------------------------------------------------------------------------------
     // Update 操作
     // --------------------------------------------------------------------------------------------
 
-    // /**
-    //  * 执行更新SQL，返回更新影响数据量
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param paramMap 参数(可选)，参数格式[:param]
-    //  */
-    // public int update(String sql, paramMap: SqlParamMap) {
+    /**
+     * 执行更新SQL，返回更新影响数据量
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param paramMap 参数(可选)，参数格式[:param]
+     */
+    update(sql: string, paramMap: SqlParamMap): JInt;
 
-    // /**
-    //  * 执行更新SQL，返回更新影响数据量
-    //  *
-    //  * @param sql sql脚本，参数格式[:param]
-    //  */
-    // public int update(String sql) {
+    /**
+     * 执行更新SQL，返回更新影响数据量
+     *
+     * @param sql sql脚本，参数格式[:param]
+     */
+    update(sql: string): JInt;
 
-    // /**
-    //  * 更新数据库表数据
-    //  *
-    //  * @param tableName         表名称
-    //  * @param fields            更新字段值
-    //  * @param whereMap          更新条件字段(只支持=，and条件)
-    //  * @param camelToUnderscore 字段驼峰转下划线(可选)
-    //  */
-    // public int updateTable(String tableName, Map<String, Object> fields, Map<String, Object> whereMap, boolean camelToUnderscore) {
+    /**
+     * 更新数据库表数据
+     *
+     * @param tableName         表名称
+     * @param fields            更新字段值
+     * @param whereMap          更新条件字段(只支持=，and条件)
+     * @param camelToUnderscore 字段驼峰转下划线(可选)
+     */
+    updateTable(tableName: string, fields: SqlParamMap, whereMap: SqlParamMap, camelToUnderscore: JBoolean): JInt;
 
-    // /**
-    //  * 更新数据库表数据
-    //  *
-    //  * @param tableName 表名称
-    //  * @param fields    更新字段值
-    //  * @param whereMap  更新条件字段(只支持=，and条件)
-    //  */
-    // public int updateTable(String tableName, Map<String, Object> fields, Map<String, Object> whereMap) {
+    /**
+     * 更新数据库表数据
+     *
+     * @param tableName 表名称
+     * @param fields    更新字段值
+     * @param whereMap  更新条件字段(只支持=，and条件)
+     */
+    updateTable(tableName: string, fields: SqlParamMap, whereMap: SqlParamMap): JInt;
 
-    // /**
-    //  * 更新数据库表数据
-    //  *
-    //  * @param tableName         表名称
-    //  * @param fields            更新字段值
-    //  * @param where             自定义where条件(不用写where关键字)
-    //  * @param camelToUnderscore 字段驼峰转下划线(可选)
-    //  */
-    // public int updateTable(String tableName, Map<String, Object> fields, String where, boolean camelToUnderscore) {
+    /**
+     * 更新数据库表数据
+     *
+     * @param tableName         表名称
+     * @param fields            更新字段值
+     * @param where             自定义where条件(不用写where关键字)
+     * @param camelToUnderscore 字段驼峰转下划线(可选)
+     */
+    updateTable(tableName: string, fields: SqlParamMap, where: string, camelToUnderscore: JBoolean): JInt;
 
-    // /**
-    //  * 更新数据库表数据
-    //  *
-    //  * @param tableName 表名称
-    //  * @param fields    更新字段值
-    //  * @param where     自定义where条件(不用写where关键字)
-    //  */
-    // public int updateTable(String tableName, Map<String, Object> fields, String where) {
+    /**
+     * 更新数据库表数据
+     *
+     * @param tableName 表名称
+     * @param fields    更新字段值
+     * @param where     自定义where条件(不用写where关键字)
+     */
+    updateTable(tableName: string, fields: SqlParamMap, where: string): JInt;
 
-    // /**
-    //  * 批量执行更新SQL，返回更新影响数据量
-    //  *
-    //  * @param sql          sql脚本，参数格式[:param]
-    //  * @param paramMapList 参数数组，参数格式[:param]
-    //  */
-    // public int[] batchUpdate(String sql, Collection<Map<String, Object>> paramMapList) {
+    /**
+     * 批量执行更新SQL，返回更新影响数据量
+     *
+     * @param sql          sql脚本，参数格式[:param]
+     * @param paramMapList 参数数组，参数格式[:param]
+     */
+    batchUpdate(sql: string, paramMapList: Array<SqlParamMap>): Array<JInt>;
 
     // --------------------------------------------------------------------------------------------
     // Insert 操作
     // --------------------------------------------------------------------------------------------
 
-    // /**
-    //  * 执行insert SQL，返回数据库自增主键值和新增数据量
-    //  *
-    //  * @param sql      sql脚本，参数格式[:param]
-    //  * @param paramMap 参数(可选)，参数格式[:param]
-    //  */
-    // public InsertResult insert(String sql, paramMap: SqlParamMap) {
+    /**
+     * 执行insert SQL，返回数据库自增主键值和新增数据量
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     * @param paramMap 参数(可选)，参数格式[:param]
+     */
+    insert(sql: string, paramMap: SqlParamMap): InsertResult;
 
-    // /**
-    //  * 执行insert SQL，返回数据库自增主键值和新增数据量
-    //  *
-    //  * @param sql sql脚本，参数格式[:param]
-    //  */
-    // public InsertResult insert(String sql) {
+    /**
+     * 执行insert SQL，返回数据库自增主键值和新增数据量
+     *
+     * @param sql sql脚本，参数格式[:param]
+     */
+    insert(sql: string): InsertResult;
 
-    // /**
-    //  * 数据插入到表
-    //  *
-    //  * @param tableName         表名称
-    //  * @param fields            字段名
-    //  * @param camelToUnderscore 字段驼峰转下划线(可选)
-    //  */
-    // public InsertResult insertTable(String tableName, Map<String, Object> fields, boolean camelToUnderscore) {
+    /**
+     * 数据插入到表
+     *
+     * @param tableName         表名称
+     * @param fields            字段名
+     * @param camelToUnderscore 字段驼峰转下划线(可选)
+     */
+    insertTable(tableName: string, fields: SqlParamMap, camelToUnderscore: JBoolean): InsertResult;
 
-    // /**
-    //  * 数据插入到表
-    //  *
-    //  * @param tableName 表名称
-    //  * @param fields    字段名
-    //  */
-    // public InsertResult insertTable(String tableName, Map<String, Object> fields) {
+    /**
+     * 数据插入到表
+     *
+     * @param tableName 表名称
+     * @param fields    字段名
+     */
+    insertTable(tableName: string, fields: SqlParamMap): InsertResult;
 
-    // /**
-    //  * 数据插入到表
-    //  *
-    //  * @param tableName         表名称
-    //  * @param fieldsList        字段名集合
-    //  * @param camelToUnderscore 字段驼峰转下划线(可选)
-    //  */
-    // public List<InsertResult> insertTables(String tableName, Collection<Map<String, Object>> fieldsList, boolean camelToUnderscore) {
+    /**
+     * 数据插入到表
+     *
+     * @param tableName         表名称
+     * @param fieldsList        字段名集合
+     * @param camelToUnderscore 字段驼峰转下划线(可选)
+     */
+    insertTables(tableName: string, fieldsList: JList<SqlParamMap>, camelToUnderscore: JBoolean): JList<InsertResult>;
 
-    // /**
-    //  * 数据插入到表
-    //  *
-    //  * @param tableName  表名称
-    //  * @param fieldsList 字段名集合
-    //  */
-    // public List<InsertResult> insertTables(String tableName, Collection<Map<String, Object>> fieldsList) {
+    /**
+     * 数据插入到表
+     *
+     * @param tableName  表名称
+     * @param fieldsList 字段名集合
+     */
+    insertTables(tableName: string, fieldsList: JList<SqlParamMap>): JList<InsertResult>;
 
     // --------------------------------------------------------------------------------------------
     //  事务操作
     // --------------------------------------------------------------------------------------------
 
-    // /**
-    //  * 在事务内支持操作
-    //  *
-    //  * @param action              事务内数据库操作
-    //  * @param propagationBehavior 设置事务传递性 {@link org.springframework.transaction.TransactionDefinition#PROPAGATION_REQUIRED}
-    //  * @param timeout             设置事务超时时间，-1表示不超时(单位：秒)
-    //  * @param isolationLevel      设置事务隔离级别 @link org.springframework.transaction.TransactionDefinition#ISOLATION_DEFAULT}
-    //  * @param readOnly            设置事务是否只读
-    //  * @param <T>                 返回值类型
-    //  * @see org.springframework.transaction.TransactionDefinition
-    //  */
-    // public <T> T beginTX(TransactionCallback<T> action, int propagationBehavior, int timeout, int isolationLevel, boolean readOnly) {
+    /**
+     * 在事务内支持操作
+     *
+     * @param action              事务内数据库操作
+     * @param propagationBehavior 设置事务传递性
+     * @param timeout             设置事务超时时间，-1表示不超时(单位：秒)
+     * @param isolationLevel      设置事务隔离级别
+     * @param readOnly            设置事务是否只读
+     */
+    beginTX<T = any>(action: ActionInTX<T>, propagationBehavior: Propagation, timeout: JInt, isolationLevel: IsolationLevel, readOnly: JBoolean): T;
 
-    // /**
-    //  * 在事务内支持操作
-    //  *
-    //  * @param action              事务内数据库操作
-    //  * @param propagationBehavior 设置事务传递性 {@link org.springframework.transaction.TransactionDefinition#PROPAGATION_REQUIRED}
-    //  * @param timeout             设置事务超时时间(单位：秒)
-    //  * @param isolationLevel      设置事务隔离级别 @link org.springframework.transaction.TransactionDefinition#ISOLATION_DEFAULT}
-    //  * @param <T>                 返回值类型
-    //  * @see org.springframework.transaction.TransactionDefinition
-    //  */
-    // public <T> T beginTX(TransactionCallback<T> action, int propagationBehavior, int timeout, int isolationLevel) {
+    /**
+     * 在事务内支持操作
+     *
+     * @param action              事务内数据库操作
+     * @param propagationBehavior 设置事务传递性
+     * @param timeout             设置事务超时时间(单位：秒)
+     * @param isolationLevel      设置事务隔离级别
+     */
+    beginTX<T = any>(action: ActionInTX<T>, propagationBehavior: Propagation, timeout: JInt, isolationLevel: IsolationLevel): T;
 
-    // /**
-    //  * 在事务内支持操作
-    //  *
-    //  * @param action              事务内数据库操作
-    //  * @param propagationBehavior 设置事务传递性 {@link org.springframework.transaction.TransactionDefinition#PROPAGATION_REQUIRED}
-    //  * @param timeout             设置事务超时时间(单位：秒)
-    //  * @param <T>                 返回值类型
-    //  * @see org.springframework.transaction.TransactionDefinition
-    //  */
-    // public <T> T beginTX(TransactionCallback<T> action, int propagationBehavior, int timeout) {
+    /**
+     * 在事务内支持操作
+     *
+     * @param action              事务内数据库操作
+     * @param propagationBehavior 设置事务传递性
+     * @param timeout             设置事务超时时间(单位：秒)
+     */
+    beginTX<T = any>(action: ActionInTX<T>, propagationBehavior: Propagation, timeout: JInt): T;
 
-    // /**
-    //  * 在事务内支持操作
-    //  *
-    //  * @param action              事务内数据库操作
-    //  * @param propagationBehavior 设置事务传递性 {@link org.springframework.transaction.TransactionDefinition#PROPAGATION_REQUIRED}
-    //  * @param <T>                 返回值类型
-    //  * @see org.springframework.transaction.TransactionDefinition
-    //  */
-    // public <T> T beginTX(TransactionCallback<T> action, int propagationBehavior) {
+    /**
+     * 在事务内支持操作
+     *
+     * @param action              事务内数据库操作
+     * @param propagationBehavior 设置事务传递性
+     */
+    beginTX<T = any>(action: ActionInTX<T>, propagationBehavior: Propagation): T;
 
-    // /**
-    //  * 在事务内支持操作
-    //  *
-    //  * @param action 事务内数据库操作
-    //  * @param <T>    返回值类型
-    //  * @see org.springframework.transaction.TransactionDefinition
-    //  */
-    // public <T> T beginTX(TransactionCallback<T> action) {
+    /**
+     * 在事务内支持操作
+     *
+     * @param action 事务内数据库操作
+     */
+    beginTX<T = any>(action: ActionInTX<T>): T;
 
-    // /**
-    //  * 在事务内支持操作
-    //  *
-    //  * @param action              事务内数据库操作
-    //  * @param propagationBehavior 设置事务传递性 {@link org.springframework.transaction.TransactionDefinition#PROPAGATION_REQUIRED}
-    //  * @param timeout             设置事务超时时间，-1表示不超时(单位：秒)
-    //  * @param isolationLevel      设置事务隔离级别 @link org.springframework.transaction.TransactionDefinition#ISOLATION_DEFAULT}
-    //  * @param <T>                 返回值类型
-    //  * @see org.springframework.transaction.TransactionDefinition
-    //  */
-    // public <T> T beginReadOnlyTX(TransactionCallback<T> action, int propagationBehavior, int timeout, int isolationLevel) {
+    /**
+     * 在事务内支持操作
+     *
+     * @param action              事务内数据库操作
+     * @param propagationBehavior 设置事务传递性
+     * @param timeout             设置事务超时时间，-1表示不超时(单位：秒)
+     * @param isolationLevel      设置事务隔离级别
+     */
+    beginReadOnlyTX<T = any>(action: ActionInTX<T>, propagationBehavior: Propagation, timeout: JInt, isolationLevel: IsolationLevel): T;
 
-    // /**
-    //  * 在事务内支持操作
-    //  *
-    //  * @param action              事务内数据库操作
-    //  * @param propagationBehavior 设置事务传递性 {@link org.springframework.transaction.TransactionDefinition#PROPAGATION_REQUIRED}
-    //  * @param timeout             设置事务超时时间，-1表示不超时(单位：秒)
-    //  * @param <T>                 返回值类型
-    //  * @see org.springframework.transaction.TransactionDefinition
-    //  */
-    // public <T> T beginReadOnlyTX(TransactionCallback<T> action, int propagationBehavior, int timeout) {
+    /**
+     * 在事务内支持操作
+     *
+     * @param action              事务内数据库操作
+     * @param propagationBehavior 设置事务传递性
+     * @param timeout             设置事务超时时间，-1表示不超时(单位：秒)
+     */
+    beginReadOnlyTX<T = any>(action: ActionInTX<T>, propagationBehavior: Propagation, timeout: JInt): T;
 
-    // /**
-    //  * 在事务内支持操作
-    //  *
-    //  * @param action              事务内数据库操作
-    //  * @param propagationBehavior 设置事务传递性 {@link org.springframework.transaction.TransactionDefinition#PROPAGATION_REQUIRED}
-    //  * @param <T>                 返回值类型
-    //  * @see org.springframework.transaction.TransactionDefinition
-    //  */
-    // public <T> T beginReadOnlyTX(TransactionCallback<T> action, int propagationBehavior) {
+    /**
+     * 在事务内支持操作
+     *
+     * @param action              事务内数据库操作
+     * @param propagationBehavior 设置事务传递性
+     */
+    beginReadOnlyTX<T = any>(action: ActionInTX<T>, propagationBehavior: Propagation): T;
 
-    // /**
-    //  * 在事务内支持操作
-    //  *
-    //  * @param action 事务内数据库操作
-    //  * @param <T>    返回值类型
-    //  * @see org.springframework.transaction.TransactionDefinition
-    //  */
-    // public <T> T beginReadOnlyTX(TransactionCallback<T> action) {
-
-
+    /**
+     * 在事务内支持操作
+     *
+     * @param action 事务内数据库操作
+     */
+    beginReadOnlyTX<T = any>(action: ActionInTX<T>): T;
 }
 
+/**
+ * JDBC数据库管理器
+ */
 export interface JdbcDatabase {
     /**
      * 获取默认数据源
