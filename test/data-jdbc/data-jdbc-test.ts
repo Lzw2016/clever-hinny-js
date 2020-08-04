@@ -141,6 +141,19 @@ const t07 = function () {
     log.info("res   --> {}", res);
 }
 
+const t08 = function () {
+    const sql = "update tb_order_main set total_price=:total_price where order_id=:order_id";
+    const countArr = jdbc.batchUpdate(
+        sql,
+        [
+            {total_price: JObject.asJBigDecimal("1.11111"), order_id: JObject.asJLong("1")},
+            {total_price: JObject.asJBigDecimal("2.22222"), order_id: JObject.asJLong("2")},
+            {total_price: JObject.asJBigDecimal("3.3333"), order_id: JObject.asJLong("1149635824560267265")},
+        ],
+    );
+    log.info("countArr --> {}", [countArr]);
+}
+
 export {
     t01,
     t02,
@@ -149,4 +162,5 @@ export {
     t05,
     t06,
     t07,
+    t08,
 }
