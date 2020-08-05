@@ -450,13 +450,6 @@ export interface JdbcDataSource {
     queryDouble(sql: string): JDouble;
 
     /**
-     * 查询返回一个 Double
-     *
-     * @param sql sql脚本，参数格式[:param]
-     */
-    queryDouble(sql: string): JDouble;
-
-    /**
      * 查询返回一个 BigDecimal
      *
      * @param sql      sql脚本，参数格式[:param]
