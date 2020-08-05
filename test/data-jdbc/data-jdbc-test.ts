@@ -1,4 +1,4 @@
-import {AnyEntity, jdbcDatabase, Propagation, SortType} from "@hinny/data-jdbc";
+import {AnyEntity, InsertResult, jdbcDatabase, Propagation, SortType} from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 
@@ -10,11 +10,6 @@ interface Entity extends AnyEntity {
 
     // order_id: 1, user_agent_id: 1, site_id: 2, store_id: 3, store_no: "4", cust_id: 5,
 }
-
-interface NumberArray {
-    [index: number]: number;
-}
-
 
 const jdbc = jdbcDatabase.getDefault();
 
@@ -33,8 +28,6 @@ const t01 = function () {
     // log.info("total_price       -> {}", Interop.fromJMap({}));
     // log.info("order_id          -> {}", resList[1].get("order_id"));
 }
-
-
 const t02 = function () {
     const sql = `
 select * from \`clever-template\`.tb_order_main
@@ -51,7 +44,6 @@ limit 3
     });
     log.info("[resList]                         -> {}", [resList]);
 }
-
 const t03 = function () {
     const sql = "select * from tb_order_main limit 87";
     jdbc.query<Entity>(sql, 10, batchData => {
@@ -63,7 +55,6 @@ const t03 = function () {
         log.info("batchData -> BatchCount={} | order_id={}", rowData.getRowCount(), Interop.fromJMap(rowData.getRowData()).order_id)
     });
 }
-
 const t04 = function () {
     const sql = "select * from tb_order_main";
     const page = jdbc.queryByPage(
@@ -81,7 +72,6 @@ const t04 = function () {
     log.info("page              --> {}", page);
     log.info("page.getRecords() --> {}", page.getRecords());
 }
-
 const t05 = function () {
     const sql = `
     select * from tb_order_main
@@ -120,7 +110,6 @@ const t05 = function () {
     log.info("list_2 --> {}", [list_2]);
     log.info("list_2 --> {}", list_2[0].order_id);// fixme 无法获取属性值
 }
-
 const t06 = function () {
     const sql = "select * from tb_order_main where order_id = :order_id";
     let data = jdbc.queryMap<Entity>(sql, {order_id: JObject.asJLong("1149635824560267265")})
@@ -131,7 +120,6 @@ const t06 = function () {
     data = jdbc.queryMap<Entity>(sql, {order_id: JObject.asJLong("1149635824560267265")})
     log.info("data  --> {}", data);
 }
-
 const t07 = function () {
     const res = jdbc.beginTX<Entity>(() => {
         const sql = "select * from tb_order_main where order_id = :order_id";
@@ -145,7 +133,6 @@ const t07 = function () {
     }, Propagation.REQUIRED, -1);
     log.info("res   --> {}", res);
 }
-
 const t08 = function () {
     const sql = "update tb_order_main set total_price=:total_price where order_id=:order_id";
     const countArr = jdbc.batchUpdate(
@@ -159,7 +146,7 @@ const t08 = function () {
     log.info("countArr --> {}", [countArr]);
 }
 const t09 = function () {
-    const res = jdbc.beginTX<NumberArray>(() => {
+    const res = jdbc.beginTX<Array<JInt>>(() => {
         const sql = "update tb_order_main set total_price=:total_price where order_id=:order_id";
         return jdbc.batchUpdate(
             sql,
@@ -172,7 +159,63 @@ const t09 = function () {
     }, Propagation.REQUIRED, -1);
     log.info("res   --> {}", res);
 }
+const t10 = function () {
+    const res = jdbc.beginTX<InsertResult>(() => {
+        const sql = "insert into test (name, age) VALUES (:name, :age)";
+        return jdbc.insert(
+            sql,
+            {name: JObject.asJString("曾萤2"), age: JObject.asJInt(233)},
+        )
+    }, Propagation.REQUIRED, -1);
+    log.info("res   --> {}", res);
+}
+const t11 = function () {
+    const res = jdbc.beginTX<InsertResult>(() => {
+        const sql = "insert into test (name, age) VALUES ('朱妮', 18)";
+        return jdbc.insert(
+            sql,
+        )
+    }, Propagation.REQUIRED, -1);
+    log.info("res   --> {}", res);
+}
+const t12 = function () {
+    const res = jdbc.beginTX<InsertResult>(() => {
+        return jdbc.insertTable(
+            "test",
+            {
+                name: JObject.asJString("小朱妮"),
+                age: JObject.asJInt(22)
+            }
+        )
+    }, Propagation.REQUIRED, -1);
+    log.info("res   --> {}", res);
+}
+const t13 = function () {
+    const res = jdbc.beginTX<JList<InsertResult>>(() => {
+        return jdbc.insertTables(
+            "test",
+            [
+                {name: JObject.asJString("小朱妮1"), age: JObject.asJInt(11)},
+                {name: JObject.asJString("小朱妮2"), age: JObject.asJInt(12)},
+                {name: JObject.asJString("小朱妮3"), age: JObject.asJInt(13)},
+                {name: JObject.asJString("小朱妮4"), age: JObject.asJInt(14)},
+            ]
 
+        )
+    }, Propagation.REQUIRED, -1);
+    log.info("res   --> {}", res);
+}
+const t14 = function () {
+    const sql = "select age from test where id = 1";
+    log.info("String   --> {}",  jdbc.queryString(sql));
+    log.info("Double   --> {}",  jdbc.queryDouble(sql));
+    log.info("BigDecimal   --> {}",  jdbc.queryBigDecimal(sql));
+    const sql2 = "select name from test where id = 2";
+    log.info("Boolean   --> {}",  jdbc.queryBoolean(sql2));
+    const date = "select create_at from tb_order_main where order_id = 1";
+    log.info("Date   --> {}",  jdbc.queryDate(date));
+    log.info("Count   --> {}",  jdbc.queryCount("select * from test",{}));
+}
 
 export {
     t01,
@@ -184,4 +227,9 @@ export {
     t07,
     t08,
     t09,
+    t10,
+    t11,
+    t12,
+    t13,
+    t14
 }
