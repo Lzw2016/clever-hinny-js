@@ -1,4 +1,4 @@
-import { AnyEntity, jdbcDatabase, Propagation, SortType } from "@hinny/data-jdbc";
+import {AnyEntity, jdbcDatabase, Propagation, SortType} from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 
@@ -11,6 +11,11 @@ interface Entity extends AnyEntity {
     // order_id: 1, user_agent_id: 1, site_id: 2, store_id: 3, store_no: "4", cust_id: 5,
 }
 
+interface NumberArray {
+    [index: number]: number;
+}
+
+
 const jdbc = jdbcDatabase.getDefault();
 
 const t01 = function () {
@@ -19,8 +24,8 @@ const t01 = function () {
     log.info("resList                           -> {}", resList);
     log.info("[resList]                         -> {}", [resList]);
     log.info("resList[0]                        -> {}", resList[0]);
-    log.info("fromJMap(resList[1])              -> {}", Interop.fromJMap(resList[1]));
-    log.info("resList[1].order_id               -> {}", resList[1].order_id);
+    log.info("fromJMap(resList[1])              -> {}", Interop.fromJMap(resList[1]));//fixme org.graalvm.polyglot.proxy.ProxyObject$1@257e0827  返回代理类路径?
+    log.info("resList[1].order_id               -> {}", resList[1].order_id);//fixme    获取不到返回null?
     log.info("fromJMap(resList[1]).order_id     -> {}", Interop.fromJMap(resList[1]).order_id);
     log.info("fromJMap(resList[1]).total_price  -> {}", Interop.fromJMap(resList[1]).total_price);
     log.info("undefined                         -> {}", undefined);
@@ -41,8 +46,8 @@ limit 3
     const resList = jdbc.queryList<Entity>(sql, {
         site_id: '1111111112',
         total_price: 0.01000,
-        // create_at: JObject.asJDate('2019-07-12 20:02:45'),
-        create_at: new Date(2019, 7, 12, 20, 2, 45),
+        create_at: JObject.asJDate('2019-07-12 20:02:45'),
+        // create_at: new Date(2019, 7, 12, 20, 2, 45),//fixme 2019-07-12T20:02:45 未转换
     });
     log.info("[resList]                         -> {}", [resList]);
 }
@@ -113,7 +118,7 @@ const t05 = function () {
         },
     );
     log.info("list_2 --> {}", [list_2]);
-    log.info("list_2 --> {}", list_2[0].order_id);
+    log.info("list_2 --> {}", list_2[0].order_id);// fixme 无法获取属性值
 }
 
 const t06 = function () {
@@ -132,7 +137,7 @@ const t07 = function () {
         const sql = "select * from tb_order_main where order_id = :order_id";
         let data = jdbc.queryMap<Entity>(sql, {order_id: JObject.asJLong("1149635824560267265")})
         data = Interop.fromJMap(data);
-        data.total_price = JObject.asJBigDecimal("500.123");
+        data.total_price = JObject.asJBigDecimal("361.905");
         const count = jdbc.updateTable("tb_order_main", {total_price: data.total_price}, {order_id: JObject.asJLong("1149635824560267265")});
         log.info("count --> {}", count);
         data = jdbc.queryMap<Entity>(sql, {order_id: JObject.asJLong("1149635824560267265")})
@@ -153,6 +158,21 @@ const t08 = function () {
     );
     log.info("countArr --> {}", [countArr]);
 }
+const t09 = function () {
+    const res = jdbc.beginTX<NumberArray>(() => {
+        const sql = "update tb_order_main set total_price=:total_price where order_id=:order_id";
+        return jdbc.batchUpdate(
+            sql,
+            [
+                {total_price: JObject.asJBigDecimal("1.11111"), order_id: JObject.asJLong("1")},
+                {total_price: JObject.asJBigDecimal("2.22222"), order_id: JObject.asJLong("2")},
+                {total_price: JObject.asJBigDecimal("3.3333"), order_id: JObject.asJLong("1149635824560267265")},
+            ]
+        )
+    }, Propagation.REQUIRED, -1);
+    log.info("res   --> {}", res);
+}
+
 
 export {
     t01,
@@ -163,4 +183,5 @@ export {
     t06,
     t07,
     t08,
+    t09,
 }
