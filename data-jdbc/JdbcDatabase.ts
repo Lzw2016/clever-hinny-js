@@ -690,7 +690,7 @@ export interface JdbcDataSource {
      * @param fieldsList        字段名集合
      * @param camelToUnderscore 字段驼峰转下划线(可选)
      */
-    insertTables(tableName: string, fieldsList: JList<SqlParamMap>, camelToUnderscore: JBoolean): JList<InsertResult>;
+    insertTables(tableName: string, fieldsList: Array<SqlParamMap>, camelToUnderscore: JBoolean): JList<InsertResult>;
 
     /**
      * 数据插入到表
@@ -698,7 +698,7 @@ export interface JdbcDataSource {
      * @param tableName  表名称
      * @param fieldsList 字段名集合
      */
-    insertTables(tableName: string, fieldsList: JList<SqlParamMap>): JList<InsertResult>;
+    insertTables(tableName: string, fieldsList: Array<SqlParamMap>): JList<InsertResult>;
 
     // --------------------------------------------------------------------------------------------
     //  事务操作

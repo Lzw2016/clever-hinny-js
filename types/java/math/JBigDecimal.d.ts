@@ -78,9 +78,20 @@ interface JBigDecimal extends JObject, Comparable<JBigDecimal> {
     divide(divisor: JBigDecimal, scale: JInt, roundingMode: RoundingMode): JBigDecimal;
 
     /**
-     * 返回一个BigDecimal，它的值是BigDecimal的整数部分(this / divisor)取整
+     * 返回 BigDecimal，其值为 (this / divisor) 的整数部分
      */
     divideToIntegralValue(divisor: JBigDecimal): JBigDecimal;
+
+    /**
+     * 返回其值为 (this % divisor) 的 BigDecimal
+     */
+    remainder(divisor: JBigDecimal): JBigDecimal;
+
+    /**
+     * 返回由两个元素组成的 BigDecimal 数组，该数组包含 divideToIntegralValue 的结果 和 对两个操作数计算所得到的 remainder <br />
+     * 注意，如果同时需要整数商和余数，则此方法比分别使用 divideToIntegralValue 和 remainder 方法更快速，因为相除仅需执行一次
+     */
+    divideAndRemainder(divisor: JBigDecimal): JBigDecimal[];
 
     /**
      * 将此 BigDecimal转换为 double
@@ -88,9 +99,9 @@ interface JBigDecimal extends JObject, Comparable<JBigDecimal> {
     doubleValue(): JDouble;
 
     /**
-     * 将此 BigDecimal转换为 int
+     * 将此 BigDecimal转换为 float
      */
-    intValue(): JInt;
+    floatValue(): JFloat;
 
     /**
      * 将此 BigDecimal转换为 long
@@ -98,85 +109,32 @@ interface JBigDecimal extends JObject, Comparable<JBigDecimal> {
     longValue(): JLong;
 
     /**
-     * 返回一个 BigDecimal ，其值为此 BigDecimal的绝对值，其缩放比例为 this.scale()
+     * 将此 BigDecimal转换为 long，以检查丢失的信息 <br />
+     * 如果此 BigDecimal 具有非零小数部分，则抛出一个异常
      */
-    abs(): JBigDecimal;
+    longValueExact(): JLong;
 
     /**
-     * 返回大值
+     * 将此 BigDecimal转换为 int
      */
-    max(val: JBigDecimal): JBigDecimal;
+    intValue(): JInt;
 
     /**
-     * 返回小值
+     * 将此 BigDecimal 转换为 int，以检查丢失的信息 <br />
+     * 如果此 BigDecimal 具有非零小数部分，则抛出一个异常
      */
-    min(val: JBigDecimal): JBigDecimal;
+    intValueExact(): JInt;
 
     /**
-     *  返回一个BigDecimal，相当于这个小数点，向左移动了 n个地方
+     * 将此 BigDecimal 转换为 short
      */
-    movePointLeft(n: JInt): JBigDecimal;
+    shortValue(): JShort;
 
     /**
-     * 返回一个BigDecimal，相当于这个小数点，向右移动了 n个地方
+     * 将此 BigDecimal 转换为 short，以检查丢失的信息 <br />
+     * 如果此 BigDecimal 具有非零小数部分，或者超出 short 结果的可能范围，则抛出 ArithmeticException
      */
-    movePointRight(n: JInt): JBigDecimal;
-
-    /**
-     * 返回BigDecimal，其值是(-this)，其标为this.scale()
-     */
-    negate(): JBigDecimal;
-
-    /**
-     * 返回BigDecimal，其值是 (+this)，根据上下文设置进行舍入
-     */
-    plus(): JBigDecimal;
-
-    /**
-     * 此方法返回一个BigDecimal，其值是(this^n), 幂被精确计算，使其具有无限精度
-     */
-    pow(n: JInt): JBigDecimal;
-
-    /**
-     * 此方法返回此BigDecimal的精度
-     */
-    precision(): JInt;
-
-    /**
-     * 返回 BigDecimal ，其值是 (this % divisor)
-     */
-    remainder(divisor: JBigDecimal): JBigDecimal;
-
-    /**
-     * 此方法返回此BigDecimal的标度
-     */
-    scale(): JInt;
-
-    /**
-     * 返回一个BigDecimal，其大小是指定值，其值在数字上等于此 BigDecimal
-     */
-    setScale(newScale: JInt): JBigDecimal;
-
-    /**
-     * 返回一个 BigDecimal ，其规模是指定值，其缩放值通过将此 BigDecimal的非标度值乘以10的适当功率来确定，以维持其总体值
-     */
-    setScale(newScale: JInt, roundingMode: RoundingMode): JBigDecimal;
-
-    /**
-     * 将此 BigDecimal转换为 short ，检查丢失的信息
-     */
-    shortValueExact(): JBigDecimal;
-
-    /**
-     * 此方法返回-1，0，或1，此BigDecimal的值分类为负，零或正值
-     */
-    signum(): JBigDecimal;
-
-    /**
-     * 用于去除末尾多余的0的
-     */
-    stripTrailingZeros(): JBigDecimal;
-
+    shortValueExact(): JShort;
 
     /**
      * 将此 BigDecimal转换为 BigInteger
@@ -184,19 +142,40 @@ interface JBigDecimal extends JObject, Comparable<JBigDecimal> {
     toBigInteger(): JBigInteger;
 
     /**
-     * 将此 BigDecimal转换为 BigInteger ，检查丢失的信息
+     * 将此 BigDecimal 转换为 BigInteger，以检查丢失的信息 <br />
+     * 如果此 BigDecimal 具有非零小数部分，则抛出一个异常
      */
     toBigIntegerExact(): JBigInteger;
 
     /**
-     * 如果需要指数，则使用工程符号返回此 BigDecimal的字符串表示形式
+     * 返回一个 BigInteger ，其值是此 BigDecimal的 未缩放值
      */
-    toEngineeringString(): JString;
+    unscaledValue(): JBigInteger;
 
     /**
-     * 返回没有指数字段的此 BigDecimal的字符串表示形式
+     * 返回此 BigDecimal 的精度
      */
-    toPlainString(): JString;
+    precision(): JInt;
+
+    /**
+     * 返回此 BigDecimal 的标度
+     */
+    scale(): JInt;
+
+    /**
+     * 返回一个 BigDecimal，其标度为指定值，其值在数值上等于此 BigDecimal 的值
+     */
+    setScale(newScale: JInt): JBigDecimal;
+
+    /**
+     * 返回一个 BigDecimal，其标度为指定值，其非标度值通过此 BigDecimal 的非标度值乘以或除以十的适当次幂来确定，以维护其总值
+     */
+    setScale(newScale: JInt, roundingMode: RoundingMode): JBigDecimal;
+
+    /**
+     * 此方法返回-1，0，或1，此BigDecimal的值分类为负，零或正值
+     */
+    signum(): JBigDecimal;
 
     /**
      * 返回此 BigDecimal的最后一个位置的ulp（一个单位）的大小
@@ -204,7 +183,57 @@ interface JBigDecimal extends JObject, Comparable<JBigDecimal> {
     ulp(): JBigDecimal;
 
     /**
-     * 返回一个 BigInteger ，其值是此 BigDecimal的 未缩放值
+     * 返回此 BigDecimal 的字符串表示形式，需要指数时，则使用工程计数法
      */
-    unscaledValue(): JBigInteger;
+    toEngineeringString(): JString;
+
+    /**
+     * 返回不带指数字段的此 BigDecimal 的字符串表示形式
+     */
+    toPlainString(): JString;
+
+    /**
+     * 用于去除末尾多余的0的
+     */
+    stripTrailingZeros(): JBigDecimal;
+
+    /**
+     * 返回一个 BigDecimal ，其值为此 BigDecimal的绝对值，其缩放比例为 this.scale()
+     */
+    abs(): JBigDecimal;
+
+    /**
+     * 返回最大值
+     */
+    max(val: JBigDecimal): JBigDecimal;
+
+    /**
+     * 返回最小值
+     */
+    min(val: JBigDecimal): JBigDecimal;
+
+    /**
+     *  返回一个 BigDecimal，它等效于将该值的小数点向左移动 n 位
+     */
+    movePointLeft(n: JInt): JBigDecimal;
+
+    /**
+     * 返回一个 BigDecimal，它等效于将该值的小数点向右移动 n 位
+     */
+    movePointRight(n: JInt): JBigDecimal;
+
+    /**
+     * 返回 BigDecimal，其值为 (-this)，其标度为 this.scale()
+     */
+    negate(): JBigDecimal;
+
+    /**
+     * 返回 BigDecimal，其值为 (+this)，其标度为 this.scale()
+     */
+    plus(): JBigDecimal;
+
+    /**
+     * 返回其值为 (this^n) 的 BigDecimal，准确计算该幂，使其具有无限精度
+     */
+    pow(n: JInt): JBigDecimal;
 }

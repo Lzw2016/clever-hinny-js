@@ -19,6 +19,11 @@ type JInt = number;
 type JLong = number;
 
 /**
+ * Java 基本类型 float
+ */
+type JFloat = number;
+
+/**
  * Java 基本类型 double
  */
 type JDouble = number;

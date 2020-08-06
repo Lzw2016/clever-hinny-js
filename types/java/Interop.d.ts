@@ -1,4 +1,4 @@
-interface Interop {
+interface Interop extends JObject {
     /**
      * 创建Java byte 值 (-128~127)
      */
@@ -18,6 +18,11 @@ interface Interop {
      * 创建Java long 值 (-9,223,372,036,854,774,808 ~ 9,223,372,036,854,774,807)
      */
     asJLong(arg: number | string): JLong;
+
+    /**
+     * 创建Java float 值
+     */
+    asJFloat(arg: number | string): JFloat;
 
     /**
      * 创建Java double 值
