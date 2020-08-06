@@ -1,3 +1,0 @@
-interface JSet<T> {
-
-}

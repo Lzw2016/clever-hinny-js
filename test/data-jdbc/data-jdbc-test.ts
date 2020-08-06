@@ -1,4 +1,4 @@
-import {AnyEntity, InsertResult, jdbcDatabase, Propagation, SortType} from "@hinny/data-jdbc";
+import { AnyEntity, InsertResult, jdbcDatabase, Propagation, SortType } from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 
@@ -7,7 +7,6 @@ interface Entity extends AnyEntity {
     user_agent_id: JInt;
     store_no: JString;
     total_price: JBigDecimal;
-
     // order_id: 1, user_agent_id: 1, site_id: 2, store_id: 3, store_no: "4", cust_id: 5,
 }
 
@@ -39,7 +38,7 @@ limit 3
     const resList = jdbc.queryList<Entity>(sql, {
         site_id: '1111111112',
         total_price: 0.01000,
-        create_at: JObject.asJDate('2019-07-12 20:02:45'),
+        create_at: Interop.asJDate('2019-07-12 20:02:45'),
         // create_at: new Date(2019, 7, 12, 20, 2, 45),//fixme 2019-07-12T20:02:45 未转换
     });
     log.info("[resList]                         -> {}", [resList]);
@@ -88,8 +87,8 @@ const t05 = function () {
         },
         {
             site_id: "1111111112",
-            total_price: JObject.asJBigDecimal("0.01000"),
-            create_at: JObject.asJDate("2020-06-01 16:15:45"),
+            total_price: Interop.asJBigDecimal("0.01000"),
+            create_at: Interop.asJDate("2020-06-01 16:15:45"),
         },
     );
     log.info("list_1 --> {}", list_1);
@@ -103,8 +102,8 @@ const t05 = function () {
         },
         {
             site_id: "1111111112",
-            total_price: JObject.asJBigDecimal("0.01000"),
-            create_at: JObject.asJDate("2020-06-01 16:15:45"),
+            total_price: Interop.asJBigDecimal("0.01000"),
+            create_at: Interop.asJDate("2020-06-01 16:15:45"),
         },
     );
     log.info("list_2 --> {}", [list_2]);
@@ -112,23 +111,31 @@ const t05 = function () {
 }
 const t06 = function () {
     const sql = "select * from tb_order_main where order_id = :order_id";
-    let data = jdbc.queryMap<Entity>(sql, {order_id: JObject.asJLong("1149635824560267265")})
+    let data = jdbc.queryMap<Entity>(sql, {order_id: Interop.asJLong("1149635824560267265")})
     data = Interop.fromJMap(data);
-    data.total_price = JObject.asJBigDecimal("100.123");
-    const count = jdbc.updateTable("tb_order_main", {total_price: data.total_price}, {order_id: JObject.asJLong("1149635824560267265")});
+    data.total_price = Interop.asJBigDecimal("100.123");
+    const count = jdbc.updateTable(
+        "tb_order_main",
+        {total_price: data.total_price},
+        {order_id: Interop.asJLong("1149635824560267265")}
+    );
     log.info("count --> {}", count);
-    data = jdbc.queryMap<Entity>(sql, {order_id: JObject.asJLong("1149635824560267265")})
+    data = jdbc.queryMap<Entity>(sql, {order_id: Interop.asJLong("1149635824560267265")})
     log.info("data  --> {}", data);
 }
 const t07 = function () {
     const res = jdbc.beginTX<Entity>(() => {
         const sql = "select * from tb_order_main where order_id = :order_id";
-        let data = jdbc.queryMap<Entity>(sql, {order_id: JObject.asJLong("1149635824560267265")})
+        let data = jdbc.queryMap<Entity>(sql, {order_id: Interop.asJLong("1149635824560267265")})
         data = Interop.fromJMap(data);
-        data.total_price = JObject.asJBigDecimal("361.905");
-        const count = jdbc.updateTable("tb_order_main", {total_price: data.total_price}, {order_id: JObject.asJLong("1149635824560267265")});
+        data.total_price = Interop.asJBigDecimal("361.905");
+        const count = jdbc.updateTable(
+            "tb_order_main",
+            {total_price: data.total_price},
+            {order_id: Interop.asJLong("1149635824560267265")}
+        );
         log.info("count --> {}", count);
-        data = jdbc.queryMap<Entity>(sql, {order_id: JObject.asJLong("1149635824560267265")})
+        data = jdbc.queryMap<Entity>(sql, {order_id: Interop.asJLong("1149635824560267265")})
         return data
     }, Propagation.REQUIRED, -1);
     log.info("res   --> {}", res);
@@ -138,9 +145,9 @@ const t08 = function () {
     const countArr = jdbc.batchUpdate(
         sql,
         [
-            {total_price: JObject.asJBigDecimal("1.11111"), order_id: JObject.asJLong("1")},
-            {total_price: JObject.asJBigDecimal("2.22222"), order_id: JObject.asJLong("2")},
-            {total_price: JObject.asJBigDecimal("3.3333"), order_id: JObject.asJLong("1149635824560267265")},
+            {total_price: Interop.asJBigDecimal("1.11111"), order_id: Interop.asJLong("1")},
+            {total_price: Interop.asJBigDecimal("2.22222"), order_id: Interop.asJLong("2")},
+            {total_price: Interop.asJBigDecimal("3.3333"), order_id: Interop.asJLong("1149635824560267265")},
         ],
     );
     log.info("countArr --> {}", [countArr]);
@@ -151,9 +158,9 @@ const t09 = function () {
         return jdbc.batchUpdate(
             sql,
             [
-                {total_price: JObject.asJBigDecimal("1.11111"), order_id: JObject.asJLong("1")},
-                {total_price: JObject.asJBigDecimal("2.22222"), order_id: JObject.asJLong("2")},
-                {total_price: JObject.asJBigDecimal("3.3333"), order_id: JObject.asJLong("1149635824560267265")},
+                {total_price: Interop.asJBigDecimal("1.11111"), order_id: Interop.asJLong("1")},
+                {total_price: Interop.asJBigDecimal("2.22222"), order_id: Interop.asJLong("2")},
+                {total_price: Interop.asJBigDecimal("3.3333"), order_id: Interop.asJLong("1149635824560267265")},
             ]
         )
     }, Propagation.REQUIRED, -1);
@@ -164,7 +171,7 @@ const t10 = function () {
         const sql = "insert into test (name, age) VALUES (:name, :age)";
         return jdbc.insert(
             sql,
-            {name: JObject.asJString("曾萤2"), age: JObject.asJInt(233)},
+            {name: Interop.asJString("曾萤2"), age: Interop.asJInt(233)},
         )
     }, Propagation.REQUIRED, -1);
     log.info("res   --> {}", res);
@@ -183,8 +190,8 @@ const t12 = function () {
         return jdbc.insertTable(
             "test",
             {
-                name: JObject.asJString("小朱妮"),
-                age: JObject.asJInt(22)
+                name: Interop.asJString("小朱妮"),
+                age: Interop.asJInt(22)
             }
         )
     }, Propagation.REQUIRED, -1);
@@ -195,26 +202,25 @@ const t13 = function () {
         return jdbc.insertTables(
             "test",
             [
-                {name: JObject.asJString("小朱妮1"), age: JObject.asJInt(11)},
-                {name: JObject.asJString("小朱妮2"), age: JObject.asJInt(12)},
-                {name: JObject.asJString("小朱妮3"), age: JObject.asJInt(13)},
-                {name: JObject.asJString("小朱妮4"), age: JObject.asJInt(14)},
+                {name: Interop.asJString("小朱妮1"), age: Interop.asJInt(11)},
+                {name: Interop.asJString("小朱妮2"), age: Interop.asJInt(12)},
+                {name: Interop.asJString("小朱妮3"), age: Interop.asJInt(13)},
+                {name: Interop.asJString("小朱妮4"), age: Interop.asJInt(14)},
             ]
-
         )
     }, Propagation.REQUIRED, -1);
     log.info("res   --> {}", res);
 }
 const t14 = function () {
     const sql = "select age from test where id = 1";
-    log.info("String   --> {}",  jdbc.queryString(sql));
-    log.info("Double   --> {}",  jdbc.queryDouble(sql));
-    log.info("BigDecimal   --> {}",  jdbc.queryBigDecimal(sql));
+    log.info("String   --> {}", jdbc.queryString(sql));
+    log.info("Double   --> {}", jdbc.queryDouble(sql));
+    log.info("BigDecimal   --> {}", jdbc.queryBigDecimal(sql));
     const sql2 = "select name from test where id = 2";
-    log.info("Boolean   --> {}",  jdbc.queryBoolean(sql2));
+    log.info("Boolean   --> {}", jdbc.queryBoolean(sql2));
     const date = "select create_at from tb_order_main where order_id = 1";
-    log.info("Date   --> {}",  jdbc.queryDate(date));
-    log.info("Count   --> {}",  jdbc.queryCount("select * from test",{}));
+    log.info("Date   --> {}", jdbc.queryDate(date));
+    log.info("Count   --> {}", jdbc.queryCount("select * from test", {}));
 }
 
 export {
