@@ -18,7 +18,7 @@ interface JMapEntry<K, V> extends JObject {
  * @see Interop
  */
 interface JMap<K, V> { // extends JObject
-    // java_util_Map: "java.util.Map";
+    java_util_Map: "java.util.Map";
 
     // void clear()
     // 从此映射中移除所有映射关系（可选操作）。
