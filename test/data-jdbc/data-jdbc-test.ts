@@ -209,17 +209,7 @@ const t13 = function () {
     }, Propagation.REQUIRED, -1);
     log.info("res   --> {}", res);
 }
-const t14 = function () {
-    const sql = "select age from test where id = 1";
-    log.info("String   --> {}", jdbc.queryString(sql));
-    log.info("Double   --> {}", jdbc.queryDouble(sql));
-    log.info("BigDecimal   --> {}", jdbc.queryBigDecimal(sql));
-    const sql2 = "select name from test where id = 2";
-    log.info("Boolean   --> {}", jdbc.queryBoolean(sql2));
-    const date = "select create_at from tb_order_main where order_id = 1";
-    log.info("Date   --> {}", jdbc.queryDate(date));
-    log.info("Count   --> {}", jdbc.queryCount("select * from test", {}));
-}
+
 
 export {
     t01,
@@ -234,6 +224,5 @@ export {
     t10,
     t11,
     t12,
-    t13,
-    t14
+    t13
 }
