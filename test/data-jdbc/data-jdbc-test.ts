@@ -1,4 +1,4 @@
-import { AnyEntity, InsertResult, jdbcDatabase, Propagation, SortType } from "@hinny/data-jdbc";
+import {AnyEntity, InsertResult, jdbcDatabase, Propagation, SortType} from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 
@@ -18,6 +18,7 @@ const t01 = function () {
     log.info("resList                           -> {}", resList);
     log.info("[resList]                         -> {}", [resList]);
     log.info("resList[0]                        -> {}", resList[0]);
+    // log.info("resList[0]                        -> {}", resList[0]);
     log.info("fromJMap(resList[1])              -> {}", Interop.fromJMap(resList[1]));//fixme org.graalvm.polyglot.proxy.ProxyObject$1@257e0827  返回代理类路径?
     log.info("fromJMap(resList[1]).order_id     -> {}", Interop.fromJMap<Entity>(resList[1]).order_id);
     log.info("fromJMap(resList[1]).total_price  -> {}", Interop.fromJMap<Entity>(resList[1]).total_price);
@@ -105,6 +106,7 @@ const t05 = function () {
             create_at: Interop.asJDate("2020-06-01 16:15:45"),
         },
     );
+    // console.log("--> {}", list_2[0].sss);
     log.info("list_2 --> {}", [list_2]);
     log.info("list_2 --> {}", Interop.fromJMap<Entity>(list_2[0]).order_id);// fixme 无法获取属性值
 }

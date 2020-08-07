@@ -19,7 +19,7 @@ export type SqlFieldType = JChar | JString | JInt | JLong | JDouble | JBigDecima
  * 通用数据库实体类型
  */
 export interface AnyEntity {
-    [name: string]: SqlFieldType;
+    [key: string]: SqlFieldType;
 }
 
 /**
