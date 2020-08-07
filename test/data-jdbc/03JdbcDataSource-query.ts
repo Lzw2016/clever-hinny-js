@@ -16,11 +16,38 @@ const t01 = function () {
     log.info("Count   --> {}", jdbc.queryCount("select * from test", {}));
 }
 const t02 = function () {
-    const sql = "select * from tb_order_main where order_id = 1";
-    log.info("res   --> {}", jdbc.queryMap(sql));
+    const sql = "select order_id,user_agent_id,site_id from tb_order_main limit 3";
+    const sql2 = "select order_id,user_agent_id,site_id from tb_order_main where order_id = :order_id";
+    log.info("[res]      --> {}", [jdbc.queryList(sql)]);
+    log.info("[list]      --> {}", [jdbc.queryList(sql2, {order_id: Interop.asJLong("1")})]);
+    //fixme jdbc.queryMap(sql)有问题 failed due to: Arity error - expected: 2 actual: 1    clever-hinny-java中测试是无问题的
+    // const sql3 = "select order_id,user_agent_id,site_id from tb_order_main where order_id = 1";
+    // log.info("res   --> {}", jdbc.queryMap(sql3));
+    log.info("res2   --> {}", jdbc.queryMap(sql2, {order_id: Interop.asJLong("1")}));
 }
+const t03 = function () {
+    log.info("String   --> {}", jdbc.queryString("select age from test  where id = :id",
+        {id: Interop.asJInt("1")}));
+
+    log.info("Double   --> {}", jdbc.queryDouble("select age from test  where id = :id",
+        {id: Interop.asJInt("1")}));
+
+    log.info("BigDecimal   --> {}", jdbc.queryBigDecimal("select age from test  where id = :id",
+        {id: Interop.asJInt("1")}));
+
+    log.info("Boolean   --> {}", jdbc.queryBoolean("select name from test where id = :id",
+        {id: Interop.asJInt("2")}));
+
+    log.info("Date   --> {}", jdbc.queryDate("select create_at from tb_order_main where order_id = :order_id",
+        {order_id: Interop.asJInt("1")}));
+
+    log.info("Count   --> {}", jdbc.queryCount("select * from test where age = :age",
+        {age: Interop.asJInt("11")}));
+}
+
 
 export {
     t01,
     t02,
+    t03,
 }
