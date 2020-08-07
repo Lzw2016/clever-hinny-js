@@ -14,14 +14,13 @@ const jdbc = jdbcDatabase.getDefault();
 
 const t01 = function () {
     log.info("DbType -> {}", jdbc.getDbType());
-    const resList = jdbc.queryList<Entity>("select * from tb_order_main limit 3");
+    const resList = jdbc.queryList("select * from tb_order_main limit 3");
     log.info("resList                           -> {}", resList);
     log.info("[resList]                         -> {}", [resList]);
     log.info("resList[0]                        -> {}", resList[0]);
     log.info("fromJMap(resList[1])              -> {}", Interop.fromJMap(resList[1]));//fixme org.graalvm.polyglot.proxy.ProxyObject$1@257e0827  返回代理类路径?
-    log.info("resList[1].order_id               -> {}", resList[1].order_id);//fixme    获取不到返回null?
-    log.info("fromJMap(resList[1]).order_id     -> {}", Interop.fromJMap(resList[1]).order_id);
-    log.info("fromJMap(resList[1]).total_price  -> {}", Interop.fromJMap(resList[1]).total_price);
+    log.info("fromJMap(resList[1]).order_id     -> {}", Interop.fromJMap<Entity>(resList[1]).order_id);
+    log.info("fromJMap(resList[1]).total_price  -> {}", Interop.fromJMap<Entity>(resList[1]).total_price);
     log.info("undefined                         -> {}", undefined);
 
     // log.info("total_price       -> {}", Interop.fromJMap({}));
@@ -45,13 +44,13 @@ limit 3
 }
 const t03 = function () {
     const sql = "select * from tb_order_main limit 87";
-    jdbc.query<Entity>(sql, 10, batchData => {
-        log.info("batchData -> BatchCount={} | order_id={}", batchData.getBatchCount(), Interop.fromJMap(batchData.getRowDataList()[0]).order_id)
+    jdbc.query(sql, 10, batchData => {
+        log.info("batchData -> BatchCount={} | order_id={}", batchData.getBatchCount(), Interop.fromJMap<Entity>(batchData.getRowDataList()[0]).order_id)
     });
 
     const sql2 = "select * from tb_order_main limit :limit";
-    jdbc.query<Entity>(sql2, {limit: 66}, rowData => {
-        log.info("batchData -> BatchCount={} | order_id={}", rowData.getRowCount(), Interop.fromJMap(rowData.getRowData()).order_id)
+    jdbc.query(sql2, {limit: 66}, rowData => {
+        log.info("batchData -> BatchCount={} | order_id={}", rowData.getRowCount(), Interop.fromJMap<Entity>(rowData.getRowData()).order_id)
     });
 }
 const t04 = function () {
@@ -78,7 +77,7 @@ const t05 = function () {
     and total_price > :total_price 
     and create_at > :create_at
     `;
-    const list_1 = jdbc.queryBySort<Entity>(
+    const list_1 = jdbc.queryBySort(
         sql,
         {
             sort: SortType.DESC,
@@ -93,7 +92,7 @@ const t05 = function () {
     );
     log.info("list_1 --> {}", list_1);
 
-    const list_2 = jdbc.queryBySort<Entity>(
+    const list_2 = jdbc.queryBySort(
         sql,
         {
             fieldsMapping: {updateAt: "update_at", realPayPrice: "real_pay_price"},
@@ -107,36 +106,35 @@ const t05 = function () {
         },
     );
     log.info("list_2 --> {}", [list_2]);
-    log.info("list_2 --> {}", list_2[0].order_id);// fixme 无法获取属性值
+    log.info("list_2 --> {}", Interop.fromJMap<Entity>(list_2[0]).order_id);// fixme 无法获取属性值
 }
 const t06 = function () {
     const sql = "select * from tb_order_main where order_id = :order_id";
-    let data = jdbc.queryMap<Entity>(sql, {order_id: Interop.asJLong("1149635824560267265")})
-    data = Interop.fromJMap(data);
-    data.total_price = Interop.asJBigDecimal("100.123");
+    const data = jdbc.queryMap(sql, {order_id: Interop.asJLong("1149635824560267265")})
+    const data_1 = Interop.fromJMap<Entity>(data);
+    data_1.total_price = Interop.asJBigDecimal("100.123");
     const count = jdbc.updateTable(
         "tb_order_main",
-        {total_price: data.total_price},
+        {total_price: data_1.total_price},
         {order_id: Interop.asJLong("1149635824560267265")}
     );
     log.info("count --> {}", count);
-    data = jdbc.queryMap<Entity>(sql, {order_id: Interop.asJLong("1149635824560267265")})
-    log.info("data  --> {}", data);
+    const data_2 = jdbc.queryMap<Entity>(sql, {order_id: Interop.asJLong("1149635824560267265")})
+    log.info("data  --> {}", data_2);
 }
 const t07 = function () {
-    const res = jdbc.beginTX<Entity>(() => {
+    const res = jdbc.beginTX(() => {
         const sql = "select * from tb_order_main where order_id = :order_id";
-        let data = jdbc.queryMap<Entity>(sql, {order_id: Interop.asJLong("1149635824560267265")})
-        data = Interop.fromJMap(data);
-        data.total_price = Interop.asJBigDecimal("361.905");
+        const data = jdbc.queryMap(sql, {order_id: Interop.asJLong("1149635824560267265")})
+        const data_1 = Interop.fromJMap<Entity>(data);
+        data_1.total_price = Interop.asJBigDecimal("361.905");
         const count = jdbc.updateTable(
             "tb_order_main",
-            {total_price: data.total_price},
+            {total_price: data_1.total_price},
             {order_id: Interop.asJLong("1149635824560267265")}
         );
         log.info("count --> {}", count);
-        data = jdbc.queryMap<Entity>(sql, {order_id: Interop.asJLong("1149635824560267265")})
-        return data
+        return jdbc.queryMap<Entity>(sql, {order_id: Interop.asJLong("1149635824560267265")})
     }, Propagation.REQUIRED, -1);
     log.info("res   --> {}", res);
 }

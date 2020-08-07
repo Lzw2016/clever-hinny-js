@@ -17,7 +17,7 @@ interface JMapEntry<K, V> extends JObject {
  * java.util.Map 类型，不要在JavaScript/TypeScript环境中创建该类型对象<br />
  * @see Interop
  */
-interface JMap<K, V> { // extends JObject
+interface JMap<K, V> extends JObject {
     java_util_Map: "java.util.Map";
 
     // void clear()

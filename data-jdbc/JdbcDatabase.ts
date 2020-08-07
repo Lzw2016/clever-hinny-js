@@ -18,11 +18,16 @@ export type SqlFieldType = JChar | JString | JInt | JLong | JDouble | JBigDecima
 /**
  * 通用数据库实体类型
  */
-export interface AnyEntity extends JMap<string, SqlFieldType> {
+export interface AnyEntity {
     [name: string]: SqlFieldType;
 }
 
-export interface BatchData<T = AnyEntity> {
+/**
+ * 数据库数据行
+ */
+export type DataRowMap = JMap<string, SqlFieldType>;
+
+export interface BatchData<T = DataRowMap> {
     /**
      * 列名称集合
      */
@@ -54,7 +59,7 @@ export interface BatchData<T = AnyEntity> {
     getBatchCount(): JInt;
 }
 
-export interface RowData<T = AnyEntity> {
+export interface RowData<T = DataRowMap> {
     /**
      * 列名称集合
      */
@@ -84,14 +89,14 @@ export interface RowData<T = AnyEntity> {
 /**
  * 游标读取数据回调函数(批量读取)
  */
-export interface BatchQueryCallback<T = AnyEntity> {
+export interface BatchQueryCallback<T = DataRowMap> {
     (batchData: BatchData<T>): void;
 }
 
 /**
  * 游标读取数据回调函数
  */
-export interface QueryCallback<T = AnyEntity> {
+export interface QueryCallback<T = DataRowMap> {
     (batchData: RowData<T>): void;
 }
 
@@ -170,7 +175,7 @@ export interface OrderItem {
 /**
  * 分页查询返回值
  */
-export interface IPage<T = AnyEntity> {
+export interface IPage<T = DataRowMap> {
     /**
      * 当前页，默认 1
      */
@@ -380,14 +385,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryMap<T = AnyEntity>(sql: string, paramMap: SqlParamMap): T;
+    queryMap<T = DataRowMap>(sql: string, paramMap: SqlParamMap): T;
 
     /**
      * 查询一条数据，返回一个Map
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryMap<T = AnyEntity>(sql: string): T;
+    queryMap<T = DataRowMap>(sql: string): T;
 
     /**
      * 查询多条数据，返回一个Map数组
@@ -395,14 +400,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryList<T = AnyEntity>(sql: string, paramMap: SqlParamMap): JList<T>;
+    queryList<T = DataRowMap>(sql: string, paramMap: SqlParamMap): JList<T>;
 
     /**
      * 查询多条数据，返回一个Map数组
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryList<T = AnyEntity>(sql: string): JList<T>;
+    queryList<T = DataRowMap>(sql: string): JList<T>;
 
     /**
      * 查询返回一个 String
@@ -510,7 +515,7 @@ export interface JdbcDataSource {
      * @param batchSize 一个批次的数据量
      * @param consumer  游标批次读取数据消费者
      */
-    query<T = AnyEntity>(sql: string, paramMap: SqlParamMap, batchSize: JInt, consumer: BatchQueryCallback<T>): void;
+    query<T = DataRowMap>(sql: string, paramMap: SqlParamMap, batchSize: JInt, consumer: BatchQueryCallback<T>): void;
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -519,7 +524,7 @@ export interface JdbcDataSource {
      * @param batchSize 一个批次的数据量
      * @param consumer  游标批次读取数据消费者
      */
-    query<T = AnyEntity>(sql: string, batchSize: JInt, consumer: BatchQueryCallback<T>): void
+    query<T = DataRowMap>(sql: string, batchSize: JInt, consumer: BatchQueryCallback<T>): void
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -528,7 +533,7 @@ export interface JdbcDataSource {
      * @param paramMap 参数(可选)，参数格式[:param]
      * @param consumer 游标读取数据消费者
      */
-    query<T = AnyEntity>(sql: string, paramMap: SqlParamMap, consumer: QueryCallback<T>): void;
+    query<T = DataRowMap>(sql: string, paramMap: SqlParamMap, consumer: QueryCallback<T>): void;
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -536,7 +541,7 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param consumer 游标读取数据消费者
      */
-    query<T = AnyEntity>(sql: string, consumer: QueryCallback<T>): void;
+    query<T = DataRowMap>(sql: string, consumer: QueryCallback<T>): void;
 
     /**
      * 排序查询
@@ -545,7 +550,7 @@ export interface JdbcDataSource {
      * @param sort     排序配置
      * @param paramMap 参数，参数格式[:param]
      */
-    queryBySort<T = AnyEntity>(sql: string, sort: QueryBySort, paramMap: SqlParamMap): JList<T>
+    queryBySort<T = DataRowMap>(sql: string, sort: QueryBySort, paramMap: SqlParamMap): JList<T>
 
     /**
      * 排序查询
@@ -553,7 +558,7 @@ export interface JdbcDataSource {
      * @param sql  sql脚本，参数格式[:param]
      * @param sort 排序配置
      */
-    queryBySort<T = AnyEntity>(sql: string, sort: QueryBySort): JList<T>;
+    queryBySort<T = DataRowMap>(sql: string, sort: QueryBySort): JList<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -563,7 +568,7 @@ export interface JdbcDataSource {
      * @param paramMap   参数，参数格式[:param]
      * @param countQuery 是否要执行count查询(可选)
      */
-    queryByPage<T = AnyEntity>(sql: string, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
+    queryByPage<T = DataRowMap>(sql: string, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -572,7 +577,7 @@ export interface JdbcDataSource {
      * @param pagination 分页配置(支持排序)
      * @param countQuery 是否要执行count查询(可选)
      */
-    queryByPage<T = AnyEntity>(sql: string, pagination: QueryByPage, countQuery: JBoolean): IPage<T>;
+    queryByPage<T = DataRowMap>(sql: string, pagination: QueryByPage, countQuery: JBoolean): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -580,7 +585,7 @@ export interface JdbcDataSource {
      * @param sql        sql脚本，参数格式[:param]
      * @param pagination 分页配置(支持排序)
      */
-    queryByPage<T = AnyEntity>(sql: string, pagination: QueryByPage): IPage<T>;
+    queryByPage<T = DataRowMap>(sql: string, pagination: QueryByPage): IPage<T>;
 
     // --------------------------------------------------------------------------------------------
     // Update 操作

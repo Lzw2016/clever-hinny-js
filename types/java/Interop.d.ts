@@ -117,7 +117,7 @@ interface Interop extends JObject {
 
     // fromJArray<T>(...array: T): T[];
 
-    fromJMap<T extends JMap>(obj: T): T;
+    fromJMap<T extends object>(obj: JMap<string, any>): T;
 
     // fromJMap<T>(map: JMap<string, any>): T;
 
