@@ -2,17 +2,6 @@ import { jdbcDatabase } from "@hinny/data-jdbc";
 
 const logger = LoggerFactory.getLogger(__filename);
 
-// JdbcDatabase 各种操作测试
-
-// jdbcDatabase.getDefault()
-// jdbcDatabase.getDefaultName()
-// jdbcDatabase.getDataSource();
-// jdbcDatabase.hasDataSource();
-// jdbcDatabase.add();
-// jdbcDatabase.allNames();
-// jdbcDatabase.getInfo();
-// jdbcDatabase.allInfos();
-
 const t01 = function () {
     const jdbcDataSource = jdbcDatabase.getDefault();
     logger.info("jdbcDataSource -> {}", jdbcDataSource.getClass());
