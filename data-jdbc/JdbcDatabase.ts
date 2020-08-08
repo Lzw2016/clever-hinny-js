@@ -160,7 +160,7 @@ export interface QueryByPage extends Partial<QueryBySort> {
     isSearchCount?: JBoolean;
 }
 
-export interface OrderItem {
+export interface OrderItem extends JObject {
     /**
      * 需要进行排序的字段
      */
@@ -175,7 +175,7 @@ export interface OrderItem {
 /**
  * 分页查询返回值
  */
-export interface IPage<T = DataRowMap> {
+export interface IPage<T = DataRowMap> extends JObject {
     /**
      * 当前页，默认 1
      */
@@ -212,7 +212,7 @@ export interface IPage<T = DataRowMap> {
     getTotal(): JLong;
 }
 
-export interface KeyHolder {
+export interface KeyHolder extends JObject {
     /**
      * 所有自动生成的key
      */
@@ -233,7 +233,7 @@ export interface KeyHolder {
 /**
  * sql insert 返回值
  */
-export interface InsertResult {
+export interface InsertResult extends JObject {
     /**
      * 新增数据量
      */
@@ -254,7 +254,7 @@ export interface InsertResult {
 /**
  * 事务状态
  */
-export interface TransactionStatus {
+export interface TransactionStatus extends JObject {
     /**
      * 将底层会话刷新到数据存储（如果适用）
      */
@@ -359,7 +359,7 @@ export enum Propagation {
 /**
  * JDBC数据库操作对象
  */
-export interface JdbcDataSource {
+export interface JdbcDataSource extends JObject {
     /**
      * 获取数据库类型
      */
@@ -368,7 +368,7 @@ export interface JdbcDataSource {
     /**
      * 当前数据源是否关闭
      */
-    isClosed(): boolean;
+    isClosed(): JBoolean;
 
     /**
      * 关闭当前数据源
@@ -385,14 +385,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryMap<T = DataRowMap>(sql: string, paramMap: SqlParamMap): T;
+    queryMap<T = DataRowMap>(sql: JString, paramMap: SqlParamMap): T;
 
     /**
      * 查询一条数据，返回一个Map
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryMap<T = DataRowMap>(sql: string): T;
+    queryMap<T = DataRowMap>(sql: JString): T;
 
     /**
      * 查询多条数据，返回一个Map数组
@@ -400,14 +400,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryList<T = DataRowMap>(sql: string, paramMap: SqlParamMap): JList<T>;
+    queryList<T = DataRowMap>(sql: JString, paramMap: SqlParamMap): JList<T>;
 
     /**
      * 查询多条数据，返回一个Map数组
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryList<T = DataRowMap>(sql: string): JList<T>;
+    queryList<T = DataRowMap>(sql: JString): JList<T>;
 
     /**
      * 查询返回一个 String
@@ -415,14 +415,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryString(sql: string, paramMap: SqlParamMap): string;
+    queryString(sql: JString, paramMap: SqlParamMap): JString;
 
     /**
      * 查询返回一个 String
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryString(sql: string): string;
+    queryString(sql: JString): JString;
 
     /**
      * 查询返回一个 Long
@@ -430,14 +430,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryLong(sql: string, paramMap: SqlParamMap): JLong;
+    queryLong(sql: JString, paramMap: SqlParamMap): JLong;
 
     /**
      * 查询返回一个 Long
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryLong(sql: string): JLong;
+    queryLong(sql: JString): JLong;
 
     /**
      * 查询返回一个 Double
@@ -445,14 +445,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryDouble(sql: string, paramMap: SqlParamMap): JDouble;
+    queryDouble(sql: JString, paramMap: SqlParamMap): JDouble;
 
     /**
      * 查询返回一个 Double
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryDouble(sql: string): JDouble;
+    queryDouble(sql: JString): JDouble;
 
     /**
      * 查询返回一个 BigDecimal
@@ -460,14 +460,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryBigDecimal(sql: string, paramMap: SqlParamMap): JBigDecimal;
+    queryBigDecimal(sql: JString, paramMap: SqlParamMap): JBigDecimal;
 
     /**
      * 查询返回一个 BigDecimal
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryBigDecimal(sql: string): JBigDecimal
+    queryBigDecimal(sql: JString): JBigDecimal
 
     /**
      * 查询返回一个 Boolean
@@ -475,14 +475,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryBoolean(sql: string, paramMap: SqlParamMap): JBoolean;
+    queryBoolean(sql: JString, paramMap: SqlParamMap): JBoolean;
 
     /**
      * 查询返回一个 Boolean
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryBoolean(sql: string): JBoolean;
+    queryBoolean(sql: JString): JBoolean;
 
     /**
      * 查询返回一个 Date
@@ -490,14 +490,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryDate(sql: string, paramMap: SqlParamMap): JDate;
+    queryDate(sql: JString, paramMap: SqlParamMap): JDate;
 
     /**
      * 查询返回一个 Date
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    queryDate(sql: string): JDate;
+    queryDate(sql: JString): JDate;
 
     /**
      * SQL Count(获取一个SQL返回的数据总量)
@@ -505,7 +505,7 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    queryCount(sql: string, paramMap: SqlParamMap): JLong;
+    queryCount(sql: JString, paramMap: SqlParamMap): JLong;
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -515,7 +515,7 @@ export interface JdbcDataSource {
      * @param batchSize 一个批次的数据量
      * @param consumer  游标批次读取数据消费者
      */
-    query<T = DataRowMap>(sql: string, paramMap: SqlParamMap, batchSize: JInt, consumer: BatchQueryCallback<T>): void;
+    query<T = DataRowMap>(sql: JString, paramMap: SqlParamMap, batchSize: JInt, consumer: BatchQueryCallback<T>): void;
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -524,7 +524,7 @@ export interface JdbcDataSource {
      * @param batchSize 一个批次的数据量
      * @param consumer  游标批次读取数据消费者
      */
-    query<T = DataRowMap>(sql: string, batchSize: JInt, consumer: BatchQueryCallback<T>): void
+    query<T = DataRowMap>(sql: JString, batchSize: JInt, consumer: BatchQueryCallback<T>): void
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -533,7 +533,7 @@ export interface JdbcDataSource {
      * @param paramMap 参数(可选)，参数格式[:param]
      * @param consumer 游标读取数据消费者
      */
-    query<T = DataRowMap>(sql: string, paramMap: SqlParamMap, consumer: QueryCallback<T>): void;
+    query<T = DataRowMap>(sql: JString, paramMap: SqlParamMap, consumer: QueryCallback<T>): void;
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -541,7 +541,7 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param consumer 游标读取数据消费者
      */
-    query<T = DataRowMap>(sql: string, consumer: QueryCallback<T>): void;
+    query<T = DataRowMap>(sql: JString, consumer: QueryCallback<T>): void;
 
     /**
      * 排序查询
@@ -550,7 +550,7 @@ export interface JdbcDataSource {
      * @param sort     排序配置
      * @param paramMap 参数，参数格式[:param]
      */
-    queryBySort<T = DataRowMap>(sql: string, sort: QueryBySort, paramMap: SqlParamMap): JList<T>
+    queryBySort<T = DataRowMap>(sql: JString, sort: QueryBySort, paramMap: SqlParamMap): JList<T>
 
     /**
      * 排序查询
@@ -558,7 +558,7 @@ export interface JdbcDataSource {
      * @param sql  sql脚本，参数格式[:param]
      * @param sort 排序配置
      */
-    queryBySort<T = DataRowMap>(sql: string, sort: QueryBySort): JList<T>;
+    queryBySort<T = DataRowMap>(sql: JString, sort: QueryBySort): JList<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -568,7 +568,7 @@ export interface JdbcDataSource {
      * @param paramMap   参数，参数格式[:param]
      * @param countQuery 是否要执行count查询(可选)
      */
-    queryByPage<T = DataRowMap>(sql: string, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
+    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -577,7 +577,7 @@ export interface JdbcDataSource {
      * @param pagination 分页配置(支持排序)
      * @param countQuery 是否要执行count查询(可选)
      */
-    queryByPage<T = DataRowMap>(sql: string, pagination: QueryByPage, countQuery: JBoolean): IPage<T>;
+    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage, countQuery: JBoolean): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -585,7 +585,7 @@ export interface JdbcDataSource {
      * @param sql        sql脚本，参数格式[:param]
      * @param pagination 分页配置(支持排序)
      */
-    queryByPage<T = DataRowMap>(sql: string, pagination: QueryByPage): IPage<T>;
+    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage): IPage<T>;
 
     // --------------------------------------------------------------------------------------------
     // Update 操作
@@ -597,14 +597,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    update(sql: string, paramMap: SqlParamMap): JInt;
+    update(sql: JString, paramMap: SqlParamMap): JInt;
 
     /**
      * 执行更新SQL，返回更新影响数据量
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    update(sql: string): JInt;
+    update(sql: JString): JInt;
 
     /**
      * 更新数据库表数据
@@ -614,7 +614,7 @@ export interface JdbcDataSource {
      * @param whereMap          更新条件字段(只支持=，and条件)
      * @param camelToUnderscore 字段驼峰转下划线(可选)
      */
-    updateTable(tableName: string, fields: SqlParamMap, whereMap: SqlParamMap, camelToUnderscore: JBoolean): JInt;
+    updateTable(tableName: JString, fields: SqlParamMap, whereMap: SqlParamMap, camelToUnderscore: JBoolean): JInt;
 
     /**
      * 更新数据库表数据
@@ -623,7 +623,7 @@ export interface JdbcDataSource {
      * @param fields    更新字段值
      * @param whereMap  更新条件字段(只支持=，and条件)
      */
-    updateTable(tableName: string, fields: SqlParamMap, whereMap: SqlParamMap): JInt;
+    updateTable(tableName: JString, fields: SqlParamMap, whereMap: SqlParamMap): JInt;
 
     /**
      * 更新数据库表数据
@@ -633,7 +633,7 @@ export interface JdbcDataSource {
      * @param where             自定义where条件(不用写where关键字)
      * @param camelToUnderscore 字段驼峰转下划线(可选)
      */
-    updateTable(tableName: string, fields: SqlParamMap, where: string, camelToUnderscore: JBoolean): JInt;
+    updateTable(tableName: JString, fields: SqlParamMap, where: JString, camelToUnderscore: JBoolean): JInt;
 
     /**
      * 更新数据库表数据
@@ -642,7 +642,7 @@ export interface JdbcDataSource {
      * @param fields    更新字段值
      * @param where     自定义where条件(不用写where关键字)
      */
-    updateTable(tableName: string, fields: SqlParamMap, where: string): JInt;
+    updateTable(tableName: JString, fields: SqlParamMap, where: JString): JInt;
 
     /**
      * 批量执行更新SQL，返回更新影响数据量
@@ -650,7 +650,7 @@ export interface JdbcDataSource {
      * @param sql          sql脚本，参数格式[:param]
      * @param paramMapList 参数数组，参数格式[:param]
      */
-    batchUpdate(sql: string, paramMapList: Array<SqlParamMap>): Array<JInt>;
+    batchUpdate(sql: JString, paramMapList: Array<SqlParamMap>): Array<JInt>;
 
     // --------------------------------------------------------------------------------------------
     // Insert 操作
@@ -662,14 +662,14 @@ export interface JdbcDataSource {
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
-    insert(sql: string, paramMap: SqlParamMap): InsertResult;
+    insert(sql: JString, paramMap: SqlParamMap): InsertResult;
 
     /**
      * 执行insert SQL，返回数据库自增主键值和新增数据量
      *
      * @param sql sql脚本，参数格式[:param]
      */
-    insert(sql: string): InsertResult;
+    insert(sql: JString): InsertResult;
 
     /**
      * 数据插入到表
@@ -678,7 +678,7 @@ export interface JdbcDataSource {
      * @param fields            字段名
      * @param camelToUnderscore 字段驼峰转下划线(可选)
      */
-    insertTable(tableName: string, fields: SqlParamMap, camelToUnderscore: JBoolean): InsertResult;
+    insertTable(tableName: JString, fields: SqlParamMap, camelToUnderscore: JBoolean): InsertResult;
 
     /**
      * 数据插入到表
@@ -686,7 +686,7 @@ export interface JdbcDataSource {
      * @param tableName 表名称
      * @param fields    字段名
      */
-    insertTable(tableName: string, fields: SqlParamMap): InsertResult;
+    insertTable(tableName: JString, fields: SqlParamMap): InsertResult;
 
     /**
      * 数据插入到表
@@ -695,7 +695,7 @@ export interface JdbcDataSource {
      * @param fieldsList        字段名集合
      * @param camelToUnderscore 字段驼峰转下划线(可选)
      */
-    insertTables(tableName: string, fieldsList: Array<SqlParamMap>, camelToUnderscore: JBoolean): JList<InsertResult>;
+    insertTables(tableName: JString, fieldsList: Array<SqlParamMap>, camelToUnderscore: JBoolean): JList<InsertResult>;
 
     /**
      * 数据插入到表
@@ -703,7 +703,7 @@ export interface JdbcDataSource {
      * @param tableName  表名称
      * @param fieldsList 字段名集合
      */
-    insertTables(tableName: string, fieldsList: Array<SqlParamMap>): JList<InsertResult>;
+    insertTables(tableName: JString, fieldsList: Array<SqlParamMap>): JList<InsertResult>;
 
     // --------------------------------------------------------------------------------------------
     //  事务操作
@@ -787,12 +787,22 @@ export interface JdbcDataSource {
      * @param action 事务内数据库操作
      */
     beginReadOnlyTX<T = any>(action: ActionInTX<T>): T;
+
+    /**
+     * 获取数据源信息
+     */
+    getInfo(): JdbcInfo;
+
+    /**
+     * 获取数据源状态
+     */
+    getStatus(): JdbcDataSourceStatus;
 }
 
 /**
  * JDBC数据库管理器
  */
-export interface JdbcDatabase {
+export interface JdbcDatabase extends JObject {
     /**
      * 获取默认数据源
      */
@@ -801,21 +811,21 @@ export interface JdbcDatabase {
     /**
      * 获取默认数据源名称
      */
-    getDefaultName(): string;
+    getDefaultName(): JString;
 
     /**
      * 根据名称获取数据源
      *
      * @param name 数据源名称
      */
-    getDataSource(name: string): JdbcDataSource | null;
+    getDataSource(name: JString): JdbcDataSource | null;
 
     /**
      * 判断数据源是否存在
      *
      * @param name 数据源名称
      */
-    hasDataSource(name: string): boolean;
+    hasDataSource(name: JString): JBoolean;
 
     /**
      * 添加数据源
@@ -823,73 +833,105 @@ export interface JdbcDatabase {
      * @param name       数据源名称
      * @param jdbcConfig 数据源配置
      */
-    add(name: string, jdbcConfig: JdbcConfig): JdbcDataSource;
+    add(name: JString, jdbcConfig: JdbcConfig): JdbcDataSource;
 
     /**
      * 删除数据源
      *
      * @param name 数据源名称
      */
-    del(name: string): boolean;
+    del(name: JString): JBoolean;
 
     /**
      * 获取所有数据源名称
      */
-    allNames(): JSet<string>;
+    allNames(): JSet<JString>;
 
     /**
      * 获取数据源信息
      *
      * @param name 数据源名称
      */
-    getInfo(name: string): JdbcInfo
+    getInfo(name: JString): JdbcInfo
 
     /**
      * 获取所有数据源信息
      */
-    allInfos(): JMap<string, JdbcInfo>;
+    allInfos(): JMap<JString, JdbcInfo>;
+
+    /**
+     * 获取数据源信息
+     * @param name 数据源名称
+     */
+    getStatus(name: JString): JdbcDataSourceStatus;
+
+    /**
+     * 获取数据源状态
+     */
+    allStatus(): JMap<JString, JdbcDataSourceStatus>;
 }
 
 export interface JdbcConfig {
     /** 数据库驱动名称: com.mysql.cj.jdbc.Driver */
-    driverClassName: string;
+    driverClassName: JString;
     /** 数据库链接url: jdbc:mysql://host:3306/db-name */
-    jdbcUrl: string;
+    jdbcUrl: JString;
     /** 用户名 */
-    username: string;
+    username: JString;
     /** 密码 */
-    password: string;
+    password: JString;
     /** 是否自动提交 */
-    isAutoCommit?: boolean;
+    isAutoCommit?: JBoolean;
     /** 是否只读 */
-    isReadOnly?: boolean;
+    isReadOnly?: JBoolean;
     /** 连接池最大大小 */
-    maxPoolSize?: number;
+    maxPoolSize?: JInt;
     /** 最小空闲连接数 */
-    minIdle?: number;
+    minIdle?: JInt;
     /** 连接最大存活时间(毫秒) */
-    maxLifetimeMs?: number;
+    maxLifetimeMs?: JInt;
     /** 连接超时时间(毫秒) */
-    connectionTimeoutMs?: number;
+    connectionTimeoutMs?: JInt;
     /** 允许连接在池中处于空闲状态的最长时间(毫秒) 。值为0表示从不从池中删除空闲连接 */
-    idleTimeoutMs?: number;
+    idleTimeoutMs?: JInt;
     /** 测试连接可用的SQL语句 */
-    connectionTestQuery?: string;
+    connectionTestQuery?: JString;
     /** 数据源连接属性 */
-    dataSourceProperties?: JMap<string, string | number | boolean>;
+    dataSourceProperties?: JMap<JString, JString | JDouble | JBoolean>;
 }
 
-export interface JdbcInfo {
+export interface JdbcInfo extends JObject {
     /** 数据库驱动名称: com.mysql.cj.jdbc.Driver */
-    readonly driverClassName: string;
+    getDriverClassName(): JString;
+
     /** 数据库链接url: jdbc:mysql://host:3306/db-name */
-    readonly jdbcUrl: string;
+    getJdbcUrl(): JString;
+
     /** 是否自动提交 */
-    readonly isAutoCommit: boolean;
+    isAutoCommit(): JBoolean;
+
     /** 是否只读 */
-    readonly isReadOnly: boolean;
+    isReadOnly(): JBoolean;
+
     /** 数据库类型 */
-    readonly dbType: DbType;
+    getDbType(): DbType;
+
+    /** 数据源是否关闭 */
+    isClosed(): JBoolean;
+}
+
+export interface JdbcDataSourceStatus extends JObject {
+    /** 总连接数 */
+    getTotalConnections(): JInt;
+
+    /** 活动连接数 */
+    getActiveConnections(): JInt;
+
+    /** 空闲连接数 */
+    getIdleConnections(): JInt;
+
+    /** 等待索取连接的线程数 */
+    getThreadsAwaitingConnection(): JInt;
 }
 
 export enum DbType {

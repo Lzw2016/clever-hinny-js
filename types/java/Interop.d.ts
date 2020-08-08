@@ -102,6 +102,9 @@ interface Interop extends JObject {
 
     // TODO 补充常用类型
 
+    /**
+     * 获取对象的字符串表示形式
+     */
     toJString(obj: any): JString;
 
     /**
