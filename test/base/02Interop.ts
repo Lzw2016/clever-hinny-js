@@ -18,6 +18,7 @@ const t02 = function () {
     log.info("# asJShort        -> {}", Interop.asJShort("123"));
     log.info("# asJInt          -> {}", Interop.asJInt("123456"));
     log.info("# asJLong         -> {}", Interop.asJLong("1234567890"));
+    log.info("# asJFloat        -> {}", Interop.asJFloat("123456.789"));
     log.info("# asJDouble       -> {}", Interop.asJDouble("123456.789"));
     log.info("# asJBoolean      -> {}", Interop.asJBoolean("false"));
     log.info("# asJChar         -> {}", Interop.asJChar('a'));
@@ -50,9 +51,24 @@ const t04 = function () {
     console.info(" -> ", array.map(value => `${value}|AAA`));
 }
 
+const t05 = function () {
+    log.info("# toJString         -> {}", Interop.toJString("111"));
+    log.info("# toJString         -> {}", Interop.toJString(222));
+    log.info("# toJString         -> {}", Interop.toJString(false));
+    log.info("# toJString         -> {}", Interop.toJString(["111", "222", "333"]));
+    log.info("# toJString         -> {}", Interop.toJString([111, 222, 333]));
+    log.info("# toJString         -> {}", Interop.toJString({
+        a: "aaa", b: 123, c: false, d: 12.87, fuc: function (a: number, b: number) {
+            return a + b;
+        }
+    }));
+    log.info("# toJString         -> {}", Interop.toJString(new Date()));
+}
+
 export {
     t01,
     t02,
     t03,
     t04,
+    t05,
 }

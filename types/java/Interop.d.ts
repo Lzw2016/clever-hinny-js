@@ -22,7 +22,7 @@ interface Interop extends JObject {
     /**
      * 创建Java float 值
      */
-    asJFloat(arg: number | string): JFloat;
+    asJFloat(arg: string): JFloat;
 
     /**
      * 创建Java double 值
@@ -101,6 +101,8 @@ interface Interop extends JObject {
     asJMap<K, V>(arg: object): JMap<K, V>;
 
     // TODO 补充常用类型
+
+    toJString(obj: any): JString;
 
     /**
      * 把jdbc时间类型转换成 java.util.Date 类型
