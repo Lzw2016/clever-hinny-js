@@ -1,4 +1,4 @@
-import {AnyEntity, InsertResult, jdbcDatabase, Propagation, SortType} from "@hinny/data-jdbc";
+import { AnyEntity, InsertResult, jdbcDatabase, Propagation, SortType } from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 
@@ -63,10 +63,9 @@ const t04 = function () {
             pageNo: 123,
             sort: SortType.DESC,
             orderField: "updateAt",
-            fieldsMapping: {updateAt: "update_at"}
+            fieldsMapping: {updateAt: "update_at"},
+            aaa: 'aaa',
         },
-        {},
-        true
     );
     log.info("page              --> {}", page);
     log.info("page.getRecords() --> {}", page.getRecords());
@@ -137,7 +136,7 @@ const t07 = function () {
         );
         log.info("count --> {}", count);
         return jdbc.queryMap<Entity>(sql, {order_id: Interop.asJLong("1149635824560267265")})
-    }, Propagation.REQUIRED, -1);
+    }, Propagation.REQUIRED);
     log.info("res   --> {}", res);
 }
 const t08 = function () {
@@ -163,7 +162,7 @@ const t09 = function () {
                 {total_price: Interop.asJBigDecimal("3.3333"), order_id: Interop.asJLong("1149635824560267265")},
             ]
         )
-    }, Propagation.REQUIRED, -1);
+    }, Propagation.REQUIRED);
     log.info("res   --> {}", res);
 }
 const t10 = function () {
@@ -173,7 +172,7 @@ const t10 = function () {
             sql,
             {name: Interop.asJString("曾萤2"), age: Interop.asJInt(233)},
         )
-    }, Propagation.REQUIRED, -1);
+    }, Propagation.REQUIRED);
     log.info("res   --> {}", res);
 }
 const t11 = function () {
@@ -182,7 +181,7 @@ const t11 = function () {
         return jdbc.insert(
             sql,
         )
-    }, Propagation.REQUIRED, -1);
+    }, Propagation.REQUIRED);
     log.info("res   --> {}", res);
 }
 const t12 = function () {
@@ -194,7 +193,7 @@ const t12 = function () {
                 age: Interop.asJInt(22)
             }
         )
-    }, Propagation.REQUIRED, -1);
+    }, Propagation.REQUIRED);
     log.info("res   --> {}", res);
 }
 const t13 = function () {
@@ -208,7 +207,7 @@ const t13 = function () {
                 {name: Interop.asJString("小朱妮4"), age: Interop.asJInt(14)},
             ]
         )
-    }, Propagation.REQUIRED, -1);
+    }, Propagation.REQUIRED);
     log.info("res   --> {}", res);
 }
 

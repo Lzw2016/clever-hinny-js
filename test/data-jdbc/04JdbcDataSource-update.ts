@@ -1,5 +1,5 @@
 // JdbcDataSource 更新操作
-import {AnyEntity, jdbcDatabase, Propagation} from "@hinny/data-jdbc";
+import { AnyEntity, jdbcDatabase, Propagation } from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 const jdbc = jdbcDatabase.getDefault();
@@ -26,7 +26,7 @@ const t01 = function () {
         );
         log.info("count --> {}", count);
         return jdbc.queryMap<TbOrderMain>(sql, {order_id: Interop.asJLong("1")})
-    }, Propagation.REQUIRED, -1);
+    }, Propagation.REQUIRED);
 
     log.info("res   --> {}", res);
     log.info("data   --> {}", jdbc.queryMap(sql, {order_id: Interop.asJLong("1")}));

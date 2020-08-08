@@ -1,5 +1,5 @@
 // JdbcDatabase 新增操作
-import {InsertResult, jdbcDatabase, Propagation} from "@hinny/data-jdbc";
+import { InsertResult, jdbcDatabase, Propagation } from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 
@@ -16,7 +16,7 @@ const t01 = function () {
                 {name: Interop.asJString("猪4"), age: Interop.asJInt(14)},
             ]
         )
-    }, Propagation.REQUIRED, -1);
+    }, Propagation.REQUIRED);
     log.info("res   --> {}", res);
 }
 

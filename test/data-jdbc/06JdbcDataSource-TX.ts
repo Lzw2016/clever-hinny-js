@@ -1,8 +1,9 @@
 // JdbcDatabase 事务操作
-import {AnyEntity, jdbcDatabase, Propagation} from "@hinny/data-jdbc";
+import { AnyEntity, jdbcDatabase, Propagation } from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 const jdbc = jdbcDatabase.getDefault();
+
 interface TbOrderMain extends AnyEntity {
     order_id: JInt;
     user_agent_id: JInt;
@@ -15,9 +16,7 @@ const t01 = function () {
     const data = jdbc.queryMap(sql, {order_id: Interop.asJLong("1")})
     log.info("res ==> {}", data)
 
-
     const res = jdbc.beginTX(() => {
-
         const data_1 = Interop.fromJMap<TbOrderMain>(data);
         data_1.total_price = Interop.asJBigDecimal("66.66");
 
@@ -28,7 +27,7 @@ const t01 = function () {
         );
         log.info("count --> {}", count);
         return jdbc.queryMap<TbOrderMain>(sql, {order_id: Interop.asJLong("1")})
-    }, Propagation.REQUIRED, -1);
+    }, Propagation.REQUIRED);
 
     log.info("res ==> {}", res)
     log.info("res ==> {}", jdbc.queryMap(sql, {order_id: Interop.asJLong("1")}))
