@@ -1,5 +1,17 @@
 interface Interop extends JObject {
     /**
+     * 获取Java Class
+     * @param className Java Class Name全名称
+     */
+    getClass(className: string): JClass;
+
+    /**
+     * 创建一个Java Class对象
+     * @param className Java Class Name全名称
+     */
+    newJObject(className: string): JObject;
+
+    /**
      * 创建Java byte 值 (-128~127)
      */
     asJByte(arg: number | string): JByte;
