@@ -74,7 +74,7 @@ interface Interop extends JObject {
      * 创建 java.util.List 集合
      * @param args 集合元素
      */
-    asJList<T>(...args: T): JList<T>;
+    asJList<T>(...args: T[]): JList<T>;
 
     /**
      * 创建 java.util.List 集合
@@ -86,13 +86,13 @@ interface Interop extends JObject {
      * 创建 java.util.Set 集合
      * @param args 集合元素
      */
-    asJSet<T>(...args: T): JSet<T>;
+    asJSet<T>(...args: T[]): JSet<T>;
 
     /**
      * 创建 java.util.Set 集合
      * @param args 数组
      */
-    asJSet<T>(args: Array<T> | T[]): JSet<T>;
+    asJSet<T>(args: T[]): JSet<T>;
 
     /**
      * 创建 java.util.Map 集合
@@ -120,7 +120,7 @@ interface Interop extends JObject {
 
     // fromJList<T>(list: JList<T>): T[];
 
-    // fromJArray<T>(...array: T): T[];
+    // fromJArray<T>(...array: T[]): T[];
 
     fromJMap<T extends object>(obj: JMap<string, any>): T;
 

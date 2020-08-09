@@ -22,7 +22,7 @@ interface JDate extends JObject, Comparable<JDate> {
     getTime(): JLong;
 
     /**
-     * YEAR
+     * YEAR (1900)
      */
     getYear(): JIn;
 

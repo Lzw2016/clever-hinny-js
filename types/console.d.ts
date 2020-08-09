@@ -46,7 +46,7 @@ interface Console {
      * @param label     label值，默认“default”
      * @param message   输出数据
      */
-    timeLog(label: string, ...message: any): void;
+    timeLog(label: string, ...message: any[]): void;
 
     /**
      * 停止先前通过调用 console.time() 启动的计时器，并打印结果到 stdout (label = “default”)
@@ -65,42 +65,42 @@ interface Console {
      *
      * @param message 输出数据
      */
-    trace(...message: any): void;
+    trace(...message: any[]): void;
 
     /**
      * debug打印输出
      *
      * @param message 输出数据
      */
-    log(...message: any): void;
+    log(...message: any[]): void;
 
     /**
      * debug打印输出
      *
      * @param message 输出数据
      */
-    debug(...message: any): void;
+    debug(...message: any[]): void;
 
     /**
      * info打印输出
      *
      * @param message 输出数据
      */
-    info(...message: any): void;
+    info(...message: any[]): void;
 
     /**
      * warn打印输出
      *
      * @param message 输出数据
      */
-    warn(...message: any): void;
+    warn(...message: any[]): void;
 
     /**
      * error打印输出
      *
      * @param message 输出数据
      */
-    error(...message: any): void;
+    error(...message: any[]): void;
 }
 
 /**

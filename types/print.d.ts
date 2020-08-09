@@ -7,7 +7,7 @@ interface Print {
      *
      * @param message 输出数据
      */
-    (...message: any): void;
+    (...message: any[]): void;
 }
 
 /**
