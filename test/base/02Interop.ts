@@ -32,9 +32,9 @@ const t03 = function () {
     log.info("# asJList         -> {}", Interop.asJList("111", "222", "333"));
     log.info("# asJList         -> {}", Interop.asJList(["111", "222", "333"]));
     log.info("# asJList         -> {}", Interop.asJList([111, 222, 333]));
-    log.info("# asJSet          -> {}", Interop.asJSet("111", "222", "333"));
-    log.info("# asJSet          -> {}", Interop.asJSet(["111", "222", "333"]));
-    log.info("# asJSet          -> {}", Interop.asJSet([111, 222, 333]));
+    log.info("# asJSet          -> {}", Interop.asJSet("111", "222", "333", "333"));
+    log.info("# asJSet          -> {}", Interop.asJSet(["111", "222", "333", "333"]));
+    log.info("# asJSet          -> {}", Interop.asJSet([111, 222, 333, 333], [111, 222, 333, 333], [111, 222, 333, 333]));
     log.info("# asJMap          -> {}", Interop.asJMap({
         a: "aaa", b: 123, c: false, d: 12.87, fuc: function (a: number, b: number) {
             return a + b;
@@ -62,6 +62,7 @@ const t05 = function () {
             return a + b;
         }
     }));
+    //fixme new Date()不是北京时间   少了8小时
     log.info("# toJString         -> {}", Interop.toJString(new Date()));
 }
 

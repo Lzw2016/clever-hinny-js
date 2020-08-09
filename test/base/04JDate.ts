@@ -22,6 +22,7 @@ const t01 = function () {
     logger.info("toString   -> {}", jDate_3.toString());
     logger.info("===        -> {}", jDate_1 === jDate_3);
     logger.info("equals     -> {}", jDate_1.equals(jDate_3));
+    logger.info("equals     -> {}", jDate_1.equals(jDate_2));
 }
 
 export {

@@ -20,9 +20,7 @@ const t02 = function () {
     const sql2 = "select order_id,user_agent_id,site_id from tb_order_main where order_id = :order_id";
     log.info("[res]      --> {}", [jdbc.queryList(sql)]);
     log.info("[list]      --> {}", [jdbc.queryList(sql2, {order_id: Interop.asJLong("1")})]);
-    //fixme jdbc.queryMap(sql)有问题 failed due to: Arity error - expected: 2 actual: 1    clever-hinny-java中测试是无问题的
-    // const sql3 = "select order_id,user_agent_id,site_id from tb_order_main where order_id = 1";
-    // log.info("res   --> {}", jdbc.queryMap(sql3));
+    log.info("res   --> {}", jdbc.queryMap("select order_id,user_agent_id,site_id from tb_order_main where order_id = 1"));
     log.info("res2   --> {}", jdbc.queryMap(sql2, {order_id: Interop.asJLong("1")}));
 }
 const t03 = function () {

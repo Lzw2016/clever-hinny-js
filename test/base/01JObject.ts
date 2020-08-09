@@ -11,6 +11,7 @@ const t01 = function () {
     const jDate_3 = Interop.asJDate("2020-08-09 10:29:18");
     logger.info("jDate_1.equals       -> {}", jDate_1.equals(jDate_3));
     logger.info("jDate_1.equals       -> {}", jDate_1.equals("2020-08-09 10:29:18"));
+    logger.info("jDate_1.equals       -> {}", jDate_1.equals(jDate_2));
 }
 
 const t02 = function () {
