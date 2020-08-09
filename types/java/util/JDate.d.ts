@@ -22,12 +22,12 @@ interface JDate extends JObject, Comparable<JDate> {
     getTime(): JLong;
 
     /**
-     * YEAR (1900)
+     * YEAR (从1900年开始的时间数)
      */
     getYear(): JIn;
 
     /**
-     * MONTH
+     * MONTH (从0开始的月份数)
      */
     getMonth(): JIn;
 
@@ -52,7 +52,7 @@ interface JDate extends JObject, Comparable<JDate> {
     getSeconds(): JIn;
 
     /**
-     * DAY_OF_WEEK
+     * DAY_OF_WEEK (从0开始)
      */
     getDay(): JIn;
 }
