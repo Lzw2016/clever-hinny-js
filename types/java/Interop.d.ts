@@ -82,10 +82,10 @@ interface Interop extends JObject {
      */
     asJBigDecimal(arg: string): JBigDecimal;
 
-    // /**
-    //  * TODO 创建Java java.math.BigInteger 对象
-    //  */
-    // asJBigInteger(arg: string): JBigInteger;
+    /**
+     * 创建Java java.math.BigInteger 对象
+     */
+    asJBigInteger(arg: string): JBigInteger;
 
     /**
      * 创建 java.util.List 集合
