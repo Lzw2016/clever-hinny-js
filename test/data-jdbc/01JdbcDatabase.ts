@@ -42,34 +42,7 @@ const t02 = function () {
     logger.info("status      -> {}/{}", status.getTotalConnections(), status.getActiveConnections());
 }
 
-const t03 = function () {
-    let jdbc_2 = jdbcDatabase.add("jdbc_2", {
-        driverClassName: 'com.mysql.cj.jdbc.Driver',
-        jdbcUrl: 'jdbc:mysql://111.229.118.217:3306/snj_sjpt',
-        username: 'root',
-        password: '83eF7neajSJTc2Qj',
-        isReadOnly: false,
-    });
-    logger.info("jdbcDataSource -> {}", jdbc_2);
-    const jdbc = jdbcDatabase.getDataSource("jdbc_2");
-    if (jdbc != null) {
-        var dic = jdbc.queryList("select * from company_certificate_dic where parent_id in (2,3) and del_flag = '0' order by id asc")
-        logger.info("dic -> {}", [dic]);
-        logger.info("dic -> {}", jdbc.queryCount(
-            `select * from company_certificate_dic where parent_id in (:parent_ids) and del_flag = '0'`,
-            {
-                parent_ids: [1, 2, 3].join(","),
-            }
-        ));
-        logger.info("dic -> {}", jdbc.queryCount(
-            `select * from company_certificate_dic where parent_id in (${[1, 2, 3].join(",")}) and del_flag = '0'`,
-            {}
-        ));
-    }
-}
-
 export {
     t01,
     t02,
-    t03,
 }
