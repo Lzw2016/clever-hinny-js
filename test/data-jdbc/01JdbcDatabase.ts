@@ -61,6 +61,10 @@ const t03 = function () {
                 parent_ids: [1, 2, 3].join(","),
             }
         ));
+        logger.info("dic -> {}", jdbc.queryCount(
+            `select * from company_certificate_dic where parent_id in (${[1, 2, 3].join(",")}) and del_flag = '0'`,
+            {}
+        ));
     }
 }
 
