@@ -194,5 +194,5 @@ interface JBigInteger extends JObject, Comparable<JBigInteger> {
     /**
      * 返回其值为 (this ^ val) 的 BigInteger
      */
-    xor(val: BigInteger): JString;
+    xor(val: JBigInteger): JString;
 }
