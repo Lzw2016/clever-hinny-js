@@ -25,24 +25,40 @@ const t01 = function () {
     log.info("isSynthetic(a)         ======>{}", classA.isSynthetic());
 
 
-    log.info("isSynthetic(a)         ======>{}", a.abs());
-    log.info("isSynthetic(a)         ======>{}", a.add(b));
-    log.info("isSynthetic(a)         ======>{}", a.divide(b));
-    log.info("isSynthetic(a)         ======>{}", a.divideAndRemainder(b));
-    log.info("isSynthetic(a)         ======>{}", a.divideToIntegralValue(b));
-    log.info("isSynthetic(a)         ======>{}", a.doubleValue());
-    log.info("isSynthetic(a)         ======>{}", a.floatValue());
-    log.info("isSynthetic(a)         ======>{}", a.intValue());
-    log.info("isSynthetic(a)         ======>{}", a.intValueExact());
-    log.info("isSynthetic(a)         ======>{}", a.longValue());
-    log.info("isSynthetic(a)         ======>{}", a.max(b));
-    log.info("isSynthetic(a)         ======>{}", a.min(b));
-    log.info("isSynthetic(a)         ======>{}", a.movePointLeft(1));
-    log.info("isSynthetic(a)         ======>{}", a.movePointRight(1));
-    log.info("isSynthetic(a)         ======>{}", a.multiply(b));
-    log.info("isSynthetic(a)         ======>{}", a.negate());
-    log.info("isSynthetic(a)         ======>{}", a.plus());
-    log.info("isSynthetic(a)         ======>{}", a.pow(5));
+    log.info("abs(a)                 ======>{}", a.abs());
+    log.info("add(a)                 ======>{}", a.add(b));
+    log.info("divide(a)              ======>{}", a.divide(Interop.asJBigDecimal("10")));
+    log.info("divideAndRemainder(a)  ======>{}", [a.divideAndRemainder(b)]);
+    log.info("divideToIntegralValue(a)======>{}", a.divideToIntegralValue(b));
+    log.info("doubleValue(a)         ======>{}", a.doubleValue());
+    log.info("floatValue(a)          ======>{}", a.floatValue());
+    log.info("intValue(a)            ======>{}", a.intValue());
+    log.info("longValue(a)           ======>{}", a.longValue());
+    log.info("max(a)                 ======>{}", a.max(b));
+    log.info("min(a)                 ======>{}", a.min(b));
+    log.info("movePointLeft(a)       ======>{}", a.movePointLeft(1));
+    log.info("movePointRight(a)      ======>{}", a.movePointRight(1));
+    log.info("multiply(a)            ======>{}", a.multiply(b));
+    log.info("negate(a)              ======>{}", a.negate());
+    log.info("plus(a)                ======>{}", a.plus());
+    log.info("pow(a)                 ======>{}", a.pow(2));
+
+    log.info("intValueExact          ======>{}", Interop.asJBigDecimal("111").intValueExact());
+    log.info("precision(精度)        ======>{}", Interop.asJBigDecimal("111.12161").precision());
+    log.info("scale(标度)            ======>{}", Interop.asJBigDecimal("111.12161").scale());
+    log.info("setScale(标度为指定值) ======>{}", Interop.asJBigDecimal("111.12161").setScale(9));
+    log.info("signum                 ======>{}", Interop.asJBigDecimal("-111.12161").signum());
+    log.info("toEngineeringString    ======>{}", Interop.asJBigDecimal("-111.12161").toEngineeringString());
+    log.info("stripTrailingZeros    ======>{}", Interop.asJBigDecimal("-111.1216100000").stripTrailingZeros());
+
+    log.info("longValueExact         ======>{}", Interop.asJBigDecimal("111").longValueExact());
+
+    log.info("shortValueExact        ======>{}", Interop.asJBigDecimal("111.0").shortValueExact());
+    log.info("shortValue             ======>{}", Interop.asJBigDecimal("111.2").shortValue());
+
+    log.info("toBigIntegerExact      ======>{}", Interop.asJBigDecimal("111").toBigIntegerExact());
+    log.info("toBigInteger           ======>{}", Interop.asJBigDecimal("111.56161").toBigInteger());
+    log.info("unscaledValue          ======>{}", Interop.asJBigDecimal("111.1516").unscaledValue());
 }
 
 export {
