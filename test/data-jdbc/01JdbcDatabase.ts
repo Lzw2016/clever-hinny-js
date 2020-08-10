@@ -1,4 +1,4 @@
-import {jdbcDatabase} from "@hinny/data-jdbc";
+import { jdbcDatabase } from "@hinny/data-jdbc";
 
 const logger = LoggerFactory.getLogger(__filename);
 
@@ -56,9 +56,9 @@ const t03 = function () {
         var dic = jdbc.queryList("select * from company_certificate_dic where parent_id in (2,3) and del_flag = '0' order by id asc")
         logger.info("dic -> {}", [dic]);
         logger.info("dic -> {}", jdbc.queryCount(
-            "select * from company_certificate_dic where parent_id in (2,3) and del_flag = '0'",
+            `select * from company_certificate_dic where parent_id in (:parent_ids) and del_flag = '0'`,
             {
-                parent_id:Interop.asJList(2,3),
+                parent_ids: [1, 2, 3].join(","),
             }
         ));
     }
