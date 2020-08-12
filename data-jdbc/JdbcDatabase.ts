@@ -893,9 +893,9 @@ export interface JdbcConfig {
     /** 密码 */
     password: JString;
     /** 是否自动提交 */
-    isAutoCommit?: JBoolean;
+    autoCommit?: JBoolean;
     /** 是否只读 */
-    isReadOnly?: JBoolean;
+    readOnly?: JBoolean;
     /** 连接池最大大小 */
     maxPoolSize?: JInt;
     /** 最小空闲连接数 */

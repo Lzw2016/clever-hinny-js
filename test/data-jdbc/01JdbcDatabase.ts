@@ -16,12 +16,13 @@ const t01 = function () {
         jdbcUrl: 'jdbc:mysql://192.168.31.40:3306/clever-template',
         username: 'clever-template',
         password: 'lizhiwei1993',
-        isReadOnly: true,
+        readOnly: true,
     });
     logger.info("jdbcDataSource -> {}", jdbc_2);
     has_jdbc_2 = jdbcDatabase.hasDataSource("jdbc_2");
     logger.info("hasDataSource  -> {}", has_jdbc_2);
     logger.info("allNames       -> {}", jdbcDatabase.allNames());
+    logger.info("getInfo        -> {}", jdbcDatabase.getInfo("jdbc_2"));
 }
 
 const t02 = function () {

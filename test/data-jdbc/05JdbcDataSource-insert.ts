@@ -1,5 +1,5 @@
 // JdbcDatabase 新增操作
-import {AnyEntity, InsertResult, jdbcDatabase, Propagation} from "@hinny/data-jdbc";
+import { AnyEntity, InsertResult, jdbcDatabase, Propagation } from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 
@@ -34,7 +34,7 @@ const t02 = function () {
         jdbcUrl: 'jdbc:mysql://111.229.118.217:3306/snj_sjpt',
         username: 'root',
         password: '83eF7neajSJTc2Qj',
-        isReadOnly: false,
+        readOnly: false,
     });
     log.info("jdbcDataSource -> {}", jdbc_2);
     const jdbc = jdbcDatabase.getDataSource("jdbc_2");
