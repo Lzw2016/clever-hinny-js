@@ -21,7 +21,7 @@ const t01 = function () {
     // log.info("pow(a)                 ======>{}", a.pow());
     log.info("toByteArray(a)         ======>{}", [a.toByteArray()]);
     //fixme     xor(val: BigInteger): JString;返回值很诡异 自行测试几次就懂了
-    log.info("xor(a)                 ======>{}", a.xor(Interop.asJBigDecimal("-100").toBigInteger()));
+    log.info("xor(a)                 ======>{}", a.xor(Interop.asJBigDecimal("50").toBigInteger()));
 
 }
 
