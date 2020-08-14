@@ -5,10 +5,4 @@
  */
 interface JSqlDate extends JDate {
     java_sql_Time: "java.sql.Date";
-
-    getHours(): JInt;
-
-    getMinutes(): JInt;
-
-    getSeconds(): JInt;
 }

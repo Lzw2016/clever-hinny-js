@@ -5,12 +5,4 @@
  */
 interface JSqlTime extends JDate {
     java_sql_Time: "java.sql.Time";
-
-    getDate(): JInt;
-
-    getDay(): JInt;
-
-    getMonth(): JInt;
-
-    getYear(): JInt;
 }

@@ -24,35 +24,35 @@ interface JDate extends JObject, Comparable<JDate> {
     /**
      * YEAR (从1900年开始的时间数)
      */
-    getYear(): JIn;
+    getYear(): JInt;
 
     /**
      * MONTH (从0开始的月份数)
      */
-    getMonth(): JIn;
+    getMonth(): JInt;
 
     /**
      * DAY_OF_MONTH
      */
-    getDate(): JIn;
+    getDate(): JInt;
 
     /**
      * HOUR_OF_DAY
      */
-    getHours(): JIn;
+    getHours(): JInt;
 
     /**
      * MINUTE
      */
-    getMinutes(): JIn;
+    getMinutes(): JInt;
 
     /**
      * SECOND
      */
-    getSeconds(): JIn;
+    getSeconds(): JInt;
 
     /**
      * DAY_OF_WEEK (从0开始)
      */
-    getDay(): JIn;
+    getDay(): JInt;
 }
