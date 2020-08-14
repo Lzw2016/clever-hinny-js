@@ -1,7 +1,7 @@
 const log = LoggerFactory.getLogger(__filename);
 
 const t01 = function () {
-    const list = Interop.asJList("大家撒旦吉萨", "1556", "水电费√d");
+    const list = Interop.asJList("大家撒旦吉萨", "1556", "水电费√d", "158", "159", "160");
     const iterator = list.iterator();
     while (iterator.hasNext()) {
         log.info("next ======>{}", iterator.next());
@@ -16,6 +16,15 @@ const t01 = function () {
     log.info("indexOf              ======>{}", list.indexOf("1556"));
     log.info("lastIndexOf          ======>{}", list.lastIndexOf("1556"));
     log.info("isEmpty              ======>{}", list.isEmpty());
+
+    const collection = Interop.asJList("1556", "水电费√d");
+    log.info("containsAll          ======>{}", list.containsAll(collection));
+    //fixme 以下注释方法异常
+    // log.info("retainAll            ======>{}", list.retainAll(collection));
+    // log.info("removeAll            ======>{}", list.removeAll(collection));
+    // log.info("addAll               ======>{}", list.addAll(collection));
+    // log.info("addAll               ======>{}", list.addAll(6, collection));
+    log.info("list                 ======>{}", [list]);
     //fixme 以下方法均不支持
     log.info("remove               ======>{}", list.remove(1));
     log.info("remove               ======>{}", list.remove("1156"));

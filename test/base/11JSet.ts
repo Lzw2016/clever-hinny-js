@@ -16,6 +16,15 @@ const t01 = function () {
     log.info("set                  ======>{}", [set]);
     log.info("add                  ======>{}", set.add("ewqdwqdqdq"));
     log.info("set                  ======>{}", [set]);
+
+    const collection = Interop.asJList("415613", "水电费√d");
+    log.info("containsAll          ======>{}", set.containsAll(collection));
+    log.info("retainAll            ======>{}", set.retainAll(collection));
+    log.info("set                  ======>{}", [set]);
+    log.info("removeAll            ======>{}", set.removeAll(collection));
+    log.info("set                  ======>{}", [set]);
+    log.info("addAll               ======>{}", set.addAll(collection));
+    log.info("set                  ======>{}", [set]);
 }
 
 export {

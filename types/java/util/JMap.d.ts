@@ -69,7 +69,7 @@ interface JMap<K, V> extends JObject {
     /**
      * 从指定映射中将所有映射关系复制到此映射中（可选操作）
      */
-    putAll<TK extends K, TV extends V>(t: Map<TK, TV>): void;
+    putAll<TK extends K, TV extends V>(t: JMap<TK, TV>): void;
 
     /**
      * 如果存在此键的映射关系，则将其从映射中移除（可选操作）
