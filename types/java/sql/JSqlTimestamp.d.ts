@@ -17,9 +17,12 @@ interface JSqlTimestamp extends JDate {
     before(ts: JSqlTimestamp): JBoolean;
 
     /**
-     * 将此 Timestamp 对象与给定的 Date（必须为 Timestamp 对象）相比较
+     * 将此 Timestamp 对象与给定的 Date（必须为 Timestamp 对象）相比较 <br>
+     * this 早于 参数o 返回-1  <br>
+     * this 晚于 参数o 返回 1  <br>
+     * 时间相等返回0  <br>
      */
-    compareTo(o: JDate): JBoolean;
+    compareTo(o: JSqlTimestamp): JBoolean;
 
     /**
      * 获取此 Timestamp 对象的 nanos 值
