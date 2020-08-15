@@ -12,6 +12,24 @@ DigestUtils
 EncodeDecodeUtils
 ThreadUtils
 
+--
+
+HttpUtils
+TreeUtils
+SpringContext
+ExcelUtils
+CookieUtils
+HttpRequestUtils
+ValidatorUtils
+ImageValidateUtils
+ZxingUtils
+SendMailUtils
+PinyinUtils
+DataSizeUtils
+IPAddressUtils
+IdCardUtils
+RMBUtils
+
 
 
 
