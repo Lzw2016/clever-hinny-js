@@ -9,7 +9,7 @@ XmlUtils
 SpringContext
 CryptoUtils
 DigestUtils
-EncodeDecodeUtils
+EncodeDecodeUtils   OK
 ThreadUtils         OK
 
 --
