@@ -22,9 +22,9 @@ CookieUtil
 HttpRequestUtils
 ValidatorUtils
 ImageValidateUtils  OK
-ZxingUtils
+ZxingUtils          OK
 SendMailUtils
-PinyinUtils
+PinyinUtils         OK
 DataSizeUtils
 IPAddressUtils
 IdCardUtils
