@@ -1335,8 +1335,7 @@ export interface StringUtils {
      *  .join([null, "", "a"]) = "a"
      * </pre>
      */
-//fixme
-    // <T> String join(T[] elements)
+    join<T extends any>(elements: T[]): JString
 
     /**
      * <pre>
@@ -2394,8 +2393,7 @@ export interface StringUtils {
      *  .firstNonBlank()                     = null
      * </pre>
      */
-//fixme
-    // <T extends JCharSequence> T firstNonBlank(values:any[] )
+    firstNonBlank<T extends JCharSequence>(values: T[]): T
 
     /**
      * <pre>
@@ -2409,8 +2407,7 @@ export interface StringUtils {
      *  .firstNonEmpty()                   = null
      * </pre>
      */
-//fixme
-    // <T extends JCharSequence> T firstNonEmpty(values:any[] )
+    firstNonEmpty<T extends JCharSequence>(values: T[]): T
 
     /**
      * <pre>
@@ -2421,8 +2418,7 @@ export interface StringUtils {
      *  .defaultIfBlank("", null)      = null
      * </pre>
      */
-//fixme
-//   <T extends JCharSequence> T defaultIfBlank(str:any ,defaultStr: any )
+    defaultIfBlank<T extends JCharSequence>(str: T, defaultStr: T): T
 
     /**
      * <pre>
@@ -2433,8 +2429,7 @@ export interface StringUtils {
      *  .defaultIfEmpty("", null)      = null
      * </pre>
      */
-//fixme
-    // <T extends JCharSequence> T defaultIfEmpty(str:any ,defaultStr: any )
+    defaultIfEmpty<T extends JCharSequence>(str: T, defaultStr: T): T
 
 // Rotating (circular shift)
 //----------------------------------------------------------------------------------------------------------------------------------------------
