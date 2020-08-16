@@ -4,10 +4,10 @@ CommonUtils         OK
 StringUtils         OK
 DateUtils           OK
 IDGenerateUtils     OK
-JsonUtils
-XmlUtils
+JsonUtils           OK
+XmlUtils            OK
 SpringContext
-CryptoUtils
+CryptoUtils         OK
 DigestUtils
 EncodeDecodeUtils   OK
 ThreadUtils         OK
