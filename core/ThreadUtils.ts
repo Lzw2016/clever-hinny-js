@@ -1,3 +1,38 @@
 export interface ThreadUtils {
+    /**
+     * 线程栈信息
+     *
+     * @return 线程栈信息字符串
+     */
+    track(thread: JThread): JString;
 
+    /**
+     * 当前线程栈信息
+     *
+     * @return 线程栈信息字符串
+     */
+    track(): JString;
+
+    /**
+     * 打印线程栈信息
+     */
+    printTrack(thread: JThread): void;
+
+    /**
+     * 打印当前线程栈信息
+     */
+    printTrack(): void;
+
+    /**
+     * 休眠一段时间
+     *
+     * @param millis 毫秒
+     */
+    sleep(millis: JLong): void;
+}
+
+const threadUtils: ThreadUtils = Java.type('org.clever.hinny.core.ThreadUtils').Instance;
+
+export {
+    threadUtils,
 }

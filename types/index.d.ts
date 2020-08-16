@@ -5,6 +5,7 @@
 // ----------------------------------------------------------------------- lang
 /// <reference path="java/lang/JObject.d.ts" />
 /// <reference path="java/lang/JCharSequence.d.ts" />
+/// <reference path="java/lang/JThread.d.ts" />
 
 // ----------------------------------------------------------------------- math
 /// <reference path="java/math/JBigDecimal.d.ts" />
