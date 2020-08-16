@@ -1,8 +1,7 @@
 /**
- * SQL参数类型
+ * 参数类型
  */
-export type ParamType = JChar | JString | JInt | JLong | JDouble | JBigDecimal | JBoolean | JDate | Date | number | string | boolean | null;
-
+export type ParamType = JChar | JString | JInt | JLong | JFloat | JDouble | JBigDecimal | JBoolean | JDate | JSqlDate | JSqlTime | JSqlTimestamp | Date | number | string | boolean | null;
 
 /**
  * 请求Query String Parameter参数
