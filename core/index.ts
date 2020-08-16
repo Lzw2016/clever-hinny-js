@@ -8,7 +8,7 @@ export * from './JsonUtils';
 export * from './XmlUtils';
 export * from './TreeUtils';
 export * from './SpringContext';
-export * from './ExcelUtils';
+// export * from './ExcelUtils';
 export * from './CryptoUtils';
 export * from './DigestUtils';
 export * from './EncodeDecodeUtils';
