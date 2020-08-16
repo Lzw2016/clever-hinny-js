@@ -27,8 +27,8 @@ SendMailUtils
 PinyinUtils         OK
 DataSizeUtils       OK
 IPAddressUtils      OK
-IdCardUtils
-RMBUtils
+IdCardUtils         OK
+RMBUtils            OK
 
 
 
