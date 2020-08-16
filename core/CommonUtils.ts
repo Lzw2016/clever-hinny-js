@@ -9,17 +9,17 @@ export interface CommonUtils {
     /**
      * 获取对象的 hashcode
      */
-    hashCode(object: any): JInt;
+    hashCode(object: object): JInt;
 
     /**
      * 两个对象 equals
      */
-    equals(a: any, b: any): JBoolean;
+    equals(a: object, b: object): JBoolean;
 
     /**
      * 判断两个对象是不是同一个对象(内存地址相同)
      */
-    same(a: any, b: any): JBoolean;
+    same(a: object, b: object): JBoolean;
 
     /**
      * 获取当前时间搓(毫秒)
