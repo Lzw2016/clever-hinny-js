@@ -75,14 +75,41 @@ export interface HttpResponse {
      */
     isSuccessful(): JBoolean;
 
+    /**
+     * 获取响应头信息
+     *
+     * @param header 响应头名称
+     */
     getHeader(header: JString): JList<JString>;
 
+    /**
+     * 获取响应头的第一个信息
+     *
+     * @param header 响应头名称
+     */
     getFirstHeader(header: JString): JString;
 
+    /**
+     * 获取所有响应头的第一个信息
+     */
+    getFirstHeaders(): JMap<JString, JString>;
+
+    /**
+     * 获取响应头的第一个信息
+     *
+     * @param header       响应头名称
+     * @param defaultValue 默认值
+     */
     getFirstHeader(header: JString, defaultValue: JString): JString;
 
+    /**
+     * 获取所有的响应头名称
+     */
     getHeaderNames(): JSet<JString>;
 
+    /**
+     * 获取请求BodyMap对象
+     */
     getBodyMap(): ResultMap;
 }
 

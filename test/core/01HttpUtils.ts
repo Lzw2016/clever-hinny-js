@@ -43,6 +43,7 @@ const t02 = function () {
     log.info("isSuccessful      -> {}", res.isSuccessful());
     log.info("getHeaderNames    -> {}", res.getHeaderNames());
     log.info("getBodyMap        -> {}", res.getBodyMap());
+    log.info("getBodyMap        -> {}", res.getFirstHeader("set-cookie"));
 }
 
 export {
