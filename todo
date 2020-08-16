@@ -14,11 +14,11 @@ ThreadUtils
 
 --
 
-HttpUtils
-TreeUtils
-SpringContext
+HttpUtils           OK
+TreeUtils           OK
+SpringContext       OK
 ExcelUtils
-CookieUtils
+CookieUtil
 HttpRequestUtils
 ValidatorUtils
 ImageValidateUtils

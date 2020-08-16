@@ -4,10 +4,18 @@
 /// <reference path="java/Interop.d.ts" />
 // ----------------------------------------------------------------------- lang
 /// <reference path="java/lang/JObject.d.ts" />
+/// <reference path="java/lang/JCharSequence.d.ts" />
 
 // ----------------------------------------------------------------------- math
 /// <reference path="java/math/JBigDecimal.d.ts" />
 /// <reference path="java/math/JBigInteger.d.ts" />
+
+// ----------------------------------------------------------------------- io
+/// <reference path="java/io/JCloseable.d.ts" />
+/// <reference path="java/io/JInputStream.d.ts" />
+/// <reference path="java/io/JOutputStream.d.ts" />
+/// <reference path="java/io/JReader.d.ts" />
+/// <reference path="java/io/JWriter.d.ts" />
 
 // ----------------------------------------------------------------------- util
 /// <reference path="java/util/JDate.d.ts" />
