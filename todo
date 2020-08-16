@@ -21,7 +21,7 @@ ExcelUtils
 CookieUtil
 HttpRequestUtils
 ValidatorUtils
-ImageValidateUtils
+ImageValidateUtils  OK
 ZxingUtils
 SendMailUtils
 PinyinUtils
