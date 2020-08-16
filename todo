@@ -6,7 +6,7 @@ DateUtils           OK
 IDGenerateUtils     OK
 JsonUtils           OK
 XmlUtils            OK
-SpringContext
+SpringContext       OK
 CryptoUtils         OK
 DigestUtils         OK
 EncodeDecodeUtils   OK
