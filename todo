@@ -8,7 +8,7 @@ JsonUtils           OK
 XmlUtils            OK
 SpringContext
 CryptoUtils         OK
-DigestUtils
+DigestUtils         OK
 EncodeDecodeUtils   OK
 ThreadUtils         OK
 
