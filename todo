@@ -2,8 +2,8 @@
 AssertUtils         OK
 CommonUtils         OK
 StringUtils         OK
-DateUtils
-IDGenerateUtils
+DateUtils           OK
+IDGenerateUtils     OK
 JsonUtils
 XmlUtils
 SpringContext
