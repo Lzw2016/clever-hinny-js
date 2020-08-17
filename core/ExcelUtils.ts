@@ -47,7 +47,7 @@ export enum CellDataTypeEnum {
     IMAGE = "IMAGE",
 }
 
-export enum Locale {
+export enum ExcelLocale {
     /** 英语 */
     ENGLISH = "ENGLISH",
     /** 中文 */
@@ -63,12 +63,13 @@ export interface AbstractParameterBuilder<T extends AbstractParameterBuilder<T>>
     use1904windowing(use1904windowing: boolean): T;
 
     /** Locale对象表示特定的地理、政治或文化区域。设置日期和数字格式时使用此参数 */
-    locale(locale: Locale): void;
+    locale(locale: ExcelLocale): void;
 
     /** 自动删除空格字符 */
     autoTrim(autoTrim: boolean): void;
 
-    // head(List<List<String>> head)
+    /** 设置Excel表头 */
+    head(head: JString[][]): void;
 }
 
 export interface AbstractExcelReaderParameterBuilder<T extends AbstractExcelReaderParameterBuilder<T>> extends AbstractParameterBuilder<T> {
@@ -94,16 +95,15 @@ export interface ExcelReaderSheetBuilder extends AbstractExcelReaderParameterBui
      */
     doRead(): void;
 
-    // /**
-    //  * 读取Excel数据，并返回所有结果(数据量大时，会消耗大量内存)
-    //  */
-    // doReadSync(): List<T>;
+    /**
+     * 读取Excel数据，并返回所有结果(数据量大时，会消耗大量内存)
+     */
+    doReadSync<T>(): JList<T>;
 }
 
 export interface ExcelReaderBuilder extends AbstractExcelReaderParameterBuilder<ExcelReaderBuilder> {
     /** 文件输入流 */
-
-    // file(inputStream: InputStream): ExcelReaderBuilder;
+    file(inputStream: JInputStream): ExcelReaderBuilder;
 
     /** 强制使用输入流，如果为false，则将“inputStream”传输到临时文件以提高效率 */
     mandatoryUseInputStream(mandatoryUseInputStream: boolean): ExcelReaderBuilder;
@@ -139,7 +139,7 @@ export interface ExcelReaderBuilder extends AbstractExcelReaderParameterBuilder<
     doReadAll(): void;
 
     /** 开始读取所有的页签数据，并返回所有结果(数据量大时，会消耗大量内存) */
-    // doReadAllSync(): List<T>;
+    doReadAllSynTc<T>(): JList<T>;
 }
 
 export interface AbstractExcelWriterParameterBuilder<T extends AbstractExcelWriterParameterBuilder<T>> extends AbstractParameterBuilder<T> {
@@ -155,13 +155,13 @@ export interface AbstractExcelWriterParameterBuilder<T extends AbstractExcelWrit
     /** 是否自动合并表头 */
     automaticMergeHead(automaticMergeHead: boolean): T;
 
-    // excludeColumnIndexes(Collection<Integer> excludeColumnIndexes):T;
+    excludeColumnIndexes(excludeColumnIndexes: JCollection<JInt>): T;
 
-    // excludeColumnFiledNames(Collection<String> excludeColumnFiledNames):T;
+    excludeColumnFiledNames(excludeColumnFiledNames: JCollection<JString>): T;
 
-    // includeColumnIndexes(Collection<Integer> includeColumnIndexes):T;
+    includeColumnIndexes(includeColumnIndexes: JCollection<JInt>): T;
 
-    // includeColumnFiledNames(Collection<String> includeColumnFiledNames):T;
+    includeColumnFiledNames(includeColumnFiledNames: JCollection<JString>): T;
 }
 
 export interface ExcelWriterSheetBuilder extends AbstractExcelWriterParameterBuilder<ExcelWriterSheetBuilder> {
@@ -171,28 +171,28 @@ export interface ExcelWriterSheetBuilder extends AbstractExcelWriterParameterBui
     /** 页签名称(xlsx格式才支持) */
     sheetName(sheetName: string): ExcelWriterSheetBuilder;
 
-    // doWrite(List data):void
+    doWrite(data: JList<object>): void
 
-    // doFill(Object data):void
+    doFill(data: object): void
 
     // doFill(Object data, FillConfig fillConfig):void
 
-    // table():ExcelWriterSheetBuilder
+    table(): ExcelWriterSheetBuilder;
 
-    // table(Integer tableNo):ExcelWriterSheetBuilder
+    table(tableNo: JInt): ExcelWriterSheetBuilder;
 }
 
 export interface ExcelWriterTableBuilder extends AbstractExcelWriterParameterBuilder<ExcelWriterTableBuilder> {
-    // tableNo(Integer tableNo):ExcelWriterTableBuilder
+    tableNo(tableNo: JInt): ExcelWriterTableBuilder;
 
-    // doWrite(List data):void
+    doWrite(data: JList<object>): void
 }
 
 export interface ExcelWriterBuilder extends AbstractExcelWriterParameterBuilder<ExcelWriterBuilder> {
 
-    // file(OutputStream outputStream)
+    file(outputStream: JOutputStream): void;
 
-    // withTemplate(InputStream templateInputStream)
+    withTemplate(templateInputStream: JInputStream): void;
 
     /**  */
     autoCloseStream(autoCloseStream: boolean): ExcelWriterBuilder;
@@ -218,18 +218,22 @@ export interface ExcelWriterBuilder extends AbstractExcelWriterParameterBuilder<
     sheet(sheetName: string): ExcelWriterBuilder;
 }
 
-export enum DataType {
-    String = "String",
-    BigDecimal = "BigDecimal",
-    Boolean = "Boolean",
-    ByteArray = "Byte[]",
-    Byte = "Byte",
-    Date = "Date",
-    Double = "Double",
-    Float = "Float",
-    Integer = "Integer",
-    Long = "Long",
-    Short = "Short",
+export interface AnalysisContext {
+
+}
+
+export enum ExcelDataType {
+    JString = "JString",
+    JBigDecimal = "JBigDecimal",
+    JBoolean = "JBoolean",
+    JDate = "JDate",
+    JInteger = "JInteger",
+    JDouble = "JDouble",
+    JLong = "JLong",
+    JFloat = "JFloat",
+    JShort = "JShort",
+    JByte = "JByte",
+    JByteArray = "JByte[]",
 }
 
 export interface ExcelProperty {
@@ -237,7 +241,7 @@ export interface ExcelProperty {
     column: string | string[];
 
     /** 列的数据类型 */
-    dataType: DataType;
+    dataType: ExcelDataType;
 
     /** 是否忽略当前列 */
     ignore?: boolean;
@@ -259,7 +263,7 @@ export interface NumberFormat {
     numberFormat: string;
 
     /** 四舍五入模式 */
-    // roundingMode?: RoundingMode;
+    roundingMode?: RoundingMode;
 }
 
 export interface ColumnWidth {
@@ -388,7 +392,7 @@ export interface ExcelReaderHeadConfig extends ExcelProperty, Partial<DateTimeFo
 
 export class ExcelReaderConfig<T extends object> {
     /** 文件输入流 */
-    // file?: InputStream;
+    file?: JInputStream;
 
     /** 是否自动关闭输入流 */
     autoCloseStream?: boolean = false;
@@ -418,7 +422,7 @@ export class ExcelReaderConfig<T extends object> {
     use1904windowing?: boolean = false;
 
     /** Locale对象表示特定的地理、政治或文化区域。设置日期和数字格式时使用此参数 */
-    locale?: Locale = Locale.SIMPLIFIED_CHINESE;
+    locale?: ExcelLocale = ExcelLocale.SIMPLIFIED_CHINESE;
 
     /** 自动删除空格字符 */
     autoTrim?: boolean = true;
@@ -426,17 +430,20 @@ export class ExcelReaderConfig<T extends object> {
     /** 设置一个自定义对象，可以在侦听器中读取此对象(AnalysisContext.getCustom()) */
     customObject?: any;
 
+    /**  读取Excel文件最大行数 */
+    limitRows?: JInt = 2000;
+
     /** Excel列配置(表头) */
     columns?: {
         [column in keyof T]: ExcelReaderHeadConfig;
     };
 
-    constructor(sheet?: number | string, headRowNumber?: number, autoTrim?: boolean, ignoreEmptyRow?: boolean, locale?: Locale, password?: string) {
+    constructor(sheet?: number | string, headRowNumber?: number, autoTrim?: boolean, ignoreEmptyRow?: boolean, limitRows?: JInt, locale?: ExcelLocale, password?: string) {
         this.sheet = sheet ?? 0;
         this.headRowNumber = headRowNumber ?? 1;
         this.autoTrim = autoTrim ?? true;
         this.ignoreEmptyRow = ignoreEmptyRow ?? false;
-        this.locale = locale ?? Locale.SIMPLIFIED_CHINESE;
+        this.locale = locale ?? ExcelLocale.SIMPLIFIED_CHINESE;
         this.password = password ?? undefined;
     }
 }
@@ -473,16 +480,16 @@ const excelReaderConfig = new ExcelReaderConfig<Test>();
 
 excelReaderConfig.columns = {
     aaa: {
-        dataType: DataType.String,
+        dataType: ExcelDataType.JString,
         column: "第一列",
         dateFormat: "yyyy-MM-dd HH:mm:ss",
     },
     bbb: {
-        dataType: DataType.BigDecimal,
+        dataType: ExcelDataType.JBigDecimal,
         column: "第二列",
     },
     ccc: {
-        dataType: DataType.Date,
+        dataType: ExcelDataType.JDate,
         column: "第三列",
     }
 }
