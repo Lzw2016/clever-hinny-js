@@ -387,9 +387,12 @@ export interface OnceAbsoluteMerge {
     lastColumnIndex: number;
 }
 
+/** 读取Excel时的表头配置 */
 export interface ExcelReaderHeadConfig extends ExcelProperty, Partial<DateTimeFormat>, Partial<NumberFormat> {
+    // TODO 数据校验配置
 }
 
+/** 读取Excel时的初始化配置 */
 export class ExcelReaderConfig<T extends object> {
     /** 文件输入流 */
     file?: JInputStream;
@@ -430,8 +433,14 @@ export class ExcelReaderConfig<T extends object> {
     /** 设置一个自定义对象，可以在侦听器中读取此对象(AnalysisContext.getCustom()) */
     customObject?: any;
 
-    /**  读取Excel文件最大行数 */
+    /**  读取Excel文件最大行数(默认: 2000)，小于0表示不限制 */
     limitRows?: JInt = 2000;
+
+    /** 是否缓存读取的数据结果到内存中(默认启用) */
+    enableExcelData?: JBoolean = true;
+
+    /** 是否启用数据校验(默认启用) */
+    enableValidation?: JBoolean = true;
 
     /** Excel列配置(表头) */
     columns?: {
@@ -443,6 +452,7 @@ export class ExcelReaderConfig<T extends object> {
         this.headRowNumber = headRowNumber ?? 1;
         this.autoTrim = autoTrim ?? true;
         this.ignoreEmptyRow = ignoreEmptyRow ?? false;
+        this.limitRows = limitRows ?? 2000;
         this.locale = locale ?? ExcelLocale.SIMPLIFIED_CHINESE;
         this.password = password ?? undefined;
     }
