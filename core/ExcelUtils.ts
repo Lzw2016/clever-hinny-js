@@ -387,6 +387,212 @@ export interface OnceAbsoluteMerge {
     lastColumnIndex: number;
 }
 
+export interface ExcelHead {
+    /**
+     * 字段位置
+     */
+    getIndex(): JInt;
+
+    /**
+     * Excel表头名称(允许多级表头)
+     */
+    getHeads(): JList<JString>;
+
+    /**
+     * 对应实体类字段名
+     */
+    getColumnName(): JString;
+
+    /**
+     * 第一级表头
+     */
+    getFirstHead(): JString;
+
+    /**
+     * 最后一级表头(建议前端使用此值)
+     */
+    getLastHead(): JString;
+}
+
+export interface ExcelRow<T> {
+    /**
+     * 数据在Excel文件中的行号
+     */
+    getExcelRowNum(): JInt;
+
+    /**
+     * 读取的原始数据
+     */
+    getData(): T;
+
+    /**
+     * 数据签名
+     */
+    getDataSignature(): JString;
+
+    /**
+     * 列错误
+     */
+    getColumnError(): JMap<JString, JList<JString>>;
+
+    /**
+     * 行错误
+     */
+    getRowError(): JList<JString>;
+
+    /**
+     * 当前数据是否有解析错误
+     */
+    hasError(): JBoolean;
+
+    /**
+     * 增加数据列错误
+     */
+    addErrorInColumn(columnName: JString, msg: JString): void;
+
+    /**
+     * 增加数据行错误
+     */
+    addErrorInRow(msg: JString): void;
+}
+
+export interface ExcelImportState {
+    /**
+     * 导入是否成功
+     */
+    getSuccess(): JBoolean;
+
+    /**
+     * 总数据量
+     */
+    getTotalRows(): JInt;
+
+    /**
+     * 成功数据量
+     */
+    getSuccessRows(): JInt;
+
+    /**
+     * 失败数据量
+     */
+    getFailRows(): JInt;
+
+    /**
+     * 错误数量
+     */
+    getErrorCount(): JInt;
+
+    /**
+     * 重复数据量
+     */
+    getRepeat(): JInt;
+
+    /**
+     * 处理耗时(单位毫秒)
+     */
+    getTakeTime(): JLong;
+}
+
+export interface ExcelData<T> {
+    /**
+     * 数据类型
+     */
+    getClazz(): JClass;
+
+    /**
+     * 页签名称
+     */
+    getSheetName(): JString | undefined;
+
+    /**
+     * 页签编号
+     */
+    getSheetNo(): JInt | undefined;
+
+    /**
+     * 表头信息
+     */
+    getHeads(): JList<ExcelHead>;
+
+    /**
+     * Excel行数据(Excel所有数据)
+     */
+    getRows(): JList<ExcelRow<T>>;
+
+    /**
+     * 开始解析的时间
+     */
+    getStartTime(): JLong | undefined;
+
+    /**
+     * 解析完成时间
+     */
+    getEndTime(): JLong | undefined;
+
+    /**
+     * 读取中断在指定Excel行，为null表示未中断(行号从1开始)
+     */
+    getInterruptByRowNum(): JLong | undefined;
+
+    /**
+     * Excel表格头所占行数(复杂嵌套表格头行数大于1)
+     */
+    getHeadRowNum(): JInt;
+
+    /**
+     * 当前解析的数据是否有失败的
+     */
+    hasError(): JBoolean;
+
+    /**
+     * 返回导入成功的数据
+     */
+    getImportData(): JList<T>;
+
+    /**
+     * 返回导入失败的数据
+     */
+    getFailRows(): JList<ExcelRow<T>>;
+
+    /**
+     * 返回Excel导入状态
+     */
+    getExcelImportState(): ExcelImportState;
+
+    /**
+     * 清除导入数据
+     */
+    clearData(): void;
+}
+
+export interface ExcelDataReader<T> {
+    /**
+     * Excel文件名称
+     */
+    getFilename(): JString;
+
+    /**
+     * 读取Excel文件最大行数
+     */
+    getLimitRows(): JInt;
+
+    /**
+     * 是否缓存读取的数据结果到内存中(默认启用)
+     */
+    isEnableExcelData(): JBoolean;
+
+    /**
+     * Excel读取结果
+     */
+    getExcelSheetMap(): JMap<JString, ExcelData<T>>;
+
+    /**
+     * 返回Excel文件读取器
+     */
+    read(): ExcelReaderBuilder;
+}
+
+
 /** 读取Excel时的表头配置 */
 export interface ExcelReaderHeadConfig extends ExcelProperty, Partial<DateTimeFormat>, Partial<NumberFormat> {
     // TODO 数据校验配置
@@ -467,13 +673,13 @@ export interface ExcelUtils {
      * 读取Excel数据
      * @param initConfig 初始化配置
      */
-    read<T extends object>(initConfig: ExcelReaderConfig<T>): ExcelReaderBuilder;
+    createReader<T extends object>(initConfig: ExcelReaderConfig<T>): ExcelDataReader<T>;
 
-    /**
-     * 生成Excel
-     * @param initConfig 初始化配置
-     */
-    write<T extends object>(initConfig: ExcelWriterConfig<T>): ExcelWriterBuilder;
+    // /**
+    //  * 生成Excel
+    //  * @param initConfig 初始化配置
+    //  */
+    // write<T extends object>(initConfig: ExcelWriterConfig<T>): ExcelWriterBuilder;
 }
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -504,11 +710,13 @@ excelReaderConfig.columns = {
     }
 }
 
-excelUtils.read<Test>(excelReaderConfig).sheet(0).doRead();
+const excelDataReader = excelUtils.createReader<Test>(excelReaderConfig);
+excelDataReader.read().sheet(0).doRead();
+excelDataReader.getExcelSheetMap()
 
-excelUtils.read<Test>({
+excelUtils.createReader<Test>({
     sheet: 0,
     headRowNumber: 1,
     ignoreEmptyRow: false,
     autoTrim: false,
-}).sheet(0).doRead();
+}).read().sheet(0).doRead();
