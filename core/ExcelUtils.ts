@@ -594,6 +594,12 @@ export interface ExcelDataReader<T> {
     read(): ExcelReaderBuilder;
 }
 
+export interface ExcelDataWriter<T> {
+    /**
+     * 返回Excel文件写入器
+     */
+    write(): ExcelWriterBuilder;
+}
 
 /** 读取Excel时的表头配置 */
 export interface ExcelReaderHeadConfig extends ExcelProperty, Partial<DateTimeFormat>, Partial<NumberFormat> {
@@ -693,11 +699,11 @@ export interface ExcelUtils {
      */
     createReader<T extends object>(initConfig: ExcelReaderConfig<T>): ExcelDataReader<T>;
 
-    // /**
-    //  * 生成Excel
-    //  * @param initConfig 初始化配置
-    //  */
-    // write<T extends object>(initConfig: ExcelWriterConfig<T>): ExcelWriterBuilder;
+    /**
+     * 生成Excel文件
+     * @param initConfig 初始化配置
+     */
+    createWriter<T extends object>(initConfig: ExcelWriterConfig<T>): ExcelDataWriter<T>;
 }
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------
