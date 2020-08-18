@@ -2,6 +2,8 @@
 //
 // }
 
+import { isNumber, isString } from "./TypeUtils";
+
 export interface CellData {
 
 }
@@ -595,66 +597,72 @@ export interface ExcelDataReader<T> {
 
 /** 读取Excel时的表头配置 */
 export interface ExcelReaderHeadConfig extends ExcelProperty, Partial<DateTimeFormat>, Partial<NumberFormat> {
-    // TODO 数据校验配置
+    // TODO 读取数据校验配置
 }
 
 /** 读取Excel时的初始化配置 */
 export class ExcelReaderConfig<T extends object> {
+    /** Excel文件名称 */
+    filename?: JString;
     /** 文件输入流 */
-    file?: JInputStream;
-
-    /** 是否自动关闭输入流 */
-    autoCloseStream?: boolean = false;
-
-    /** 读取扩展信息配置 */
-    extraRead?: CellExtraTypeEnum[] = [];
-
-    /** 是否忽略空行 */
-    ignoreEmptyRow?: boolean = false;
-
-    /** 强制使用输入流，如果为false，则将“inputStream”传输到临时文件以提高效率 */
-    mandatoryUseInputStream?: boolean = false;
-
-    /** Excel文件密码 */
-    password?: string;
-
-    /** Excel页签 */
-    sheet: number | string = 0;
-
-    /** 表头行数 */
-    headRowNumber: number = 1;
-
-    /** 使用科学格式 */
-    useScientificFormat?: boolean = false;
-
-    /** 如果日期使用1904窗口，则为True；如果使用1900日期窗口，则为false */
-    use1904windowing?: boolean = false;
-
-    /** Locale对象表示特定的地理、政治或文化区域。设置日期和数字格式时使用此参数 */
-    locale?: ExcelLocale = ExcelLocale.SIMPLIFIED_CHINESE;
-
-    /** 自动删除空格字符 */
-    autoTrim?: boolean = true;
-
-    /** 设置一个自定义对象，可以在侦听器中读取此对象(AnalysisContext.getCustom()) */
-    customObject?: any;
-
+    inputStream?: JInputStream;
     /**  读取Excel文件最大行数(默认: 2000)，小于0表示不限制 */
     limitRows?: JInt = 2000;
-
     /** 是否缓存读取的数据结果到内存中(默认启用) */
     enableExcelData?: JBoolean = true;
-
     /** 是否启用数据校验(默认启用) */
     enableValidation?: JBoolean = true;
+    // /**
+    //  * 处理读取Excel异常
+    //  */
+    // private ExcelReaderExceptionHand excelReaderExceptionHand;
+    // /**
+    //  * 处理Excel数据行
+    //  */
+    // @SuppressWarnings("rawtypes")
+    // private ExcelRowReader<Map> excelRowReader;
+    //
 
+    // ----------------------------------------------------------------------
+    /** 是否自动关闭输入流 */
+    autoCloseStream?: boolean = false;
+    /** 读取扩展信息配置 */
+    extraRead?: CellExtraTypeEnum[] = [];
+    /** 是否忽略空行 */
+    ignoreEmptyRow?: boolean = false;
+    /** 强制使用输入流，如果为false，则将“inputStream”传输到临时文件以提高效率 */
+    mandatoryUseInputStream?: boolean = false;
+    /** Excel文件密码 */
+    password?: string;
+    /** Excel页签编号(从0开始) */
+    sheetNo?: JInt;
+    /** Excel页签名称(xlsx格式才支持) */
+    sheetName?: JString;
+    /** 表头行数 */
+    headRowNumber: number = 1;
+    /** 使用科学格式 */
+    useScientificFormat?: boolean = false;
+    /** 如果日期使用1904窗口，则为True；如果使用1900日期窗口，则为false */
+    use1904windowing?: boolean = false;
+    /** Locale对象表示特定的地理、政治或文化区域。设置日期和数字格式时使用此参数 */
+    locale?: ExcelLocale = ExcelLocale.SIMPLIFIED_CHINESE;
+    /** 自动删除空格字符 */
+    autoTrim?: boolean = true;
+    /** 设置一个自定义对象，可以在侦听器中读取此对象(AnalysisContext.getCustom()) */
+    customObject?: any;
     /** Excel列配置(表头) */
     columns?: {
         [column in keyof T]: ExcelReaderHeadConfig;
     };
 
     constructor(sheet?: number | string, headRowNumber?: number, autoTrim?: boolean, ignoreEmptyRow?: boolean, limitRows?: JInt, locale?: ExcelLocale, password?: string) {
-        this.sheet = sheet ?? 0;
+        if (isString(sheet)) {
+            this.sheetName = sheet;
+        } else if (isNumber(sheet)) {
+            this.sheetNo = sheet;
+        } else {
+            this.sheetNo = 0;
+        }
         this.headRowNumber = headRowNumber ?? 1;
         this.autoTrim = autoTrim ?? true;
         this.ignoreEmptyRow = ignoreEmptyRow ?? false;
@@ -715,7 +723,7 @@ excelDataReader.read().sheet(0).doRead();
 excelDataReader.getExcelSheetMap()
 
 excelUtils.createReader<Test>({
-    sheet: 0,
+    sheetNo: 0,
     headRowNumber: 1,
     ignoreEmptyRow: false,
     autoTrim: false,
