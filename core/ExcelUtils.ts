@@ -1,8 +1,8 @@
+import { isNumber, isString } from "./TypeUtils";
+
 // interface Class {
 //
 // }
-
-import { isNumber, isString } from "./TypeUtils";
 
 export interface CellData {
 
@@ -655,6 +655,15 @@ export class ExcelReaderConfig<T extends object> {
         [column in keyof T]: ExcelReaderHeadConfig;
     };
 
+    /**
+     * @param sheet           页签编号或名称
+     * @param headRowNumber   表头行数
+     * @param autoTrim        自动删除空格字符
+     * @param ignoreEmptyRow  是否忽略空行
+     * @param limitRows       读取Excel文件最大行数(默认: 2000)，小于0表示不限制
+     * @param locale          Locale对象表示特定的地理、政治或文化区域。设置日期和数字格式时使用此参数
+     * @param password        Excel文件密码
+     */
     constructor(sheet?: number | string, headRowNumber?: number, autoTrim?: boolean, ignoreEmptyRow?: boolean, limitRows?: JInt, locale?: ExcelLocale, password?: string) {
         if (isString(sheet)) {
             this.sheetName = sheet;
@@ -663,6 +672,7 @@ export class ExcelReaderConfig<T extends object> {
         } else {
             this.sheetNo = 0;
         }
+
         this.headRowNumber = headRowNumber ?? 1;
         this.autoTrim = autoTrim ?? true;
         this.ignoreEmptyRow = ignoreEmptyRow ?? false;
@@ -720,6 +730,9 @@ excelReaderConfig.columns = {
 
 const excelDataReader = excelUtils.createReader<Test>(excelReaderConfig);
 excelDataReader.read().sheet(0).doRead();
+
+// excelDataReader.read()
+
 excelDataReader.getExcelSheetMap()
 
 excelUtils.createReader<Test>({
