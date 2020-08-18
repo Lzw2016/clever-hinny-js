@@ -18,7 +18,7 @@ const isBoolean = (b: any): b is boolean => {
     return typeof b === 'boolean';
 }
 
-const isFunction = (fuc: any): boolean => {
+const isFunction = (fuc: any): fuc is Function => {
     return typeof fuc === 'function';
 }
 
