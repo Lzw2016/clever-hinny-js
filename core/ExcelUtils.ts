@@ -370,13 +370,13 @@ export interface ExcelWriterBuilder extends AbstractExcelWriterParameterBuilder<
      * 设置读取的页签
      * @param sheetNo 页签编号(从0开始)
      */
-    sheet(sheetNo: number): ExcelWriterBuilder;
+    sheet(sheetNo: number): ExcelWriterSheetBuilder;
 
     /**
      * 设置读取的页签
      * @param sheetName 页签名称(xlsx格式才支持)
      */
-    sheet(sheetName: string): ExcelWriterBuilder;
+    sheet(sheetName: string): ExcelWriterSheetBuilder;
 }
 
 export interface AnalysisContext {
@@ -970,7 +970,6 @@ class Test {
 }
 
 const excelReaderConfig = new ExcelReaderConfig<Test>();
-
 excelReaderConfig.columns = {
     aaa: {
         dataType: ExcelDataType.JString,
@@ -1000,3 +999,24 @@ excelUtils.createReader<Test>({
     ignoreEmptyRow: false,
     autoTrim: false,
 }).read().sheet(0).doRead();
+
+const excelWriterConfig = new ExcelWriterConfig<Test>();
+excelWriterConfig.columns = {
+    aaa: {
+        column: ["第一列", "数据A"],
+        dataType: ExcelDataType.JString,
+    },
+    bbb: {
+        column: ["第一列", "数据B"],
+        dataType: ExcelDataType.JBigDecimal,
+    },
+    ccc: {
+        column: ["第二列", "数据B"],
+        dataType: ExcelDataType.JDate,
+        dateFormat: "yyyy-MM-dd HH:mm:ss",
+    }
+}
+
+const excelDataWriter = excelUtils.createWriter(excelWriterConfig);
+excelDataWriter.write().sheet("第一页").doWrite(Interop.asJList<Test>(new Test(), new Test(), new Test()));
+
