@@ -432,7 +432,7 @@ export interface ColumnWidth {
     columnWidth: number;
 }
 
-export interface ContentFontStyle {
+export interface ExcelFontStyle {
     /** 字体的名称（如: Arial） */
     fontName?: string;
 
@@ -459,6 +459,9 @@ export interface ContentFontStyle {
 
     /** 粗体 */
     bold?: boolean;
+}
+
+export interface ContentFontStyle extends ExcelFontStyle {
 }
 
 /** 合并区域配置 */
@@ -476,7 +479,7 @@ export interface ContentRowHeight {
     rowHeight: number;
 }
 
-export interface ContentStyle {
+export interface ExcelCellStyle {
     /** 设置数据格式（必须是有效格式）。内置格式在内置信息中定义 */
     dataFormat?: BuiltinFormats;
     /** 将单元格使用此样式设置为隐藏 */
@@ -533,33 +536,10 @@ export interface ContentStyle {
     shrinkToFit?: JBoolean;
 }
 
-export interface HeadFontStyle {
-    /** 字体的名称（如: Arial） */
-    fontName?: string;
+export interface ContentStyle extends ExcelCellStyle {
+}
 
-    /** 以熟悉的测量单位表示的高度- points */
-    fontHeightInPoints?: number;
-
-    /** 是否使用斜体 */
-    italic?: boolean;
-
-    /** 是否在文本中使用删除线水平线 */
-    strikeout?: boolean;
-
-    /** 字体的颜色 */
-    color?: number;
-
-    /** 设置normal、super或subscript */
-    typeOffset?: number;
-
-    /** 要使用的文本下划线 */
-    underline?: number;
-
-    /** 设置要使用的字符集 */
-    charset?: number;
-
-    /** 粗体 */
-    bold?: boolean;
+export interface HeadFontStyle extends ExcelFontStyle {
 }
 
 export interface HeadRowHeight {
@@ -567,61 +547,7 @@ export interface HeadRowHeight {
     headRowHeight?: number;
 }
 
-export interface HeadStyle {
-    /** 设置数据格式（必须是有效格式）。内置格式在内置信息中定义 */
-    dataFormat?: BuiltinFormats;
-    /** 将单元格使用此样式设置为隐藏 */
-    hidden?: JBoolean;
-    /** 将单元格使用此样式设置为锁定 */
-    locked?: JBoolean;
-    /**
-     * 打开或关闭样式的“Quote Prefix”或“123 Prefix”，
-     * 用于告诉Excel，看起来像数字或公式的内容不应被视为打开。
-     * 打开此选项有点（但不是完全打开，请参见IgnoredErrorType）类似于在Excel中为单元格值添加前缀
-     */
-    quotePrefix?: JBoolean;
-    /** 设置单元格的水平对齐方式 */
-    horizontalAlignment?: HorizontalAlignment;
-    /** 设置是否应该换行。将此标志设置为true可以通过在多行上显示所有内容来使其在一个单元格中可见 */
-    wrapped?: JBoolean;
-    /** 设置单元格的垂直对齐方式 */
-    verticalAlignment?: VerticalAlignment;
-    /**
-     * 设置单元格中文本的旋转度<br />
-     * 注意：HSSF使用-90至90度的值，而XSSF使用0至180度的值。
-     * 此方法的实现将在这两个值范围之间进行映射，
-     * 但是，相应的getter返回此CellStyle所应用的当前Excel文件格式类型所要求的范围内的值。
-     */
-    rotation?: JShort;
-    /** 设置空格数以缩进单元格中的文本 */
-    indent?: JShort;
-    /** 设置要用于单元格左边框的边框类型 */
-    borderLeft?: BorderStyle;
-    /** 设置用于单元格右边框的边框类型 */
-    borderRight?: BorderStyle;
-    /** 设置要用于单元格顶部边框的边框类型 */
-    borderTop?: BorderStyle;
-    /** 设置用于单元格底部边框的边框类型 */
-    borderBottom?: BorderStyle;
-    /**  设置用于左边框的颜色*/
-    leftBorderColor?: IndexedColors;
-    /** 设置用于右边框的颜色 */
-    rightBorderColor?: IndexedColors;
-    /** 设置要用于顶部边框的颜色 */
-    topBorderColor?: IndexedColors;
-    /** 设置用于底边框的颜色 */
-    bottomBorderColor?: IndexedColors;
-    /** 设置为1会使单元格充满前景色...不知道其他值 */
-    fillPatternType: FillPatternType;
-    /**  设置背景填充颜色*/
-    fillBackgroundColor?: IndexedColors;
-    /**
-     * 设置前景色填充颜色<br />
-     * 注意：确保将前景色设置为背景颜色之前
-     */
-    fillForegroundColor?: IndexedColors;
-    /** 控制如果文本太长，是否应自动调整单元格的大小以缩小以适合 */
-    shrinkToFit?: JBoolean;
+export interface HeadStyle extends ExcelCellStyle {
 }
 
 export interface OnceAbsoluteMerge {
