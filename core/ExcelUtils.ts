@@ -608,7 +608,7 @@ export interface ExcelReaderHeadConfig extends ExcelProperty, Partial<DateTimeFo
 
 /** 读取Excel时的初始化配置 */
 export class ExcelReaderConfig<T extends object> {
-    /** Excel文件名称 */
+    /** Excel文件名称(或者Excel文件路径) */
     filename?: JString;
     /** 文件输入流 */
     inputStream?: JInputStream;
@@ -689,7 +689,61 @@ export class ExcelReaderConfig<T extends object> {
 }
 
 export class ExcelWriterConfig<T extends object> {
+    /** Excel导出请求对象 */
+    // private HttpServletRequest request;
+    /** Excel导出响应对象 */
+    // private HttpServletResponse response;
+    /** Excel导出文件名(或者Excel文件路径) */
+    fileName?: JString;
+    /** Excel文件对应输出流 */
+    outputStream?: JOutputStream;
 
+    // ----------------------------------------------------------------------
+
+    /** 是否自动关闭输入流 */
+    autoCloseStream?: boolean = false;
+    /** 在内存中编写excel。默认为false，则创建缓存文件并最终写入excel。仅在内存模式下支持Comment和RichTextString */
+    inMemory?: JBoolean = false;
+    /** Excel模板文件路径 */
+    template?: JString;
+    /** Excel模板文件输入流 */
+    templateInputStream?: JInputStream;
+    /** 写入Excel时出现异常是否仍然继续导出 */
+    writeExcelOnException?: JBoolean = false;
+    /** 是否自动合并表头 */
+    automaticMergeHead?: JBoolean = true;
+    /** 忽略自定义列 */
+    excludeColumnFiledNames ?: JString[];
+    /** 忽略自定义列 */
+    excludeColumnIndexes ?: JInt[];
+    /** 只输出自定义列 */
+    includeColumnFiledNames?: JString[];
+    /** 只输出自定义列 */
+    includeColumnIndexes  ?: JInt[];
+    /** 是否输出表头 */
+    needHead?: JBoolean = true;
+    /** 输出第一行的位置 */
+    relativeHeadRowIndex?: JInt = 0;
+    /** 是否使用默认样式 */
+    useDefaultStyle?: JBoolean = true;
+    /** Excel类型 */
+    excelType?: ExcelTypeEnum = ExcelTypeEnum.XLSX;
+    /** Excel文件密码 */
+    password?: JString;
+    /** Excel页签编号(从0开始) */
+    sheetNo?: JInt;
+    /** Excel页签名称(xlsx格式才支持) */
+    sheetName?: JString;
+    /** 如果日期使用1904窗口，则为True；如果使用1900日期窗口，则为false */
+    use1904windowing?: JBoolean = false;
+    /** Locale对象表示特定的地理、政治或文化区域。设置日期和数字格式时使用此参数 */
+    locale?: ExcelLocale = ExcelLocale.SIMPLIFIED_CHINESE;
+    /** 自动删除空格字符 */
+    autoTrim?: JBoolean = true;
+    /** Excel表头 */
+    columns?: {
+        [column in keyof T]: ExcelReaderHeadConfig;
+    };
 }
 
 export interface ExcelUtils {
