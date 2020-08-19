@@ -1018,5 +1018,7 @@ excelWriterConfig.columns = {
 }
 
 const excelDataWriter = excelUtils.createWriter(excelWriterConfig);
-excelDataWriter.write().sheet("第一页").doWrite(Interop.asJList<Test>(new Test(), new Test(), new Test()));
+excelDataWriter.write()
+    .sheet("第一页")
+    .doWrite(Interop.asJList<Test>(new Test(), new Test(), new Test()));
 
