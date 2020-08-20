@@ -812,13 +812,13 @@ export class ExcelWriterConfig<T extends object> {
     /** 是否自动合并表头 */
     automaticMergeHead?: JBoolean = true;
     /** 忽略自定义列 */
-    excludeColumnFiledNames ?: JString[];
+    excludeColumnFiledNames?: JString[];
     /** 忽略自定义列 */
-    excludeColumnIndexes ?: JInt[];
+    excludeColumnIndexes?: JInt[];
     /** 只输出自定义列 */
     includeColumnFiledNames?: JString[];
     /** 只输出自定义列 */
-    includeColumnIndexes  ?: JInt[];
+    includeColumnIndexes?: JInt[];
     /** 是否输出表头 */
     needHead?: JBoolean = true;
     /** 输出第一行的位置 */
