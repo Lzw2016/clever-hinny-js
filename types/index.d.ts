@@ -4,6 +4,7 @@
 /// <reference path="java/Interop.d.ts" />
 // ----------------------------------------------------------------------- lang
 /// <reference path="java/lang/JObject.d.ts" />
+/// <reference path="java/lang/JThrowable.d.ts" />
 /// <reference path="java/lang/JCharSequence.d.ts" />
 /// <reference path="java/lang/JThread.d.ts" />
 

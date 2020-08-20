@@ -1,21 +1,6 @@
 import { isNumber, isString } from "./TypeUtils";
-
-// interface Class {
-//
-// }
-
-export interface CellData {
-
-}
-
-export interface ExcelContentProperty {
-
-}
-
-export interface GlobalConfiguration {
-
-}
-
+//---------------------------------------------------------------------------------------------------------------------------------------------- Excel枚举
+/** Excel文件格式 */
 export enum ExcelTypeEnum {
     /** .xls */
     XLS = "XLS",
@@ -23,6 +8,7 @@ export enum ExcelTypeEnum {
     XLSX = "XLSX",
 }
 
+/** Excel扩展信息 */
 export enum CellExtraTypeEnum {
     /** 批注信息 */
     COMMENT = "COMMENT",
@@ -32,6 +18,7 @@ export enum CellExtraTypeEnum {
     MERGE = "MERGE",
 }
 
+/** 单元格类型 */
 export enum CellDataTypeEnum {
     /** 字符串 */
     STRING = "STRING",
@@ -49,6 +36,7 @@ export enum CellDataTypeEnum {
     IMAGE = "IMAGE",
 }
 
+/** 语言选项 */
 export enum ExcelLocale {
     /** 英语 */
     ENGLISH = "ENGLISH",
@@ -60,47 +48,85 @@ export enum ExcelLocale {
     TRADITIONAL_CHINESE = "TRADITIONAL_CHINESE",
 }
 
+/** 内置格式化选项 */
 export enum BuiltinFormats {
-// 0, "General"
-// 1, "0"
-// 2, "0.00"
-// 3, "#,##0"
-// 4, "#,##0.00"
-// 5, "$#,##0_);($#,##0)"
-// 6, "$#,##0_);[Red]($#,##0)"
-// 7, "$#,##0.00);($#,##0.00)"
-// 8, "$#,##0.00_);[Red]($#,##0.00)"
-// 9, "0%"
-// 0xa, "0.00%"
-// 0xb, "0.00E+00"
-// 0xc, "# ?/?"
-// 0xd, "# ??/??"
-// 0xe, "m/d/yy"
-// 0xf, "d-mmm-yy"
-// 0x10, "d-mmm"
-// 0x11, "mmm-yy"
-// 0x12, "h:mm AM/PM"
-// 0x13, "h:mm:ss AM/PM"
-// 0x14, "h:mm"
-// 0x15, "h:mm:ss"
-// 0x16, "m/d/yy h:mm"
-// // 0x17 - 0x24 reserved for international and undocume
-// 0x25, "#,##0_);(#,##0)"
-// 0x26, "#,##0_);[Red](#,##0)"
-// 0x27, "#,##0.00_);(#,##0.00)"
-// 0x28, "#,##0.00_);[Red](#,##0.00)"
-// 0x29, "_(* #,##0_);_(* (#,##0);_(* \"-\"_);_(@_)"
-// 0x2a, "_($* #,##0_);_($* (#,##0);_($* \"-\"_);_(@_)"
-// 0x2b, "_(* #,##0.00_);_(* (#,##0.00);_(* \"-\"??_);_(@_)"
-// 0x2c, "_($* #,##0.00_);_($* (#,##0.00);_($* \"-\"??_);_(@_)"
-// 0x2d, "mm:ss"
-// 0x2e, "[h]:mm:ss"
-// 0x2f, "mm:ss.0"
-// 0x30, "##0.0E+0"
-// 0x31, "@" - This is text format.
-// 0x31  "text" - Alias for "@"
+    General = 0,
+    /** "0" */
+    Fmt_1 = 1,
+    /** "0.00" */
+    Fmt_2 = 2,
+    /** "#,##0" */
+    Fmt_3 = 3,
+    /** "#,##0.00" */
+    Fmt_4 = 4,
+    /** "$#,##0_);($#,##0)" */
+    Fmt_5 = 5,
+    /** "$#,##0_);[Red]($#,##0)" */
+    Fmt_6 = 6,
+    /** "$#,##0.00);($#,##0.00)" */
+    Fmt_7 = 7,
+    /** "$#,##0.00_);[Red]($#,##0.00)" */
+    Fmt_8 = 8,
+    /** "0%" */
+    Fmt_9 = 9,
+    /** "0.00%" */
+    Fmt_10 = 0xa,
+    /** "0.00E+00" */
+    Fmt_11 = 0xb,
+    /** "# ?/?" */
+    Fmt_12 = 0xc,
+    /** "# ??/??" */
+    Fmt_13 = 0xd,
+    /** "m/d/yy" */
+    Fmt_14 = 0xe,
+    /** "d-mmm-yy" */
+    Fmt_15 = 0xf,
+    /** "d-mmm" */
+    Fmt_16 = 0x10,
+    /** "mmm-yy" */
+    Fmt_17 = 0x11,
+    /** "h:mm AM/PM" */
+    Fmt_18 = 0x12,
+    /** "h:mm:ss AM/PM" */
+    Fmt_19 = 0x13,
+    /** "h:mm" */
+    Fmt_20 = 0x14,
+    /** "h:mm:ss" */
+    Fmt_21 = 0x15,
+    /** "m/d/yy h:mm" */
+    Fmt_22 = 0x16,
+    // 0x17 - 0x24 reserved for international and undocume
+    /** "#,##0_);(#,##0)" */
+    Fmt_37 = 0x25,
+    /** "#,##0_);[Red](#,##0)" */
+    Fmt_38 = 0x26,
+    /** "#,##0.00_);(#,##0.00)" */
+    Fmt_39 = 0x27,
+    /** "#,##0.00_);[Red](#,##0.00)" */
+    Fmt_40 = 0x28,
+    /** "_(* #,##0_);_(* (#,##0);_(* \"-\"_);_(@_)" */
+    Fmt_41 = 0x29,
+    /** "_($* #,##0_);_($* (#,##0);_($* \"-\"_);_(@_)" */
+    Fmt_42 = 0x2a,
+    /** "_(* #,##0.00_);_(* (#,##0.00);_(* \"-\"??_);_(@_)" */
+    Fmt_43 = 0x2b,
+    /** "_($* #,##0.00_);_($* (#,##0.00);_($* \"-\"??_);_(@_)" */
+    Fmt_44 = 0x2c,
+    /** "mm:ss" */
+    Fmt_45 = 0x2d,
+    /** "[h]:mm:ss" */
+    Fmt_46 = 0x2e,
+    /** "mm:ss.0" */
+    Fmt_47 = 0x2f,
+    /** "##0.0E+0" */
+    Fmt_48 = 0x30,
+    /** "@" - This is text format. */
+    Fmt_49 = 0x31,
+    /** "text" - Alias for "@" */
+    Fmt_50 = 0x31,
 }
 
+/** 水平对齐选项 */
 export enum HorizontalAlignment {
     GENERAL = "GENERAL",
     LEFT = "LEFT",
@@ -112,6 +138,7 @@ export enum HorizontalAlignment {
     DISTRIBUTED = "DISTRIBUTED",
 }
 
+/** 垂直对齐选项 */
 export enum VerticalAlignment {
     TOP = "TOP",
     CENTER = "CENTER",
@@ -120,6 +147,7 @@ export enum VerticalAlignment {
     DISTRIBUTED = "DISTRIBUTED",
 }
 
+/** 边框样式 */
 export enum BorderStyle {
     NONE = (0x0),
     THIN = (0x1),
@@ -137,6 +165,7 @@ export enum BorderStyle {
     SLANTED_DASH_DOT = (0xD),
 }
 
+/** 颜色 */
 export enum IndexedColors {
     BLACK1 = (0),
     WHITE1 = (1),
@@ -197,6 +226,7 @@ export enum IndexedColors {
     AUTOMATIC = (64),
 }
 
+/** 填充模式 */
 export enum FillPatternType {
     NO_FILL = (0),
     SOLID_FOREGROUND = (1),
@@ -219,170 +249,7 @@ export enum FillPatternType {
     LEAST_DOTS = (18),
 }
 
-export interface AbstractParameterBuilder<T extends AbstractParameterBuilder<T>> {
-    /** 如果日期使用1904窗口，则为True；如果使用1900日期窗口，则为false */
-    use1904windowing(use1904windowing: boolean): T;
-
-    /** Locale对象表示特定的地理、政治或文化区域。设置日期和数字格式时使用此参数 */
-    locale(locale: ExcelLocale): void;
-
-    /** 自动删除空格字符 */
-    autoTrim(autoTrim: boolean): void;
-
-    /** 设置Excel表头 */
-    head(head: JString[][]): void;
-}
-
-export interface AbstractExcelReaderParameterBuilder<T extends AbstractExcelReaderParameterBuilder<T>> extends AbstractParameterBuilder<T> {
-
-    /** 表头行数 */
-    headRowNumber(headRowNumber: number): T;
-
-    /** 使用科学格式 */
-    useScientificFormat(useScientificFormat: boolean): T;
-
-    // registerReadListener(readListener: ReadListener): T;
-}
-
-export interface ExcelReaderSheetBuilder extends AbstractExcelReaderParameterBuilder<ExcelReaderSheetBuilder> {
-    /** 页签编号(从0开始) */
-    sheetNo(sheetNo: number): ExcelReaderSheetBuilder;
-
-    /** 页签名称(xlsx格式才支持) */
-    sheetName(sheetName: string): ExcelReaderSheetBuilder;
-
-    /**
-     * 开始读取Excel数据(推荐)
-     */
-    doRead(): void;
-
-    /**
-     * 读取Excel数据，并返回所有结果(数据量大时，会消耗大量内存)
-     */
-    doReadSync<T>(): JList<T>;
-}
-
-export interface ExcelReaderBuilder extends AbstractExcelReaderParameterBuilder<ExcelReaderBuilder> {
-    /** 文件输入流 */
-    file(inputStream: JInputStream): ExcelReaderBuilder;
-
-    /** 强制使用输入流，如果为false，则将“inputStream”传输到临时文件以提高效率 */
-    mandatoryUseInputStream(mandatoryUseInputStream: boolean): ExcelReaderBuilder;
-
-    /** 是否自动关闭输入流 */
-    autoCloseStream(autoCloseStream: boolean): ExcelReaderBuilder;
-
-    /** 是否忽略空行 */
-    ignoreEmptyRow(ignoreEmptyRow: boolean): ExcelReaderBuilder;
-
-    /** 设置一个自定义对象，可以在侦听器中读取此对象(AnalysisContext.getCustom()) */
-    customObject(customObject: any): ExcelReaderBuilder;
-
-    /** Excel文件密码 */
-    password(password: string): ExcelReaderBuilder;
-
-    /** 读取扩展信息配置 */
-    extraRead(extraRead: CellExtraTypeEnum): ExcelReaderBuilder;
-
-    /**
-     * 设置读取的页签
-     * @param sheetNo 页签编号(从0开始)
-     */
-    sheet(sheetNo: number): ExcelReaderSheetBuilder;
-
-    /**
-     * 设置读取的页签
-     * @param sheetName 页签名称(xlsx格式才支持)
-     */
-    sheet(sheetName: string): ExcelReaderSheetBuilder;
-
-    /** 开始读取所有的页签数据 */
-    doReadAll(): void;
-
-    /** 开始读取所有的页签数据，并返回所有结果(数据量大时，会消耗大量内存) */
-    doReadAllSynTc<T>(): JList<T>;
-}
-
-export interface AbstractExcelWriterParameterBuilder<T extends AbstractExcelWriterParameterBuilder<T>> extends AbstractParameterBuilder<T> {
-    /** 设置Excel表头所在行，从0开始 */
-    relativeHeadRowIndex(relativeHeadRowIndex: number): T;
-
-    /** 是否需要输出表头 */
-    needHead(needHead: boolean): T;
-
-    /** 是否使用默认样式 */
-    useDefaultStyle(useDefaultStyle: boolean): T;
-
-    /** 是否自动合并表头 */
-    automaticMergeHead(automaticMergeHead: boolean): T;
-
-    excludeColumnIndexes(excludeColumnIndexes: JCollection<JInt>): T;
-
-    excludeColumnFiledNames(excludeColumnFiledNames: JCollection<JString>): T;
-
-    includeColumnIndexes(includeColumnIndexes: JCollection<JInt>): T;
-
-    includeColumnFiledNames(includeColumnFiledNames: JCollection<JString>): T;
-}
-
-export interface ExcelWriterSheetBuilder extends AbstractExcelWriterParameterBuilder<ExcelWriterSheetBuilder> {
-    /** 页签编号(从0开始) */
-    sheetNo(sheetNo: number): ExcelWriterSheetBuilder;
-
-    /** 页签名称(xlsx格式才支持) */
-    sheetName(sheetName: string): ExcelWriterSheetBuilder;
-
-    doWrite(data: JList<object>): void
-
-    doFill(data: object): void
-
-    // doFill(Object data, FillConfig fillConfig):void
-
-    table(): ExcelWriterSheetBuilder;
-
-    table(tableNo: JInt): ExcelWriterSheetBuilder;
-}
-
-export interface ExcelWriterTableBuilder extends AbstractExcelWriterParameterBuilder<ExcelWriterTableBuilder> {
-    tableNo(tableNo: JInt): ExcelWriterTableBuilder;
-
-    doWrite(data: JList<object>): void
-}
-
-export interface ExcelWriterBuilder extends AbstractExcelWriterParameterBuilder<ExcelWriterBuilder> {
-
-    file(outputStream: JOutputStream): void;
-
-    withTemplate(templateInputStream: JInputStream): void;
-
-    /**  */
-    autoCloseStream(autoCloseStream: boolean): ExcelWriterBuilder;
-
-    password(password: string): ExcelWriterBuilder;
-
-    inMemory(inMemory: boolean): ExcelWriterBuilder;
-
-    writeExcelOnException(writeExcelOnException: boolean): ExcelWriterBuilder;
-
-    excelType(excelType: ExcelTypeEnum): ExcelWriterBuilder;
-
-    /**
-     * 设置读取的页签
-     * @param sheetNo 页签编号(从0开始)
-     */
-    sheet(sheetNo: number): ExcelWriterSheetBuilder;
-
-    /**
-     * 设置读取的页签
-     * @param sheetName 页签名称(xlsx格式才支持)
-     */
-    sheet(sheetName: string): ExcelWriterSheetBuilder;
-}
-
-export interface AnalysisContext {
-
-}
-
+/** 单元格数据类型 */
 export enum ExcelDataType {
     JString = "JString",
     JBigDecimal = "JBigDecimal",
@@ -397,53 +264,106 @@ export enum ExcelDataType {
     JByteArray = "JByte[]",
 }
 
+/** 下划线类型 */
+export enum ExcelUnderline {
+    /** 不加下划线 */
+    U_NONE = 0,
+    /** 单下划线 */
+    U_SINGLE = 1,
+    /** 双下划线 */
+    U_DOUBLE = 2,
+    /** 会计风格单下划线 */
+    U_SINGLE_ACCOUNTING = 0x21,
+    /** 会计风格双下划线 */
+    U_DOUBLE_ACCOUNTING = 0x22,
+}
+
+/** 普通，上标或下标 */
+export enum ExcelTypeOffset {
+    /** 没有类型偏移（不是上标或下标） */
+    SS_NONE = 0,
+    /** 上标 */
+    SS_SUPER = 1,
+    /** 下标 */
+    SS_SUB = 2,
+}
+
+export enum ExcelFontCharset {
+    ANSI = "ANSI",
+    DEFAULT = "DEFAULT",
+    SYMBOL = "SYMBOL",
+    MAC = "MAC",
+    SHIFTJIS = "SHIFTJIS",
+    HANGUL = "HANGUL",
+    JOHAB = "JOHAB",
+    GB2312 = "GB2312",
+    CHINESEBIG5 = "CHINESEBIG5",
+    GREEK = "GREEK",
+    TURKISH = "TURKISH",
+    VIETNAMESE = "VIETNAMESE",
+    HEBREW = "HEBREW",
+    ARABIC = "ARABIC",
+    BALTIC = "BALTIC",
+    RUSSIAN = "RUSSIAN",
+    THAI_ = "THAI_",
+    EASTEUROPE = "EASTEUROPE",
+    OEM = "OEM",
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------- Excel内置对象
+
+export interface AnalysisContext {
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------- Excel配置
+
 export interface ExcelProperty {
     /** 列名称 */
-    column: string | string[];
+    column: JString | JString[];
     /** 是否忽略当前列 */
-    ignore?: boolean;
+    ignore?: JBoolean;
     /** 定义列的排序顺序 */
-    order?: number;
+    index?: JInt;
 }
 
 export interface DateTimeFormat {
     /** 时间格式化的格式定义 */
-    dateFormat: string;
+    dateFormat: JString;
     /** 如果日期使用1904窗口，则为True；如果使用1900日期窗口，则为false */
-    use1904windowing?: boolean;
+    use1904windowing?: JBoolean;
 }
 
 export interface NumberFormat {
     /** 数字格式化 */
-    numberFormat: string;
+    numberFormat: JString;
     /** 四舍五入模式 */
     roundingMode?: RoundingMode;
 }
 
 export interface ColumnWidth {
     /** 列宽 */
-    columnWidth: number;
+    columnWidth: JInt;
 }
 
 export interface ExcelFontStyle {
     /** 字体的名称（如: Arial） */
-    fontName?: string;
+    fontName?: JString;
     /** 以熟悉的测量单位表示的高度- points */
-    fontHeightInPoints?: number;
+    fontHeightInPoints?: JShort;
     /** 是否使用斜体 */
-    italic?: boolean;
+    italic?: JBoolean;
     /** 是否在文本中使用删除线水平线 */
-    strikeout?: boolean;
+    strikeout?: JBoolean;
     /** 字体的颜色 */
-    color?: number;
+    color?: IndexedColors;
     /** 设置normal、super或subscript */
-    typeOffset?: number;
-    /** 要使用的文本下划线 */
-    underline?: number;
+    typeOffset?: ExcelTypeOffset;
+    /** 设置要使用的带下划线的文本类型 */
+    underline?: ExcelUnderline;
     /** 设置要使用的字符集 */
-    charset?: number;
+    charset?: ExcelFontCharset;
     /** 粗体 */
-    bold?: boolean;
+    bold?: JBoolean;
 }
 
 export interface ContentFontStyle extends ExcelFontStyle {
@@ -452,15 +372,15 @@ export interface ContentFontStyle extends ExcelFontStyle {
 /** 合并区域配置 */
 export interface ContentLoopMerge {
     /** 行 */
-    eachRow: number;
+    eachRow: JInt;
     /** 列 */
-    columnExtend: number;
+    columnExtend: JInt;
 }
 
 /** 行高 */
 export interface ContentRowHeight {
     /** 行高 */
-    rowHeight: number;
+    rowHeight: JShort;
 }
 
 export interface ExcelCellStyle {
@@ -528,7 +448,7 @@ export interface HeadFontStyle extends ExcelFontStyle {
 
 export interface HeadRowHeight {
     /** 表格头行高 */
-    headRowHeight?: number;
+    headRowHeight?: JShort;
 }
 
 export interface HeadStyle extends ExcelCellStyle {
@@ -544,6 +464,8 @@ export interface OnceAbsoluteMerge {
     /** 最后一列 */
     lastColumnIndex: JInt;
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------- 读取Excel数据的返回值
 
 export interface ExcelHead {
     /**
@@ -723,39 +645,7 @@ export interface ExcelData<T> {
     clearData(): void;
 }
 
-export interface ExcelDataReader<T> {
-    /**
-     * Excel文件名称
-     */
-    getFilename(): JString;
-
-    /**
-     * 读取Excel文件最大行数
-     */
-    getLimitRows(): JInt;
-
-    /**
-     * 是否缓存读取的数据结果到内存中(默认启用)
-     */
-    isEnableExcelData(): JBoolean;
-
-    /**
-     * Excel读取结果
-     */
-    getExcelSheetMap(): JMap<JString, ExcelData<T>>;
-
-    /**
-     * 返回Excel文件读取器
-     */
-    read(): ExcelReaderBuilder;
-}
-
-export interface ExcelDataWriter<T> {
-    /**
-     * 返回Excel文件写入器
-     */
-    write(): ExcelWriterBuilder;
-}
+//---------------------------------------------------------------------------------------------------------------------------------------------- ExcelUtils API设计
 
 /** 读取Excel时的表头配置 */
 export interface ExcelReaderHeadConfig extends ExcelProperty, Partial<DateTimeFormat>, Partial<NumberFormat> {
@@ -763,7 +653,6 @@ export interface ExcelReaderHeadConfig extends ExcelProperty, Partial<DateTimeFo
     dataType: ExcelDataType;
 
     // TODO 读取数据校验配置
-
 }
 
 /** 写入Excel时的表头配置 */
@@ -779,6 +668,7 @@ export interface ExcelWriterHeadConfig
         Partial<HeadStyle> {
 }
 
+/** 写入Excel时的全局样式配置 */
 export interface ExcelWriterStyleConfig
     extends Partial<ContentFontStyle>,
         Partial<ContentRowHeight>,
@@ -787,6 +677,42 @@ export interface ExcelWriterStyleConfig
         Partial<HeadRowHeight>,
         Partial<HeadStyle>,
         Partial<OnceAbsoluteMerge> {
+}
+
+export interface ExcelReaderExceptionHand {
+    /**
+     * 处理读取Excel异常
+     * <pre>
+     *  context.readRowHolder()                     当前行相关信息
+     *  context.readSheetHolder()                   当前页签相关信息
+     *  context.readRowHolder().getCellMap()        行数据
+     *  context.readRowHolder().getRowIndex() + 1   行号
+     * </pre>
+     *
+     * @param throwable 当前行异常
+     * @param context   Excel读取上下文信息
+     */
+    exceptionHand(throwable: JThrowable, context: AnalysisContext): void;
+}
+
+export interface ExcelRowReader<T> {
+    /**
+     * 处理Excel数据行(用于自定义校验)
+     * <pre>
+     *  excelRow.addErrorInColumn() 增加列错误
+     *  excelRow.addErrorInRow()    增加行错误
+     * </pre>
+     *
+     * @param data     校验通过的数据
+     * @param excelRow 数据行对象
+     * @param context  Excel读取上下文信息
+     */
+    readRow(data: T, excelRow: ExcelRow<T>, context: AnalysisContext): void;
+
+    /**
+     * 读取结束时调用
+     */
+    readEnd(context: AnalysisContext): void;
 }
 
 /** 读取Excel时的初始化配置 */
@@ -801,42 +727,35 @@ export class ExcelReaderConfig<T extends object> {
     enableExcelData?: JBoolean = true;
     /** 是否启用数据校验(默认启用) */
     enableValidation?: JBoolean = true;
-    // /**
-    //  * 处理读取Excel异常
-    //  */
-    // private ExcelReaderExceptionHand excelReaderExceptionHand;
-    // /**
-    //  * 处理Excel数据行
-    //  */
-    // @SuppressWarnings("rawtypes")
-    // private ExcelRowReader<Map> excelRowReader;
-    //
-
+    /** 处理读取Excel异常 */
+    excelReaderExceptionHand?: ExcelReaderExceptionHand;
+    /** 处理Excel数据行 */
+    excelRowReader?: ExcelRowReader<T>;
     // ----------------------------------------------------------------------
     /** 是否自动关闭输入流 */
-    autoCloseStream?: boolean = false;
+    autoCloseStream?: JBoolean = false;
     /** 读取扩展信息配置 */
     extraRead?: CellExtraTypeEnum[] = [];
     /** 是否忽略空行 */
-    ignoreEmptyRow?: boolean = false;
+    ignoreEmptyRow?: JBoolean = false;
     /** 强制使用输入流，如果为false，则将“inputStream”传输到临时文件以提高效率 */
-    mandatoryUseInputStream?: boolean = false;
+    mandatoryUseInputStream?: JBoolean = false;
     /** Excel文件密码 */
-    password?: string;
+    password?: JString;
     /** Excel页签编号(从0开始) */
     sheetNo?: JInt;
     /** Excel页签名称(xlsx格式才支持) */
     sheetName?: JString;
     /** 表头行数 */
-    headRowNumber: number = 1;
+    headRowNumber: JInt = 1;
     /** 使用科学格式 */
-    useScientificFormat?: boolean = false;
+    useScientificFormat?: JBoolean = false;
     /** 如果日期使用1904窗口，则为True；如果使用1900日期窗口，则为false */
-    use1904windowing?: boolean = false;
+    use1904windowing?: JBoolean = false;
     /** Locale对象表示特定的地理、政治或文化区域。设置日期和数字格式时使用此参数 */
     locale?: ExcelLocale = ExcelLocale.SIMPLIFIED_CHINESE;
     /** 自动删除空格字符 */
-    autoTrim?: boolean = true;
+    autoTrim?: JBoolean = true;
     /** 设置一个自定义对象，可以在侦听器中读取此对象(AnalysisContext.getCustom()) */
     customObject?: any;
     /** Excel列配置(表头) */
@@ -853,7 +772,7 @@ export class ExcelReaderConfig<T extends object> {
      * @param locale          Locale对象表示特定的地理、政治或文化区域。设置日期和数字格式时使用此参数
      * @param password        Excel文件密码
      */
-    constructor(sheet?: number | string, headRowNumber?: number, autoTrim?: boolean, ignoreEmptyRow?: boolean, limitRows?: JInt, locale?: ExcelLocale, password?: string) {
+    constructor(sheet?: JInt | JString, headRowNumber?: JInt, autoTrim?: JBoolean, ignoreEmptyRow?: JBoolean, limitRows?: JInt, locale?: ExcelLocale, password?: JString) {
         if (isString(sheet)) {
             this.sheetName = sheet;
         } else if (isNumber(sheet)) {
@@ -861,7 +780,6 @@ export class ExcelReaderConfig<T extends object> {
         } else {
             this.sheetNo = 0;
         }
-
         this.headRowNumber = headRowNumber ?? 1;
         this.autoTrim = autoTrim ?? true;
         this.ignoreEmptyRow = ignoreEmptyRow ?? false;
@@ -880,11 +798,9 @@ export class ExcelWriterConfig<T extends object> {
     fileName?: JString;
     /** Excel文件对应输出流 */
     outputStream?: JOutputStream;
-
     // ----------------------------------------------------------------------
-
     /** 是否自动关闭输入流 */
-    autoCloseStream?: boolean = false;
+    autoCloseStream?: JBoolean = false;
     /** 在内存中编写excel。默认为false，则创建缓存文件并最终写入excel。仅在内存模式下支持Comment和RichTextString */
     inMemory?: JBoolean = false;
     /** Excel模板文件路径 */
@@ -927,83 +843,40 @@ export class ExcelWriterConfig<T extends object> {
     columns?: {
         [column in keyof T]: ExcelWriterHeadConfig;
     };
-
     // ----------------------------------------------------------------------
     /** 全局样式配置 */
     styleConfig?: ExcelWriterStyleConfig;
 }
+
 
 export interface ExcelUtils {
     /**
      * 读取Excel数据
      * @param initConfig 初始化配置
      */
-    createReader<T extends object>(initConfig: ExcelReaderConfig<T>): ExcelDataReader<T>;
+    read<T extends object>(initConfig: ExcelReaderConfig<T>): JMap<JString, ExcelData<T>>;
 
-    /**
-     * 生成Excel文件
-     * @param initConfig 初始化配置
-     */
-    createWriter<T extends object>(initConfig: ExcelWriterConfig<T>): ExcelDataWriter<T>;
+    // /**
+    //  * 生成Excel文件
+    //  * @param initConfig 初始化配置
+    //  */
+    // createWriter<T extends object>(initConfig: ExcelWriterConfig<T>): ExcelDataWriter<T>;
 }
 
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-declare const excelUtils: ExcelUtils;
 
-class Test {
-    aaa: string = "";
-    bbb: number = 1;
-    ccc: Date = new Date();
-}
 
-const excelReaderConfig = new ExcelReaderConfig<Test>();
-excelReaderConfig.columns = {
-    aaa: {
-        dataType: ExcelDataType.JString,
-        column: "第一列",
-        dateFormat: "yyyy-MM-dd HH:mm:ss",
-    },
-    bbb: {
-        dataType: ExcelDataType.JBigDecimal,
-        column: "第二列",
-    },
-    ccc: {
-        dataType: ExcelDataType.JDate,
-        column: "第三列",
-    }
-}
 
-const excelDataReader = excelUtils.createReader<Test>(excelReaderConfig);
-excelDataReader.read().sheet(0).doRead();
 
-// excelDataReader.read()
 
-excelDataReader.getExcelSheetMap()
 
-excelUtils.createReader<Test>({
-    sheetNo: 0,
-    headRowNumber: 1,
-    ignoreEmptyRow: false,
-    autoTrim: false,
-}).read().sheet(0).doRead();
 
-const excelWriterConfig = new ExcelWriterConfig<Test>();
-excelWriterConfig.columns = {
-    aaa: {
-        column: ["第一列", "数据A"],
-    },
-    bbb: {
-        column: ["第一列", "数据B"],
-    },
-    ccc: {
-        column: ["第二列", "数据B"],
-        dateFormat: "yyyy-MM-dd HH:mm:ss",
-    },
-}
 
-const excelDataWriter = excelUtils.createWriter(excelWriterConfig);
-excelDataWriter.write()
-    .sheet("第一页")
-    .doWrite(Interop.asJList<Test>(new Test(), new Test(), new Test()));
+
+
+
+
+
+
+
 
