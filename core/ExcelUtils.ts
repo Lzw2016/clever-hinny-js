@@ -400,13 +400,8 @@ export enum ExcelDataType {
 export interface ExcelProperty {
     /** 列名称 */
     column: string | string[];
-
-    /** 列的数据类型 */
-    dataType: ExcelDataType;
-
     /** 是否忽略当前列 */
     ignore?: boolean;
-
     /** 定义列的排序顺序 */
     order?: number;
 }
@@ -414,7 +409,6 @@ export interface ExcelProperty {
 export interface DateTimeFormat {
     /** 时间格式化的格式定义 */
     dateFormat: string;
-
     /** 如果日期使用1904窗口，则为True；如果使用1900日期窗口，则为false */
     use1904windowing?: boolean;
 }
@@ -422,7 +416,6 @@ export interface DateTimeFormat {
 export interface NumberFormat {
     /** 数字格式化 */
     numberFormat: string;
-
     /** 四舍五入模式 */
     roundingMode?: RoundingMode;
 }
@@ -435,28 +428,20 @@ export interface ColumnWidth {
 export interface ExcelFontStyle {
     /** 字体的名称（如: Arial） */
     fontName?: string;
-
     /** 以熟悉的测量单位表示的高度- points */
     fontHeightInPoints?: number;
-
     /** 是否使用斜体 */
     italic?: boolean;
-
     /** 是否在文本中使用删除线水平线 */
     strikeout?: boolean;
-
     /** 字体的颜色 */
     color?: number;
-
     /** 设置normal、super或subscript */
     typeOffset?: number;
-
     /** 要使用的文本下划线 */
     underline?: number;
-
     /** 设置要使用的字符集 */
     charset?: number;
-
     /** 粗体 */
     bold?: boolean;
 }
@@ -468,7 +453,6 @@ export interface ContentFontStyle extends ExcelFontStyle {
 export interface ContentLoopMerge {
     /** 行 */
     eachRow: number;
-
     /** 列 */
     columnExtend: number;
 }
@@ -775,7 +759,11 @@ export interface ExcelDataWriter<T> {
 
 /** 读取Excel时的表头配置 */
 export interface ExcelReaderHeadConfig extends ExcelProperty, Partial<DateTimeFormat>, Partial<NumberFormat> {
+    /** 列的数据类型 */
+    dataType: ExcelDataType;
+
     // TODO 读取数据校验配置
+
 }
 
 /** 写入Excel时的表头配置 */
@@ -1004,17 +992,14 @@ const excelWriterConfig = new ExcelWriterConfig<Test>();
 excelWriterConfig.columns = {
     aaa: {
         column: ["第一列", "数据A"],
-        dataType: ExcelDataType.JString,
     },
     bbb: {
         column: ["第一列", "数据B"],
-        dataType: ExcelDataType.JBigDecimal,
     },
     ccc: {
         column: ["第二列", "数据B"],
-        dataType: ExcelDataType.JDate,
         dateFormat: "yyyy-MM-dd HH:mm:ss",
-    }
+    },
 }
 
 const excelDataWriter = excelUtils.createWriter(excelWriterConfig);
