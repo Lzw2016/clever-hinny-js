@@ -1,4 +1,4 @@
-import { ExcelDataType, excelUtils } from '@hinny/core';
+import { AnalysisContext, ExcelDataType, ExcelRow, excelUtils } from '@hinny/core';
 
 const log = LoggerFactory.getLogger(__filename);
 
@@ -42,6 +42,15 @@ const t01 = function () {
                 column: "下架积分商品数",
             },
         },
+        excelRowReader: {
+            readRow(data: Entity, excelRow: ExcelRow<Entity>, context: AnalysisContext) {
+                log.info("#[{}]当前数据 -> {}", excelRow.getExcelRowNum(), (data as any).toString());
+            },
+
+            readEnd(context: AnalysisContext) {
+                log.info("Excel读取完成");
+            }
+        }
     });
     log.info("res -> {}", res);
 }
