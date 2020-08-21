@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "init": "yarn install",
-    "all-tsc": "yarn install && tsc -b core data-jdbc test -w -v"
+    "all-tsc": "yarn install && tsc -b core data-jdbc test -w -v",
+    "all-tsc-fast": "tsc -b core data-jdbc test -w -v"
   },
   "workspaces": [
     "types",

@@ -901,7 +901,7 @@ export class ExcelReaderConfig<T extends object> {
     /** Excel页签名称(xlsx格式才支持) */
     sheetName?: JString;
     /** 表头行数 */
-    headRowNumber: JInt = 1;
+    headRowNumber?: JInt = 1;
     /** 使用科学格式 */
     useScientificFormat?: JBoolean = false;
     /** 如果日期使用1904窗口，则为True；如果使用1900日期窗口，则为false */
@@ -914,7 +914,7 @@ export class ExcelReaderConfig<T extends object> {
     customObject?: any;
     /** Excel列配置(表头) */
     columns?: {
-        [column in keyof T]: ExcelReaderHeadConfig;
+        [column in keyof T]?: ExcelReaderHeadConfig;
     };
 
     /**
@@ -1014,7 +1014,7 @@ export interface ExcelUtils {
      * 读取Excel数据
      * @param config 配置
      */
-    read<T extends object>(config: ExcelReaderConfig<T>): JMap<JString, ExcelData<T>>;
+    read<T extends object=JMap<JString, any>>(config: ExcelReaderConfig<T>): JMap<JString, ExcelData<T>>;
 
     // /**
     //  * 生成Excel文件
@@ -1025,20 +1025,8 @@ export interface ExcelUtils {
     write<T extends object>(initConfig: ExcelWriterConfig<T>): void;
 }
 
+const excelUtils: ExcelUtils = Java.type('org.clever.hinny.graal.core.ExcelUtils').Instance;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export {
+    excelUtils,
+}
