@@ -1022,7 +1022,7 @@ export interface ExcelUtils {
     //  */
     // createWriter<T extends object>(initConfig: ExcelWriterConfig<T>): ExcelDataWriter<T>;
 
-    // write
+    write<T extends object>(initConfig: ExcelWriterConfig<T>): void;
 }
 
 
