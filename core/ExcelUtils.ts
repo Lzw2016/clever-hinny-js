@@ -312,6 +312,160 @@ export enum ExcelFontCharset {
 
 //---------------------------------------------------------------------------------------------------------------------------------------------- Excel内置对象
 
+export interface AbstractParameterBuilder<T extends AbstractParameterBuilder<T>> {
+    /** 如果日期使用1904窗口，则为True；如果使用1900日期窗口，则为false */
+    use1904windowing(use1904windowing: JBoolean): T;
+
+    /** 自动删除空格字符 */
+    autoTrim(autoTrim: JBoolean): void;
+}
+
+export interface AbstractExcelReaderParameterBuilder<T extends AbstractExcelReaderParameterBuilder<T>> extends AbstractParameterBuilder<T> {
+    /** 表头行数 */
+    headRowNumber(headRowNumber: JInt): T;
+
+    /** 使用科学格式 */
+    useScientificFormat(useScientificFormat: JBoolean): T;
+}
+
+export interface ExcelReaderSheetBuilder<E> extends AbstractExcelReaderParameterBuilder<ExcelReaderSheetBuilder<E>> {
+    /** 页签编号(从0开始) */
+    sheetNo(sheetNo: JInt): ExcelReaderSheetBuilder<E>;
+
+    /** 页签名称(xlsx格式才支持) */
+    sheetName(sheetName: JString): ExcelReaderSheetBuilder<E>;
+
+    /** 开始读取Excel数据(推荐) */
+    doRead(): void;
+
+    /** 读取Excel数据，并返回所有结果(数据量大时，会消耗大量内存) */
+    doReadSync(): JList<E>;
+}
+
+export interface ExcelReaderBuilder<E> extends AbstractExcelReaderParameterBuilder<ExcelReaderBuilder<E>> {
+    /** 文件输入流 */
+    file(inputStream: JInputStream): ExcelReaderBuilder<E>;
+
+    /** 强制使用输入流，如果为false，则将“inputStream”传输到临时文件以提高效率 */
+    mandatoryUseInputStream(mandatoryUseInputStream: JBoolean): ExcelReaderBuilder<E>;
+
+    /** 是否自动关闭输入流 */
+    autoCloseStream(autoCloseStream: JBoolean): ExcelReaderBuilder<E>;
+
+    /** 是否忽略空行 */
+    ignoreEmptyRow(ignoreEmptyRow: JBoolean): ExcelReaderBuilder<E>;
+
+    /** 设置一个自定义对象，可以在侦听器中读取此对象(AnalysisContext.getCustom()) */
+    customObject(customObject: any): ExcelReaderBuilder<E>;
+
+    /** Excel文件密码 */
+    password(password: JString): ExcelReaderBuilder<E>;
+
+    /**
+     * 设置读取的页签
+     * @param sheetNo 页签编号(从0开始)
+     */
+    sheet(sheetNo: JInt): ExcelReaderSheetBuilder<E>;
+
+    /**
+     * 设置读取的页签
+     * @param sheetName 页签名称(xlsx格式才支持)
+     */
+    sheet(sheetName: JString): ExcelReaderSheetBuilder<E>;
+
+    /** 开始读取所有的页签数据 */
+    doReadAll(): void;
+
+    /** 开始读取所有的页签数据，并返回所有结果(数据量大时，会消耗大量内存) */
+    doReadAllSynTc(): JList<E>;
+}
+
+// export interface AbstractExcelWriterParameterBuilder<T extends AbstractExcelWriterParameterBuilder<T>> extends AbstractParameterBuilder<T> {
+//     /** 设置Excel表头所在行，从0开始 */
+//     relativeHeadRowIndex(relativeHeadRowIndex: JInt): T;
+//
+//     /** 是否需要输出表头 */
+//     needHead(needHead: JBoolean): T;
+//
+//     /** 是否使用默认样式 */
+//     useDefaultStyle(useDefaultStyle: JBoolean): T;
+//
+//     /** 是否自动合并表头 */
+//     automaticMergeHead(automaticMergeHead: JBoolean): T;
+//
+//     /** 忽略自定义列 */
+//     excludeColumnIndexes(excludeColumnIndexes: JCollection<JInt>): T;
+//
+//     /** 忽略自定义列 */
+//     excludeColumnFiledNames(excludeColumnFiledNames: JCollection<JString>): T;
+//
+//     /** 只输出自定义列 */
+//     includeColumnIndexes(includeColumnIndexes: JCollection<JInt>): T;
+//
+//     /** 只输出自定义列 */
+//     includeColumnFiledNames(includeColumnFiledNames: JCollection<JString>): T;
+// }
+//
+// export interface ExcelWriterSheetBuilder extends AbstractExcelWriterParameterBuilder<ExcelWriterSheetBuilder> {
+//     /** 页签编号(从0开始) */
+//     sheetNo(sheetNo: number): ExcelWriterSheetBuilder;
+//
+//     /** 页签名称(xlsx格式才支持) */
+//     sheetName(sheetName: string): ExcelWriterSheetBuilder;
+//
+//     /**  */
+//     doWrite(data: JList<object>): void
+//
+//     /**  */
+//     doFill(data: object): void
+//
+//     /**  */
+//     table(): ExcelWriterSheetBuilder;
+//
+//     /**  */
+//     table(tableNo: JInt): ExcelWriterSheetBuilder;
+// }
+//
+// export interface ExcelWriterTableBuilder extends AbstractExcelWriterParameterBuilder<ExcelWriterTableBuilder> {
+//     /**  */
+//     tableNo(tableNo: JInt): ExcelWriterTableBuilder;
+//
+//     /**  */
+//     doWrite(data: JList<object>): void
+// }
+//
+// export interface ExcelWriterBuilder extends AbstractExcelWriterParameterBuilder<ExcelWriterBuilder> {
+//     /**  */
+//     file(outputStream: JOutputStream): void;
+//
+//     /**  */
+//     withTemplate(templateInputStream: JInputStream): void;
+//
+//     /**  */
+//     autoCloseStream(autoCloseStream: JBoolean): ExcelWriterBuilder;
+//
+//     /**  */
+//     password(password: JString): ExcelWriterBuilder;
+//
+//     /**  */
+//     inMemory(inMemory: JBoolean): ExcelWriterBuilder;
+//
+//     /**  */
+//     writeExcelOnException(writeExcelOnException: JBoolean): ExcelWriterBuilder;
+//
+//     /**
+//      * 设置读取的页签
+//      * @param sheetNo 页签编号(从0开始)
+//      */
+//     sheet(sheetNo: JInt): ExcelWriterSheetBuilder;
+//
+//     /**
+//      * 设置读取的页签
+//      * @param sheetName 页签名称(xlsx格式才支持)
+//      */
+//     sheet(sheetName: JString): ExcelWriterSheetBuilder;
+// }
+
 export interface AnalysisContext {
 }
 
@@ -854,13 +1008,21 @@ export interface ExcelUtils {
      * 读取Excel数据
      * @param initConfig 初始化配置
      */
-    read<T extends object>(initConfig: ExcelReaderConfig<T>): JMap<JString, ExcelData<T>>;
+    createReader<T extends object>(initConfig: ExcelReaderConfig<T>): ExcelReaderBuilder<T>;
+
+    /**
+     * 读取Excel数据
+     * @param config 配置
+     */
+    read<T extends object>(config: ExcelReaderConfig<T>): JMap<JString, ExcelData<T>>;
 
     // /**
     //  * 生成Excel文件
     //  * @param initConfig 初始化配置
     //  */
     // createWriter<T extends object>(initConfig: ExcelWriterConfig<T>): ExcelDataWriter<T>;
+
+    // write
 }
 
 
