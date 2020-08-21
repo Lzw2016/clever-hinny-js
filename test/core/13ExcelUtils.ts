@@ -6,9 +6,9 @@ interface Entity {
     aaa: JString,
     bbb: JString,
     ccc: JString,
-    ddd: JString,
-    eee: JString,
-    fff: JString,
+    ddd: JInt,
+    eee: JLong,
+    fff: JBigDecimal,
 }
 
 const File = Java.type("java.io.File");
@@ -30,15 +30,15 @@ const t01 = function () {
                 column: "药店名称",
             },
             ddd: {
-                dataType: ExcelDataType.JString,
+                dataType: ExcelDataType.JInteger,
                 column: "积分商品总数量",
             },
             eee: {
-                dataType: ExcelDataType.JString,
+                dataType: ExcelDataType.JLong,
                 column: "上架积分商品数",
             },
             fff: {
-                dataType: ExcelDataType.JString,
+                dataType: ExcelDataType.JBigDecimal,
                 column: "下架积分商品数",
             },
         },
