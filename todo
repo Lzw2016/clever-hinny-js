@@ -17,10 +17,10 @@ ThreadUtils         OK
 HttpUtils           OK
 TreeUtils           OK
 SpringContext       OK
-ExcelUtils
+ExcelUtils          OK
 CookieUtil
 HttpRequestUtils
-ValidatorUtils
+ValidatorUtils      --
 ImageValidateUtils  OK
 ZxingUtils          OK
 SendMailUtils

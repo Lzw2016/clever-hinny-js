@@ -1,3 +1,4 @@
+export * from './JavaEnum';
 export * from './AssertUtils';
 export * from './CommonUtils';
 export * from './StringUtils';

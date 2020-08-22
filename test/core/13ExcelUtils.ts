@@ -1,4 +1,4 @@
-import { AnalysisContext, CellExtraTypeEnum, ExcelDataType, ExcelRow, excelUtils, IndexedColors } from '@hinny/core';
+import { AnalysisContext, BuiltinFormats, CellExtraTypeEnum, ExcelDataType, ExcelRow, excelUtils, IndexedColors, RoundingMode } from '@hinny/core';
 
 const log = LoggerFactory.getLogger(__filename);
 
@@ -72,8 +72,10 @@ const t02 = function () {
                 column: ["第二", "上架积分商品数"],
             },
             fff: {
-                dataType: ExcelDataType.JBigDecimal,
+                dataType: ExcelDataType.JString,
                 column: ["第二", "下架积分商品数"],
+                numberFormat: "###,##0.000000",
+                roundingMode: RoundingMode.HALF_UP,
             },
             ggg: {
                 dataType: ExcelDataType.JString,
@@ -158,7 +160,7 @@ const t04 = function () {
             ddd: {
                 column: ["第二", "积分商品总数量"],
                 columnWidth: 20,
-                // eachRow: 2,
+                // eachRow: 1,
                 // columnExtend: 2,
             },
             eee: {
@@ -168,8 +170,8 @@ const t04 = function () {
             fff: {
                 column: ["第二", "下架积分商品数"],
                 columnWidth: 20,
-                // dateFormat: "###,##0.000000",
-                color: IndexedColors.BLUE,
+                color: IndexedColors.RED,
+                dataFormat: BuiltinFormats.Fmt_5,
             },
         },
         styleConfig: {

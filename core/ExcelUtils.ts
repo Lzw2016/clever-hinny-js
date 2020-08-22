@@ -1,4 +1,5 @@
 import { isNumber, isString } from "./TypeUtils";
+import { RoundingMode } from "./JavaEnum";
 //---------------------------------------------------------------------------------------------------------------------------------------------- Excel枚举
 /** Excel文件格式 */
 export enum ExcelTypeEnum {
