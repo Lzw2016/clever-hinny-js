@@ -799,6 +799,50 @@ export interface ExcelData<T> {
     clearData(): void;
 }
 
+export interface ExcelDataMap<T> {
+    /**
+     * 返回第一个页签数据
+     */
+    getFirstExcelData(): ExcelData<T>;
+
+    /**
+     * 根据页签编号返回页签数据
+     */
+    getExcelData(sheetNo: JInt): ExcelData<T>;
+
+    /**
+     * 根据页签名称返回页签数据
+     */
+    getExcelData(sheetName: JString): ExcelData<T>;
+
+    /**
+     * Excel读取结果
+     */
+    getExcelSheetMap(): JMap<JString, ExcelData<T>>;
+}
+
+export interface ExcelDataReader<T> extends ExcelDataMap<T> {
+    /**
+     * Excel文件名称
+     */
+    getFilename(): JString;
+
+    /**
+     * 读取Excel文件最大行数
+     */
+    getLimitRows(): JInt;
+
+    /**
+     * 是否缓存读取的数据结果到内存中(默认启用)
+     */
+    isEnableExcelData(): JBoolean;
+
+    /**
+     * 返回Excel文件读取器
+     */
+    read(): ExcelReaderBuilder<T>;
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------------- ExcelUtils API设计
 
 /** 读取Excel时的表头配置 */
@@ -913,9 +957,7 @@ export class ExcelReaderConfig<T extends object> {
     /** 设置一个自定义对象，可以在侦听器中读取此对象(AnalysisContext.getCustom()) */
     customObject?: any;
     /** Excel列配置(表头) */
-    columns?: {
-        [column in keyof T]?: ExcelReaderHeadConfig;
-    };
+    columns?: { [column in keyof T]?: ExcelReaderHeadConfig; } | { [column: string]: ExcelReaderHeadConfig; };
 
     /**
      * @param sheet           页签编号或名称
@@ -1008,13 +1050,13 @@ export interface ExcelUtils {
      * 读取Excel数据
      * @param initConfig 初始化配置
      */
-    createReader<T extends object>(initConfig: ExcelReaderConfig<T>): ExcelReaderBuilder<T>;
+    createReader<T extends object = JMap<JString, any>>(initConfig: ExcelReaderConfig<T>): ExcelDataReader<T>;
 
     /**
      * 读取Excel数据
      * @param config 配置
      */
-    read<T extends object=JMap<JString, any>>(config: ExcelReaderConfig<T>): JMap<JString, ExcelData<T>>;
+    read<T extends object = JMap<JString, any>>(config: ExcelReaderConfig<T>): ExcelDataMap<T>;
 
     // /**
     //  * 生成Excel文件
