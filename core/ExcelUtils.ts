@@ -1036,9 +1036,7 @@ export class ExcelWriterConfig<T extends object> {
     /** 自动删除空格字符 */
     autoTrim?: JBoolean = true;
     /** Excel表头 */
-    columns?: {
-        [column in keyof T]: ExcelWriterHeadConfig;
-    };
+    columns?: { [column in keyof T]: ExcelWriterHeadConfig; } | { [column: string]: ExcelWriterHeadConfig; };
     // ----------------------------------------------------------------------
     /** 全局样式配置 */
     styleConfig?: ExcelWriterStyleConfig;
@@ -1062,9 +1060,9 @@ export interface ExcelUtils {
     //  * 生成Excel文件
     //  * @param initConfig 初始化配置
     //  */
-    // createWriter<T extends object>(initConfig: ExcelWriterConfig<T>): ExcelDataWriter<T>;
+    // createWriter<T extends object>(initConfig: ExcelWriterConfig<T>): ExcelWriterBuilder<T>;
 
-    write<T extends object>(initConfig: ExcelWriterConfig<T>): void;
+    write<T extends object = JMap<JString, any>>(config: ExcelWriterConfig<T>, listData: JList<T | JMap<JString, any>>): void;
 }
 
 const excelUtils: ExcelUtils = Java.type('org.clever.hinny.graal.core.ExcelUtils').Instance;
