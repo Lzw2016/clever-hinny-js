@@ -143,6 +143,7 @@ const t04 = function () {
     );
     excelUtils.write<Entity>({
         fileName: "C:\\Users\\lizw\\Downloads\\药店积分商品统计20200813141850.xlsx",
+        // excelType: ExcelTypeEnum.XLS,
         sheetName: "测试数据",
         columns: {
             aaa: {
@@ -160,8 +161,10 @@ const t04 = function () {
             ddd: {
                 column: ["第二", "积分商品总数量"],
                 columnWidth: 20,
-                // eachRow: 1,
-                // columnExtend: 2,
+                contentLoopMerge: {
+                    eachRow: 1,
+                    columnExtend: 2,
+                }
             },
             eee: {
                 column: ["第二", "上架积分商品数"],
@@ -170,14 +173,66 @@ const t04 = function () {
             fff: {
                 column: ["第二", "下架积分商品数"],
                 columnWidth: 20,
-                color: IndexedColors.RED,
-                dataFormat: BuiltinFormats.Fmt_5,
+                contentFontStyle: {
+                    color: IndexedColors.RED,
+                },
+                contentStyle: {
+                    dataFormat: BuiltinFormats.Fmt_8,
+                }
             },
         },
         styleConfig: {
-            color: IndexedColors.BLUE,
+            contentFontStyle: {
+                color: IndexedColors.BLUE,
+            }
         }
     }, listData);
+}
+
+const t05 = function () {
+    const listData: JList<Entity> = Interop.asJList<Entity>(
+        {aaa: "a1", bbb: "b1", ccc: "c1", ddd: 1, eee: 111, fff: Interop.asJBigDecimal("111.111")},
+        {aaa: "a2", bbb: "b2", ccc: "c2", ddd: 2, eee: 222, fff: Interop.asJBigDecimal("222.222")},
+        {aaa: "a3", bbb: "b3", ccc: "c3", ddd: 3, eee: 333, fff: Interop.asJBigDecimal("333.333")},
+        {aaa: "a4", bbb: "b4", ccc: "c4", ddd: 4, eee: 444, fff: Interop.asJBigDecimal("666888.999")},
+    );
+    excelUtils.write<Entity>({
+        fileName: "C:\\Users\\lizw\\Downloads\\药店积分商品统计20200813141850.xlsx",
+        // excelType: ExcelTypeEnum.XLS,
+        sheetName: "测试数据",
+        columns: {
+            aaa: {
+                column: ["第一", "序号"],
+                columnWidth: 10,
+            },
+            bbb: {
+                column: ["第一", "药店ID"],
+                columnWidth: 12,
+            },
+            ccc: {
+                column: ["第一", "药店名称"],
+                columnWidth: 20,
+            },
+            ddd: {
+                column: ["第二", "积分商品总数量"],
+                columnWidth: 20,
+            },
+            eee: {
+                column: ["第二", "上架积分商品数"],
+                columnWidth: 20,
+            },
+            fff: {
+                column: ["第二", "下架积分商品数"],
+                columnWidth: 20,
+                contentStyle: {
+                    dataFormat: BuiltinFormats.Fmt_8,
+                }
+            },
+        },
+    }, listData);
+    for (let i = 0; i < 100; i++) {
+
+    }
 }
 
 export {
@@ -185,4 +240,5 @@ export {
     t02,
     t03,
     t04,
+    t05,
 }

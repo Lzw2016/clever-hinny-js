@@ -583,7 +583,7 @@ export interface ExcelCellStyle {
     /** 设置用于底边框的颜色 */
     bottomBorderColor?: IndexedColors;
     /** 设置为1会使单元格充满前景色...不知道其他值 */
-    fillPatternType: FillPatternType;
+    fillPatternType?: FillPatternType;
     /**  设置背景填充颜色*/
     fillBackgroundColor?: IndexedColors;
     /**
@@ -855,27 +855,35 @@ export interface ExcelReaderHeadConfig extends ExcelProperty, Partial<DateTimeFo
 }
 
 /** 写入Excel时的表头配置 */
-export interface ExcelWriterHeadConfig
-    extends ExcelProperty,
-        Partial<DateTimeFormat>,
-        Partial<NumberFormat>,
-        Partial<ColumnWidth>,
-        Partial<ContentFontStyle>,
-        Partial<ContentLoopMerge>,
-        Partial<ContentStyle>,
-        Partial<HeadFontStyle>,
-        Partial<HeadStyle> {
+export interface ExcelWriterHeadConfig extends ExcelProperty, Partial<DateTimeFormat>, Partial<NumberFormat>, Partial<ColumnWidth> {
+    /** 表头字体样式 */
+    headFontStyle?: HeadFontStyle;
+    /** 表头样式 */
+    headStyle?: HeadStyle;
+
+    /** 内容字体样式 */
+    contentFontStyle?: ContentFontStyle;
+    /** 内容样式 */
+    contentStyle?: ContentStyle;
+
+    /** 行列合并配置 */
+    contentLoopMerge?: ContentLoopMerge;
 }
 
 /** 写入Excel时的全局样式配置 */
-export interface ExcelWriterStyleConfig
-    extends Partial<ContentFontStyle>,
-        Partial<ContentRowHeight>,
-        Partial<ContentStyle>,
-        Partial<HeadFontStyle>,
-        Partial<HeadRowHeight>,
-        Partial<HeadStyle>,
-        Partial<OnceAbsoluteMerge> {
+export interface ExcelWriterStyleConfig extends Partial<HeadRowHeight>, Partial<ContentRowHeight> {
+    /** 表头字体样式 */
+    headFontStyle?: HeadFontStyle;
+    /** 表头样式 */
+    headStyle?: HeadStyle;
+
+    /** 内容字体样式 */
+    contentFontStyle?: ContentFontStyle;
+    /** 内容样式 */
+    contentStyle?: ContentStyle;
+
+    /** 行列合并配置 */
+    onceAbsoluteMerge?: OnceAbsoluteMerge;
 }
 
 export interface ExcelReaderExceptionHand {
