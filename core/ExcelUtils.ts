@@ -311,6 +311,17 @@ export enum ExcelFontCharset {
     OEM = "OEM",
 }
 
+export enum WriteDirectionEnum {
+    /**
+     * 垂直写入
+     */
+    VERTICAL = "VERTICAL",
+    /**
+     * 横向写
+     */
+    HORIZONTAL = "HORIZONTAL",
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------------- Excel内置对象
 
 export interface AbstractParameterBuilder<T extends AbstractParameterBuilder<T>> {
@@ -620,6 +631,13 @@ export interface OnceAbsoluteMerge {
     lastColumnIndex: JInt;
 }
 
+export class ExcelFillConfig {
+    /** 数据填充方向 */
+    direction: WriteDirectionEnum = WriteDirectionEnum.VERTICAL;
+    /** 每次使用list参数时都要创建一个新行。必要时使用默认值。警告：如果使用forceNewRow设置为true，将无法使用异步写入文件，只是说整个文件将存储在内存中 */
+    forceNewRow?: JBoolean = false;
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------------- 读取Excel数据的返回值
 
 export interface ExcelHead {
@@ -844,6 +862,38 @@ export interface ExcelDataReader<T> extends ExcelDataMap<T> {
     read(): ExcelReaderBuilder<T>;
 }
 
+export interface ExcelWriter<T> {
+    /**
+     * 写入数据
+     */
+    write(listData: JList<T | JMap<JString, any>>): void;
+
+    /**
+     * 根据模块填充数据
+     */
+    fill(data: T | JMap<JString, any>, fillConfig: ExcelFillConfig): void;
+
+    /**
+     * 根据模块填充数据
+     */
+    fill(data: T | JMap<JString, any>): void;
+
+    /**
+     * 根据模块填充数据
+     */
+    fill(listData: JList<T | JMap<JString, any>>, fillConfig: ExcelFillConfig): void;
+
+    /**
+     * 根据模块填充数据
+     */
+    fill(listData: JList<T | JMap<JString, any>>): void;
+
+    /**
+     * 写入完成操作
+     */
+    finish(): void;
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------------- ExcelUtils API设计
 
 /** 读取Excel时的表头配置 */
@@ -1051,10 +1101,9 @@ export class ExcelWriterConfig<T extends object> {
     styleConfig?: ExcelWriterStyleConfig;
 }
 
-
 export interface ExcelUtils {
     /**
-     * 读取Excel数据
+     * 创建Excel数据读取器
      * @param initConfig 初始化配置
      */
     createReader<T extends object = JMap<JString, any>>(initConfig: ExcelReaderConfig<T>): ExcelDataReader<T>;
@@ -1065,12 +1114,15 @@ export interface ExcelUtils {
      */
     read<T extends object = JMap<JString, any>>(config: ExcelReaderConfig<T>): ExcelDataMap<T>;
 
-    // /**
-    //  * 生成Excel文件
-    //  * @param initConfig 初始化配置
-    //  */
-    // createWriter<T extends object>(initConfig: ExcelWriterConfig<T>): ExcelWriterBuilder<T>;
+    /**
+     * 创建Excel数据写入器
+     * @param initConfig 初始化配置
+     */
+    createWriter<T extends object = object>(initConfig: ExcelWriterConfig<T>): ExcelWriter<T>;
 
+    /**
+     * 直接一次性写入数据
+     */
     write<T extends object = JMap<JString, any>>(config: ExcelWriterConfig<T>, listData: JList<T | JMap<JString, any>>): void;
 }
 
