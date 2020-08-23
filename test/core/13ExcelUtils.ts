@@ -1,4 +1,4 @@
-import { AnalysisContext, BuiltinFormats, CellExtraTypeEnum, ExcelDataType, ExcelRow, excelUtils, IndexedColors, RoundingMode } from '@hinny/core';
+import { AnalysisContext, BuiltinFormats, CellExtraTypeEnum, ExcelDataType, ExcelRow, excelUtils, IndexedColors, RoundingMode, WriteDirectionEnum } from '@hinny/core';
 
 const log = LoggerFactory.getLogger(__filename);
 
@@ -196,7 +196,7 @@ const t05 = function () {
         {aaa: "a3", bbb: "b3", ccc: "c3", ddd: 3, eee: 333, fff: Interop.asJBigDecimal("333.333")},
         {aaa: "a4", bbb: "b4", ccc: "c4", ddd: 4, eee: 444, fff: Interop.asJBigDecimal("666888.999")},
     );
-    excelUtils.write<Entity>({
+    const excelWriter = excelUtils.createWriter<Entity>({
         fileName: "C:\\Users\\lizw\\Downloads\\药店积分商品统计20200813141850.xlsx",
         // excelType: ExcelTypeEnum.XLS,
         sheetName: "测试数据",
@@ -229,10 +229,38 @@ const t05 = function () {
                 }
             },
         },
-    }, listData);
+    });
     for (let i = 0; i < 100; i++) {
-
+        excelWriter.write(listData);
     }
+    excelWriter.finish();
+}
+
+const t06 = function () {
+    const excelWriter = excelUtils.createWriter({
+        fileName: "C:\\Users\\lizw\\Downloads\\模板数据填充.xlsx",
+        sheetNo: 0,
+        template: "C:\\Users\\lizw\\Downloads\\模板文件.xlsx",
+    });
+
+    excelWriter.fill({
+        name: "李志伟",
+        age: "18",
+    });
+    // 列表填充只能用一次
+    // excelWriter.fill(
+    //     Interop.asJList({name: "张三", money: 9.6}, {name: "李四", money: 15.6}, {name: "王五", money: 12.3}),
+    //     {
+    //         direction: WriteDirectionEnum.HORIZONTAL
+    //     },
+    // );
+    excelWriter.fill(
+        Interop.asJList({course: "语文", score: 61}, {course: "数学", score: 100}, {course: "英语", score: 38}),
+        {
+            direction: WriteDirectionEnum.VERTICAL
+        },
+    );
+    excelWriter.finish();
 }
 
 export {
@@ -241,4 +269,5 @@ export {
     t03,
     t04,
     t05,
+    t06,
 }
