@@ -12,12 +12,12 @@ export interface AssertUtils {
     /**
      * 断言object是null值
      */
-    isNull(object: any, message: JString): void;
+    isNull(object: object, message: JString): void;
 
     /**
      * 断言object非null
      */
-    notNull(object: any, String: JString): void;
+    notNull(object: object, String: JString): void;
 
     /**
      * 断言给定字符串不为空；也就是说，它不能为null，也不能为空字符串
