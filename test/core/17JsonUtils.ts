@@ -10,50 +10,32 @@ const t01 = function () {
         ddd: "444",
         eee: 555,
     }
+    const xml = `
+    <apps>
+        <app>
+            <id>1</id>
+            <name>Google Maps</name> 
+            <virsion>1.0</virsion> 
+        </app> 
+        <app> 
+            <id>2</id> 
+            <name>Chrome</name> 
+          <version>2.1</version> 
+       </app> 
+        <app> 
+          <id>3</id> 
+           <name>Google Play</name> 
+          <version>2.3</version> 
+        </app> 
+    </apps>
+    `;
     log.info("toJson                  --------------->{}", jsonUtils.toJson(a));
     log.info("toJsonP                 --------------->{}", jsonUtils.toJsonP("jsonp", a));
     log.info("toMap                   --------------->{}", jsonUtils.toMap(jsonUtils.toJson(a)));
-    log.info("update                  --------------->{}", jsonUtils.update(
-        "{a:1,b:2}", a));
+    log.info("update                  --------------->{}", jsonUtils.update("{a:1,b:2}", a));
     log.info("a                       --------------->{}", a);
-    log.info("xmlToJson               --------------->{}", jsonUtils.xmlToJson(
-        "<apps>\n" +
-        "    <app>\n" +
-        "        <id>1</id>\n" +
-        "        <name>Google Maps</name>\n" +
-        "        <virsion>1.0</virsion>\n" +
-        "    </app>\n" +
-        "    <app>\n" +
-        "        <id>2</id>\n" +
-        "        <name>Chrome</name>\n" +
-        "        <version>2.1</version>\n" +
-        "    </app>\n" +
-        "    <app>\n" +
-        "        <id>3</id>\n" +
-        "        <name>Google Play</name>\n" +
-        "        <version>2.3</version>\n" +
-        "    </app>\n" +
-        "</apps>"
-    ));
-    log.info("jsonToXml               --------------->{}", jsonUtils.jsonToXml(jsonUtils.xmlToJson(
-        "<apps>\n" +
-        "    <app>\n" +
-        "        <id>1</id>\n" +
-        "        <name>Google Maps</name>\n" +
-        "        <virsion>1.0</virsion>\n" +
-        "    </app>\n" +
-        "    <app>\n" +
-        "        <id>2</id>\n" +
-        "        <name>Chrome</name>\n" +
-        "        <version>2.1</version>\n" +
-        "    </app>\n" +
-        "    <app>\n" +
-        "        <id>3</id>\n" +
-        "        <name>Google Play</name>\n" +
-        "        <version>2.3</version>\n" +
-        "    </app>\n" +
-        "</apps>"
-    )));
+    log.info("xmlToJson               --------------->{}", jsonUtils.xmlToJson(xml));
+    log.info("jsonToXml               --------------->{}", jsonUtils.jsonToXml(jsonUtils.xmlToJson(xml)));
 }
 
 export {
