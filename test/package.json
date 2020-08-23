@@ -8,6 +8,6 @@
   "devDependencies": {
     "@hinny/core": "0.0.1",
     "@hinny/data-jdbc": "0.0.1",
-    "@hinny/server": "0.0.1"
+    "@hinny/mvc": "0.0.1"
   }
 }

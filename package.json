@@ -9,7 +9,7 @@
     "types",
     "core",
     "data-jdbc",
-    "server",
+    "mvc",
     "test"
   ]
 }

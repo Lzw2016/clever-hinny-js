@@ -1,9 +1,11 @@
 {
-  "name": "@hinny/server",
+  "name": "@hinny/mvc",
   "version": "0.0.1",
   "description": "clever-hinny Web开发js模块",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
+    "mvc-tsc": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -13,6 +15,7 @@
     "web",
     "mvc",
     "http",
+    "spring",
     "graaljs",
     "j2v8",
     "nashorn",
