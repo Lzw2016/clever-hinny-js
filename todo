@@ -1,10 +1,10 @@
-AssertUtils         OK      需要检查
-CommonUtils         OK      需要检查
+AssertUtils         OK      OK
+CommonUtils         OK      OK
 StringUtils         OK      需要检查
-DateUtils           OK      需要检查
-IDGenerateUtils     OK      需要检查
-JsonUtils           OK      需要检查
-XmlUtils            OK      需要检查
+DateUtils           OK      OK
+IDGenerateUtils     OK      OK
+JsonUtils           OK      OK
+XmlUtils            OK      OK
 SpringContext       OK      需要检查
 CryptoUtils         OK      需要检查
 DigestUtils         OK      需要检查
