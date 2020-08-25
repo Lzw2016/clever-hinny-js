@@ -7,8 +7,8 @@ JsonUtils           OK      OK
 XmlUtils            OK      OK
 SpringContext       OK      需要检查
 CryptoUtils         OK      需要检查
-DigestUtils         OK      需要检查
-EncodeDecodeUtils   OK      需要检查
+DigestUtils         OK      OK
+EncodeDecodeUtils   OK      OK
 ThreadUtils         OK      需要检查
 
 --
