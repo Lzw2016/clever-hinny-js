@@ -4,7 +4,7 @@ interface JServletRequest extends JObject {
     /**
      * 返回具有给定名字的 servlet container 的属性,或者当没有具有所给名字的属性时，返回一个空值
      */
-    getAttribute(name: JString): any | null;
+    getAttribute<T = any>(name: JString): T | null;
 
     /**
      * 从请求消息中删除一个属性
@@ -118,4 +118,6 @@ interface JServletRequest extends JObject {
     getLocalName(): JString;
 
     getLocalPort(): JInt;
+
+    getServletContext(): JServletContext;
 }
