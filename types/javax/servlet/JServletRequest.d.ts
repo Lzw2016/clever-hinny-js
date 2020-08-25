@@ -87,11 +87,6 @@ interface JServletRequest extends JObject {
     getServerPort(): JInt;
 
     /**
-     * 不提倡的用法 从 Java Servlet API版本2。1开始，用ServletContext.getRealPath(java.lang.String) 代替
-     */
-    getRealPath(): JString;
-
-    /**
      * 返回一个请求参数的字符串值。若该参数不存在，则返回一个空值
      */
     getParameter(name: JString): JString;

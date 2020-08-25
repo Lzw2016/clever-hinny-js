@@ -9,7 +9,7 @@ interface JHttpSession extends JObject {
     /**
      * 返回在本会话中绑定了指定名字的对象，当没有所要求的对象时，返回一个空值
      */
-    getAttribute(name: JString): JString | null;
+    getAttribute(name: JString): any | null;
 
     /**
      * 用指定的名字将一个对象绑定到一个会话

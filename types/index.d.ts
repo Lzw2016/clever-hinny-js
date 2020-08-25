@@ -34,6 +34,7 @@
 /// <reference path="java/sql/JSqlDate.d.ts" />
 
 // ----------------------------------------------------------------------- javax.servlet
+/// <reference path="javax/servlet/JServletContext.d.ts" />
 /// <reference path="javax/servlet/JServletRequest.d.ts" />
 /// <reference path="javax/servlet/JServletResponse.d.ts" />
 /// <reference path="javax/servlet/http/JCookie.d.ts" />
