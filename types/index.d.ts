@@ -33,6 +33,14 @@
 /// <reference path="java/sql/JSqlTime.d.ts" />
 /// <reference path="java/sql/JSqlDate.d.ts" />
 
+// ----------------------------------------------------------------------- javax.servlet
+/// <reference path="javax/servlet/JServletRequest.d.ts" />
+/// <reference path="javax/servlet/JServletResponse.d.ts" />
+/// <reference path="javax/servlet/http/JCookie.d.ts" />
+/// <reference path="javax/servlet/http/JHttpServletRequest.d.ts" />
+/// <reference path="javax/servlet/http/JHttpServletResponse.d.ts" />
+/// <reference path="javax/servlet/http/JHttpSession.d.ts" />
+
 
 // 基础内置对象声明
 /// <reference path="nashorn.d.ts" />
