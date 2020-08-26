@@ -37,6 +37,21 @@ interface JHttpServletResponse extends JServletResponse {
     setIntHeader(name: JString, value: JInt): void;
 
     /**
+     * 获取响应消息头信息
+     */
+    getHeader(name: JString): JString;
+
+    /**
+     * 获取响应消息头信息
+     */
+    getHeaders(name: JString): JCollection<JString>;
+
+    /**
+     * 获取所有响应消息头名称
+     */
+    getHeaderNames(): JCollection<JString>;
+
+    /**
      * 返回一个布尔值以反映是否指定的响应消息头部已被设置过了
      */
     containsHeader(name: JString): JBoolean;
@@ -60,6 +75,11 @@ interface JHttpServletResponse extends JServletResponse {
      * 设置响应消息的状态码
      */
     setStatus(sc: JInt): JString;
+
+    /**
+     * 获取响应状态码
+     */
+    getStatus():JInt;
 
     /**
      * 用指定的状态向客户端发送一个错误响应

@@ -27,6 +27,11 @@ interface JServletResponse extends JObject {
     getCharacterEncoding(): JString;
 
     /**
+     * 设置响应编码
+     */
+    setCharacterEncoding(charset: JString): void;
+
+    /**
      * 返回一个适用于在响应消息中写入二进制数据的 ServletOutputStream
      */
     getOutputStream(): JOutputStream;
@@ -47,9 +52,19 @@ interface JServletResponse extends JObject {
     setContentLength(len: JInt): void;
 
     /**
+     * 设置响应中的内容长度。在HTTP servlet 中，这个方法就是设置HTTP Content-Length header
+     */
+    setContentLengthLong(len: JLong): void;
+
+    /**
      * 设置正被发往客户端的响应的内容类型
      */
     setContentType(type: JString): void;
+
+    /**
+     * 获取响应的内容类型
+     */
+    getContentType(): JString;
 
     // /**
     //  * 返回分配给响应消息的场所

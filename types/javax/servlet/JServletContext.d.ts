@@ -7,6 +7,16 @@ interface JServletContext extends JObject {
     getContext(uripath: JString): JServletContext;
 
     /**
+     * Web应用程序的上下文路径，或者为根上下文“”
+     */
+    getContextPath(): JString;
+
+    /**
+     * 返回与此ServletContext相对应的此Web应用程序的名称，该名称由display-name元素为此Web应用程序的部署描述符中指定。
+     */
+    getServletContextName():JString;
+
+    /**
      * 返回 servlet 容器支持的最低的 Java Servlet API版本号
      */
     getMinorVersion(): JInt;
@@ -64,7 +74,7 @@ interface JServletContext extends JObject {
     /**
      * 返回具有给动名字的servlet container 的属性,或者当没有具有所给名字的属性时，返回一个空值
      */
-    getAttribute(name: JString): any | null;
+    getAttribute<T = any>(name: JString): T | null;
 
     /**
      * 绑定一个对象到在 servlet context中给定的属性名称
@@ -90,4 +100,9 @@ interface JServletContext extends JObject {
      * 返回context的初始化参数的名字 ，用一个字符串对象枚举变量的形式。如果相应的context没有初始化参数，则就返回一个空的枚举变量
      */
     getInitParameterNames(): JList<JString>;
+
+    /**
+     * 获取此ServletContext默认支持的会话超时（以分钟为单位）
+     */
+    getSessionTimeout():JInt;
 }
