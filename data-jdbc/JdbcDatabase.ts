@@ -599,6 +599,40 @@ export interface JdbcDataSource extends JObject {
      */
     queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage): IPage<T>;
 
+    /**
+     * 查询数据库表数据
+     *
+     * @param tableName         表名称
+     * @param whereMap          更新条件字段(只支持=，and条件)
+     * @param camelToUnderscore 字段驼峰转下划线(可选)
+     */
+    queryTableList<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap, camelToUnderscore: JBoolean): JList<T>
+
+    /**
+     * 查询数据库表数据
+     *
+     * @param tableName         表名称
+     * @param whereMap          更新条件字段(只支持=，and条件)
+     */
+    queryTableList<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap): JList<T>
+
+    /**
+     * 查询数据库表数据
+     *
+     * @param tableName         表名称
+     * @param whereMap          更新条件字段(只支持=，and条件)
+     * @param camelToUnderscore 字段驼峰转下划线(可选)
+     */
+    queryTableMap<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap, camelToUnderscore: JBoolean): T;
+
+    /**
+     * 查询数据库表数据
+     *
+     * @param tableName         表名称
+     * @param whereMap          更新条件字段(只支持=，and条件)
+     */
+    queryTableMap<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap): T;
+
     // --------------------------------------------------------------------------------------------
     // Update 操作
     // --------------------------------------------------------------------------------------------
@@ -663,6 +697,35 @@ export interface JdbcDataSource extends JObject {
      * @param paramMapList 参数数组，参数格式[:param]
      */
     batchUpdate(sql: JString, paramMapList: Array<SqlParamMap>): Array<JInt>;
+
+    // --------------------------------------------------------------------------------------------
+    // Delete 操作
+    // --------------------------------------------------------------------------------------------
+
+    /**
+     * 删除数据库表数据
+     *
+     * @param tableName         表名称
+     * @param whereMap          更新条件字段(只支持=，and条件)
+     * @param camelToUnderscore 字段驼峰转下划线(可选)
+     */
+    deleteTable(tableName: JString, whereMap: SqlParamMap, camelToUnderscore: JBoolean): JInt;
+
+    /**
+     * 删除数据库表数据
+     *
+     * @param tableName 表名称
+     * @param whereMap  更新条件字段(只支持=，and条件)
+     */
+    deleteTable(tableName: JString, whereMap: SqlParamMap): JInt;
+
+    /**
+     * 删除数据库表数据
+     *
+     * @param tableName 表名称
+     * @param where     自定义where条件(不用写where关键字)
+     */
+    deleteTable(tableName: JString, where: JString): JInt;
 
     // --------------------------------------------------------------------------------------------
     // Insert 操作
