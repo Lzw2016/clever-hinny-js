@@ -26,8 +26,10 @@ export const t02: HttpRouter = {
 
     put: ctx => {
         log.info("-> {}", ctx.request.getQueryString());
-        ctx.response.addHeader("x-h-test", "test")
-        return jdbc.queryByPage("select * from tb_order_main", {})
+        ctx.response.addHeader("x-h-test", "test ")
+        return jdbc.queryByPage("select * from tb_order_main", {
+            pageNo: 2
+        })
     },
 };
 
