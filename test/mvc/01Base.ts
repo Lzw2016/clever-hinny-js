@@ -5,13 +5,13 @@ import { HttpHandle, HttpMethod, HttpRouter } from "@hinny/mvc";
 const log = LoggerFactory.getLogger(__filename);
 const jdbc = jdbcDatabase.getDefault();
 
-const t01: HttpHandle = ctx => {
+export const t01: HttpHandle = ctx => {
     const {request} = ctx;
     log.info("getHeaderNames --> {}", request.getHeaderNames());
     return jdbc.queryList("select * from tb_order_main limit 16");
 }
 
-const t02: HttpRouter = {
+export const t02: HttpRouter = {
     method: HttpMethod.POST,
 
     handle: ctx => {
@@ -23,9 +23,11 @@ const t02: HttpRouter = {
         log.info("getParameterNames -->");
         return ctx.request.getParameterNames();
     },
+
+    put: ctx => {
+        log.info("-> {}", ctx.request.getQueryString());
+        ctx.response.addHeader("x-h-test", "test")
+        return jdbc.queryByPage("select * from tb_order_main", {})
+    },
 };
 
-export {
-    t01,
-    t02,
-}
