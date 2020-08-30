@@ -101,6 +101,11 @@ export const t03: HttpRouter = {
                     },
                     // create_at: {column: ["购买信息", "下单时间"], columnWidth: 20},
                 },
+                // styleConfig: {
+                //     headStyle: {
+                //         locked: true,
+                //     }
+                // }
             },
             listData
         );
