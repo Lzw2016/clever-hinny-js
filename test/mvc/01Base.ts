@@ -79,6 +79,7 @@ export const t03: HttpRouter = {
                 request: request,
                 response: response,
                 fileName: "数据导出.xlsx",
+                // autoCloseStream: false,
                 sheetName: "订单明细",
                 columns: {
                     store_no: {column: ["店铺信息", "店铺编号"], columnWidth: 22},
@@ -91,8 +92,13 @@ export const t03: HttpRouter = {
                     manufacture: {column: ["商品信息", "厂家"], columnWidth: 15},
                     merchandise_number: {column: ["购买信息", "购买数量"], columnWidth: 12},
                     out_number: {column: ["购买信息", "出库数量"], columnWidth: 12},
-                    no_out_number: {column: ["购买信息", "不出库数量"], columnWidth: 12},
-                    member_price: {column: ["购买信息", "会员价"], columnWidth: 12},
+                    no_out_number: {column: ["购买信息", "不出库数量"], columnWidth: 16},
+                    member_price: {
+                        column: ["购买信息", "会员价"],
+                        columnWidth: 12,
+                        // contentFontStyle: {color: IndexedColors.RED,},
+                        // contentStyle: {dataFormat: BuiltinFormats.Fmt_8,},
+                    },
                     // create_at: {column: ["购买信息", "下单时间"], columnWidth: 20},
                 },
             },
