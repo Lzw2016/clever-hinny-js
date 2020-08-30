@@ -20,8 +20,11 @@ export const t02: HttpRouter = {
     },
 
     get: ctx => {
-        log.info("getParameterNames -->");
-        return ctx.request.getParameterNames();
+        log.info("getParameterNames --> {}", ctx.request.getParameterNames());
+        const limit = ctx.request.getParameter("limit") ?? "3";
+        return jdbc.queryList("select * from tb_order_main limit :limit", {
+            limit: Interop.asJInt(limit),
+        });
     },
 
     put: ctx => {
@@ -32,4 +35,3 @@ export const t02: HttpRouter = {
         })
     },
 };
-
