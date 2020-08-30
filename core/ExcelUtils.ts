@@ -1046,9 +1046,9 @@ export class ExcelReaderConfig<T extends object> {
 
 export class ExcelWriterConfig<T extends object> {
     /** Excel导出请求对象 */
-    // private HttpServletRequest request;
+    request?: JHttpServletRequest
     /** Excel导出响应对象 */
-    // private HttpServletResponse response;
+    response?: JHttpServletResponse;
     /** Excel导出文件名(或者Excel文件路径) */
     fileName?: JString;
     /** Excel文件对应输出流 */
