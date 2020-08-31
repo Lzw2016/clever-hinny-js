@@ -1,7 +1,7 @@
 // import { commonUtils } from "@hinny/core";
 import { jdbcDatabase } from "@hinny/data-jdbc";
 import { HttpHandle, HttpMethod, HttpRouter } from "@hinny/mvc";
-import { excelUtils } from "@hinny/core";
+import { BuiltinFormats, excelUtils, IndexedColors } from "@hinny/core";
 
 const log = LoggerFactory.getLogger(__filename);
 const jdbc = jdbcDatabase.getDefault();
@@ -80,12 +80,12 @@ export const t03: HttpRouter = {
                 request: request.originalRequest(),
                 response: response.originalResponse(),
                 fileName: "数据导出.xlsx",
-                // autoCloseStream: false,
+                autoCloseStream: false,
                 sheetName: "订单明细",
                 columns: {
                     store_no: {column: ["店铺信息", "店铺编号"], columnWidth: 22},
                     store_prod_no: {column: ["店铺信息", "店铺商品编码"], columnWidth: 26},
-                    order_code: {column: ["店铺信息", "订单编码"], columnWidth: 20},
+                    order_code: {column: ["店铺信息", "订单编码"], columnWidth: 20, contentFontStyle: {color: IndexedColors.GREEN}},
                     erp_no: {column: ["商品信息", "ERP编码"], columnWidth: 16},
                     prod_name: {column: ["商品信息", "商品名称"], columnWidth: 30},
                     prod_specification: {column: ["商品信息", "规格"], columnWidth: 16},
@@ -97,8 +97,8 @@ export const t03: HttpRouter = {
                     member_price: {
                         column: ["购买信息", "会员价"],
                         columnWidth: 12,
-                        // contentFontStyle: {color: IndexedColors.RED,},
-                        // contentStyle: {dataFormat: BuiltinFormats.Fmt_8,},
+                        contentFontStyle: {color: IndexedColors.RED,},
+                        contentStyle: {dataFormat: BuiltinFormats.Fmt_8,},
                     },
                     // create_at: {column: ["购买信息", "下单时间"], columnWidth: 20},
                 },
