@@ -1,6 +1,8 @@
 import { AnalysisContext, BuiltinFormats, CellExtraTypeEnum, ExcelDataType, ExcelRow, excelUtils, IndexedColors, RoundingMode, WriteDirectionEnum } from '@hinny/core';
+import { jdbcDatabase } from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(__filename);
+const jdbc = jdbcDatabase.getDefault();
 
 interface Entity {
     aaa: JString,
@@ -224,10 +226,18 @@ const t05 = function () {
             fff: {
                 column: ["第二", "下架积分商品数"],
                 columnWidth: 20,
+                contentFontStyle: {
+                    color: IndexedColors.RED,
+                },
                 contentStyle: {
                     dataFormat: BuiltinFormats.Fmt_8,
                 }
             },
+        },
+        styleConfig: {
+            contentFontStyle: {
+                color: IndexedColors.BLUE,
+            }
         },
     });
     for (let i = 0; i < 100; i++) {
@@ -263,6 +273,78 @@ const t06 = function () {
     excelWriter.finish();
 }
 
+interface ExcelEntity {
+    /** 店铺编号 */
+    store_no: JString;
+    /** 店铺商品编码 */
+    store_prod_no: JString;
+    /** 订单编码 */
+    order_code: JString;
+    /** ERP编码 */
+    erp_no: JString;
+    /** 商品名称 */
+    prod_name: JString;
+    /** 规格 */
+    prod_specification: JString;
+    /** 单位 */
+    package_unit: JString;
+    /** 厂家 */
+    manufacture: JString;
+    /** 购买数量 */
+    merchandise_number: JBigDecimal;
+    /** 出库数量 */
+    out_number: JBigDecimal;
+    /** 不出库数量 */
+    no_out_number: JBigDecimal;
+    /** 会员价 */
+    member_price: JBigDecimal;
+    // /** 创建时间 */
+    // create_at: JDate;
+}
+
+const t07 = function () {
+    const listData = jdbc.queryList(
+        "select * from tb_order_detail_distinct limit :limit",
+        {limit: Interop.asJInt(5)},
+    );
+    excelUtils.write<ExcelEntity>(
+        {
+            fileName: "C:\\Users\\lizw\\Downloads\\数据导出.xlsx",
+            // autoCloseStream: false,
+            sheetName: "订单明细",
+            columns: {
+                store_no: {column: ["店铺信息", "店铺编号"], columnWidth: 22},
+                store_prod_no: {column: ["店铺信息", "店铺商品编码"], columnWidth: 26},
+                order_code: {column: ["店铺信息", "订单编码"], columnWidth: 20},
+                erp_no: {column: ["商品信息", "ERP编码"], columnWidth: 16},
+                prod_name: {column: ["商品信息", "商品名称"], columnWidth: 30},
+                prod_specification: {column: ["商品信息", "规格"], columnWidth: 16},
+                package_unit: {column: ["商品信息", "单位"], columnWidth: 10},
+                manufacture: {column: ["商品信息", "厂家"], columnWidth: 60},
+                merchandise_number: {column: ["购买信息", "购买数量"], columnWidth: 12},
+                out_number: {column: ["购买信息", "出库数量"], columnWidth: 12},
+                no_out_number: {column: ["购买信息", "不出库数量"], columnWidth: 16},
+                member_price: {
+                    column: ["购买信息", "会员价"],
+                    columnWidth: 12,
+                    // contentFontStyle: {color: IndexedColors.RED,},
+                    contentStyle: {dataFormat: BuiltinFormats.Fmt_8,},
+                },
+                // create_at: {column: ["购买信息", "下单时间"], columnWidth: 20},
+            },
+            styleConfig: {
+                // contentFontStyle: {
+                //     color: IndexedColors.BLUE,
+                // },
+                // headStyle: {
+                //     locked: true,
+                // },
+            }
+        },
+        listData
+    );
+}
+
 export {
     t01,
     t02,
@@ -270,4 +352,5 @@ export {
     t04,
     t05,
     t06,
+    t07,
 }
