@@ -1,5 +1,5 @@
-import { DataRowMap, SqlFieldType, SqlParamMap } from "./JdbcTypes";
-import { DbType, IsolationLevel, Propagation, SortType } from "./JdbcEnum";
+import { DataRowMap, SqlFieldType, SqlParamMap, QueryBySort, QueryByPage } from "./JdbcTypes";
+import { DbType, IsolationLevel, Propagation } from "./JdbcEnum";
 import { JdbcInfo } from "./JdbcInfo";
 import { JdbcDataSourceStatus } from "./JdbcDataSourceStatus";
 
@@ -74,55 +74,6 @@ export interface BatchQueryCallback<T = DataRowMap> {
  */
 export interface QueryCallback<T = DataRowMap> {
     (batchData: RowData<T>): void;
-}
-
-/**
- * 查询排序参数
- */
-export interface QueryBySort {
-    /**
-     * 排序字段(单字段排序-低优先级)
-     */
-    orderField?: JString;
-    /**
-     * 排序类型ASC DESC(单字段排序-低优先级)
-     */
-    sort?: SortType;
-
-    /**
-     * 排序字段集合(多字段排序-高优先级)
-     */
-    orderFields?: Array<JString>;
-    /**
-     * 排序类型 ASC DESC(多字段排序-高优先级)
-     */
-    sorts?: Array<SortType>;
-
-    /**
-     * 排序字段 映射Map
-     */
-    fieldsMapping: { [name: string]: JString };
-}
-
-/**
- * 查询分页参数
- */
-export interface QueryByPage extends Partial<QueryBySort> {
-    /**
-     * 每页的数据量(1 <= pageSize <= 100)
-     */
-    pageSize?: JInt;
-    /**
-     * 当前页面的页码数(pageNo >= 1)
-     */
-    pageNo?: JInt;
-    /**
-     * 是否进行 count 查询
-     */
-    isSearchCount?: JBoolean;
-
-    /** 查询参数 */
-    [name: string]: any;
 }
 
 export interface OrderItem extends JObject {
