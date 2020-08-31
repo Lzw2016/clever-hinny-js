@@ -69,6 +69,7 @@ interface ExcelEntity {
 export const t03: HttpRouter = {
     get: ctx => {
         const {request, response} = ctx;
+        response.getHeaders("");
         const limit = request.getParameter("limit") ?? "3";
         const listData = jdbc.queryList(
             "select * from tb_order_detail_distinct limit :limit",
@@ -89,7 +90,7 @@ export const t03: HttpRouter = {
                     prod_name: {column: ["商品信息", "商品名称"], columnWidth: 30},
                     prod_specification: {column: ["商品信息", "规格"], columnWidth: 16},
                     package_unit: {column: ["商品信息", "单位"], columnWidth: 10},
-                    manufacture: {column: ["商品信息", "厂家"], columnWidth: 15},
+                    manufacture: {column: ["商品信息", "厂家"], columnWidth: 60},
                     merchandise_number: {column: ["购买信息", "购买数量"], columnWidth: 12},
                     out_number: {column: ["购买信息", "出库数量"], columnWidth: 12},
                     no_out_number: {column: ["购买信息", "不出库数量"], columnWidth: 16},
