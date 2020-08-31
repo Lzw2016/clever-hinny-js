@@ -58,3 +58,9 @@ export interface CookieUtils {
      */
     getCookieAndRemove(request: JHttpServletRequest, response: JHttpServletResponse, name: JString): void;
 }
+
+const cookieUtils: CookieUtils = Java.type('org.clever.hinny.core.CookieUtils').Instance;
+
+export {
+    cookieUtils,
+}

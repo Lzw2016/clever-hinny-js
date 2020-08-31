@@ -50,3 +50,9 @@ export interface HttpRequestUtils {
      */
     getRequestParams(request: JHttpServletRequest): JString;
 }
+
+const httpRequestUtils: HttpRequestUtils = Java.type('org.clever.hinny.core.HttpRequestUtils').Instance;
+
+export {
+    httpRequestUtils,
+}
