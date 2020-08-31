@@ -11,8 +11,6 @@ DigestUtils         OK      OK
 EncodeDecodeUtils   OK      OK
 ThreadUtils         OK      需要检查
 
---
-
 HttpUtils           OK
 TreeUtils           OK
 SpringContext       OK
@@ -29,22 +27,27 @@ IPAddressUtils      OK
 IdCardUtils         OK
 RMBUtils            OK
 
-
 ------------------------------------------------------------------------------------------------
-[mvc]   实体参数支持
-[mvc]   参数校验支持
-[mvc]   分页参数，排序参数
-[mvc]   文件上传，文件下载
-[mvc]   Excel导入导出
-[mvc]   路径变量?...
 
-[core]  CookieUtils
+[core]      CookieUtils
+[core]      HttpRequestUtils
+[core]      ValidatorUtils
+[core]      SendMailUtils
 
+[mvc]       实体参数支持
+[mvc]       参数校验支持
+[mvc]       分页参数，排序参数
+[mvc]       文件上传，文件下载
+[mvc]       Excel导入导出
+[mvc]       路径变量?...
+[mvc]       ImageValidateUtils
+[mvc]       ZxingUtils
 
-spring boot autoconfig
-动态SQL
-实体数据校验
-mvc细节支持
+[data-jdbc] 动态SQL
+[data-jdbc] 表字段：驼峰转下划线，下划线转驼峰
+[data-jdbc] 查询结果以实体类为主
+
+[other]     spring boot autoconfig
 
 
 
