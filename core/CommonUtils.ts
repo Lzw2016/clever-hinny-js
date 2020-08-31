@@ -29,13 +29,11 @@ export interface CommonUtils {
     /**
      * 获取当前时间 Date
      */
-    now(): JDate
+    now(): JDate;
 }
 
 const commonUtils: CommonUtils = Java.type('org.clever.hinny.core.CommonUtils').Instance;
 
-
 export {
     commonUtils,
-
 }

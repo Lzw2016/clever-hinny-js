@@ -3,7 +3,7 @@ export interface IDGenerateUtils {
      * 封装JDK自带的UUID<br/>
      * 例如：57d7058d-bc79-444d-b7e5-7a5d0b955cc8<br/>
      */
-    uuid():JString
+    uuid(): JString
 
     /**
      * 封装JDK自带的UUID, 通过Random数字生成, 中间无"-"分割.<br/>
@@ -42,12 +42,18 @@ export interface IDGenerateUtils {
      * @param dataCenterId 数据中心ID
      * @param machineId    机器号ID
      */
-    //fixme
-    // getSnowFlake(dataCenterId: JLong, machineId: JLong): SnowFlake
+    getSnowFlake(dataCenterId: JLong, machineId: JLong): SnowFlake
+}
+
+export interface SnowFlake {
+    /**
+     * 获取下一个唯一ID
+     */
+    nextId(): JLong;
 }
 
 const iDGenerateUtils: IDGenerateUtils = Java.type('org.clever.hinny.core.IDGenerateUtils').Instance;
 
 export {
-    iDGenerateUtils
+    iDGenerateUtils,
 }

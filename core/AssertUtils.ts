@@ -40,14 +40,22 @@ export interface AssertUtils {
     notEmpty(array: any[], message: JString): void;
 
     /**
+     * 断言集合包含元素；也就是说，它不能为null并且必须至少包含一个元素
+     */
+    notEmpty(collection: JCollection<any>, message: JString): void;
+
+    /**
      * 断言数组不包含null元素，注意：如果数组为空，则不会抛出异常
      */
     noNullElements(array: any[], message: JString): void;
+
+    /**
+     * 断言集合不包含null元素，注意：如果集合为空，则不会抛出异常
+     */
+    noNullElements(collection: JCollection<any>, message: JString): void;
 }
 
-
 const assertUtils: AssertUtils = Java.type('org.clever.hinny.core.AssertUtils').Instance;
-
 
 export {
     assertUtils,

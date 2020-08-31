@@ -1,6 +1,4 @@
 export interface XmlUtils {
-
-
     /**
      * 对象序列化成XML字符串
      *
@@ -13,10 +11,9 @@ export interface XmlUtils {
      * XML字符串反序列化成对象
      *
      * @param xml XML字符串
-     * @param <T> 返回的对象类型
      * @return 返回的对象
      */
-    fromXml<T extends any>(xml: JString): T;
+    fromXml<T extends object>(xml: JString): T;
 
     /**
      * 当XML里只含有Bean的部分属性时，更新一个已存在Bean，只覆盖该部分的属性
@@ -47,5 +44,5 @@ export interface XmlUtils {
 const xmlUtils: XmlUtils = Java.type('org.clever.hinny.core.XmlUtils').Instance;
 
 export {
-    xmlUtils
+    xmlUtils,
 }

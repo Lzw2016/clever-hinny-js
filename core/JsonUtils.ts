@@ -15,7 +15,7 @@ export interface JsonUtils {
     /**
      * 把Json字符串转换成Map对象
      */
-    toMap<TK extends JString, TV extends any>(json: JString): JMap<TK, TV>
+    toMap<K extends JString, V extends any>(json: JString): JMap<K, V>
 
     /**
      * 当JSON里只含有Bean的部分属性时，更新一个已存在Bean，只覆盖该部分的属性.
