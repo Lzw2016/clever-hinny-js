@@ -29,8 +29,8 @@ RMBUtils            OK
 
 ------------------------------------------------------------------------------------------------
 
-[core]      CookieUtils
-[core]      HttpRequestUtils
+[core]      CookieUtils                                             OK
+[core]      HttpRequestUtils                                        OK
 [core]      ValidatorUtils
 [core]      SendMailUtils
 
