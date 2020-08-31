@@ -19,7 +19,7 @@ interface JServletRequest extends JObject {
     /**
      * 返回一个包含servlet context中属性名字变量的集合
      */
-    getAttributeNames(): JList<JString>;
+    getAttributeNames(): JEnumeration<JString>;
 
     /**
      * 返回用在请求信息的body编码的字符的名称
@@ -54,7 +54,7 @@ interface JServletRequest extends JObject {
     // /**
     //  * 返回一个地址对象的枚举变量，它以开始的首选地址的降序排列指明了基于 Accept-Language header 的客户端可接受的地点
     //  */
-    // getLocales(): JList<JLocale>;
+    // getLocales(): JEnumeration<JLocale>;
 
     /**
      * 以 protocol/majorVersion.minorVersion, 的格式返回请求所用协议的名称和版本。例如HTTP/1.1
@@ -94,7 +94,7 @@ interface JServletRequest extends JObject {
     /**
      * 返回一个包含了请求中的参数名字的字符串对象的枚举变量
      */
-    getParameterNames(): JList<JString>;
+    getParameterNames(): JEnumeration<JString>;
 
     /**
      * 返回一个包含所有的给定请求参数的值的字符串对象的向量。若该参数不存在，则返回一个空值

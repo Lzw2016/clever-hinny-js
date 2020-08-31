@@ -1,10 +1,13 @@
-interface JServletContext extends JObject {
-    javax_servlet_ServletContext: "javax.servlet.ServletContext";
+export interface ServletContextWrapper extends JObject {
+    /**
+     * 原始ServletContext对象
+     */
+    originalContext(): JServletContext;
 
     /**
      * 返回一个于服务器上指定的URL进行通信的 ServletContext 对象
      */
-    getContext(uripath: JString): JServletContext;
+    getContext(uripath: JString): ServletContextWrapper;
 
     /**
      * Web应用程序的上下文路径，或者为根上下文“”
@@ -69,7 +72,7 @@ interface JServletContext extends JObject {
     /**
      * 返回一个包含servlet context中属性名字变量的集合
      */
-    getAttributeNames(): JEnumeration<JString>;
+    getAttributeNames(): JList<JString>;
 
     /**
      * 返回具有给动名字的servlet container 的属性,或者当没有具有所给名字的属性时，返回一个空值
@@ -99,7 +102,7 @@ interface JServletContext extends JObject {
     /**
      * 返回context的初始化参数的名字 ，用一个字符串对象枚举变量的形式。如果相应的context没有初始化参数，则就返回一个空的枚举变量
      */
-    getInitParameterNames(): JEnumeration<JString>;
+    getInitParameterNames(): JList<JString>;
 
     /**
      * 获取此ServletContext默认支持的会话超时（以分钟为单位）

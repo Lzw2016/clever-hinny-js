@@ -77,8 +77,8 @@ export const t03: HttpRouter = {
         );
         excelUtils.write<ExcelEntity>(
             {
-                request: request,
-                response: response,
+                request: request.originalRequest(),
+                response: response.originalResponse(),
                 fileName: "数据导出.xlsx",
                 // autoCloseStream: false,
                 sheetName: "订单明细",
@@ -102,11 +102,11 @@ export const t03: HttpRouter = {
                     },
                     // create_at: {column: ["购买信息", "下单时间"], columnWidth: 20},
                 },
-                // styleConfig: {
-                //     headStyle: {
-                //         locked: true,
-                //     }
-                // }
+                styleConfig: {
+                    headStyle: {
+                        locked: true,
+                    }
+                }
             },
             listData
         );

@@ -7,6 +7,7 @@
 /// <reference path="java/lang/JThrowable.d.ts" />
 /// <reference path="java/lang/JCharSequence.d.ts" />
 /// <reference path="java/lang/JThread.d.ts" />
+/// <reference path="java/lang/JStringBuffer.d.ts" />
 
 // ----------------------------------------------------------------------- math
 /// <reference path="java/math/JBigDecimal.d.ts" />
@@ -25,6 +26,7 @@
 /// <reference path="java/util/JList.d.ts" />
 /// <reference path="java/util/JMap.d.ts" />
 /// <reference path="java/util/JSet.d.ts" />
+/// <reference path="java/util/JEnumeration.d.ts" />
 
 // ----------------------------------------------------------------------- util.concurrent
 

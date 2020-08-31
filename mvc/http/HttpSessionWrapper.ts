@@ -1,10 +1,15 @@
-interface JHttpSession extends JObject {
-    javax_servlet_http_HttpSession: "javax.servlet.http.HttpSession";
+import { ServletContextWrapper } from "./ServletContextWrapper";
+
+export interface HttpSessionWrapper extends JObject {
+    /**
+     * 原始HTTP Session对象
+     */
+    originalSession(): JHttpSession;
 
     /**
      * 返回一个包含所有的绑定到会话的 对象名称的字符串对象的集合
      */
-    getAttributeNames(): JEnumeration<JString>;
+    getAttributeNames(): JList<JString>;
 
     /**
      * 返回在本会话中绑定了指定名字的对象，当没有所要求的对象时，返回一个空值
@@ -60,5 +65,5 @@ interface JHttpSession extends JObject {
     /**
      * 获取 ServletContext
      */
-    getServletContext(): JServletContext;
+    getServletContext(): ServletContextWrapper;
 }

@@ -76,7 +76,7 @@ interface JHttpServletRequest extends JServletRequest {
     /**
      * 请求url(protocol、host、path)，如：http://demo.msvc.top:18081/api/demo_1
      */
-    getRequestURL():JString;
+    getRequestURL(): JStringBuffer;
 
     /**
      * 返回有关当客户端作出请求时的URL的任何额外的路径信息
@@ -97,7 +97,7 @@ interface JHttpServletRequest extends JServletRequest {
     /**
      * 返回所有的本请求消息包含的头名字的集合
      */
-    getHeaderNames(): JList<JString>;
+    getHeaderNames(): JEnumeration<JString>;
 
     /**
      * 返回指定的作为字符串请求消息头的值
@@ -107,7 +107,7 @@ interface JHttpServletRequest extends JServletRequest {
     /**
      * 以一个字符串对象集合的形式，返回包含指定请求消息头的所有值
      */
-    getHeaders(name: JString): JList<JString>;
+    getHeaders(name: JString): JEnumeration<JString>;
 
     /**
      * 返回一个指定的请求消息头的整数值
