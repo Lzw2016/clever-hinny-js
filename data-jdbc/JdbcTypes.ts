@@ -75,6 +75,6 @@ export interface QueryByPage extends Partial<QueryBySort> {
      */
     isSearchCount?: JBoolean;
 
-    // /** 查询参数 */
-    // [name: string]: SqlParamType;
+    /** 查询参数 */
+    [name: string]: any;
 }

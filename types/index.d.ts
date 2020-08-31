@@ -44,6 +44,8 @@
 /// <reference path="javax/servlet/http/JHttpServletResponse.d.ts" />
 /// <reference path="javax/servlet/http/JHttpSession.d.ts" />
 
+// ----------------------------------------------------------------------- springframework
+/// <reference path="org/springframework/util/JMultiValueMap.d.ts" />
 
 // 基础内置对象声明
 /// <reference path="nashorn.d.ts" />

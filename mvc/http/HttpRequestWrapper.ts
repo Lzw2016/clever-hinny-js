@@ -1,5 +1,7 @@
 import { HttpSessionWrapper } from "./HttpSessionWrapper";
 import { ServletContextWrapper } from "./ServletContextWrapper";
+import { QueryBySort } from "../model/request/QueryBySort";
+import { QueryByPage } from "../model/request/QueryByPage";
 
 export interface HttpRequestWrapper extends JObject {
     /**
@@ -253,4 +255,14 @@ export interface HttpRequestWrapper extends JObject {
     getCookies(): JCookie[];
 
     //---------------------------------------------------------------------------------------------------------------------------------------------- 高阶封装
+
+    /**
+     * 获取数据库排序查询参数
+     */
+    getQueryBySort(): QueryBySort;
+
+    /**
+     * 获取数据库分页查询参数
+     */
+    getQueryByPage(): QueryByPage;
 }

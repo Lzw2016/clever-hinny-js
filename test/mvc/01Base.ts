@@ -2,6 +2,7 @@
 import { jdbcDatabase } from "@hinny/data-jdbc";
 import { HttpHandle, HttpMethod, HttpRouter } from "@hinny/mvc";
 import { BuiltinFormats, excelUtils, IndexedColors } from "@hinny/core";
+import { QueryByPage } from "@hinny/mvc/dist/model/request/QueryByPage";
 
 const log = LoggerFactory.getLogger(__filename);
 const jdbc = jdbcDatabase.getDefault();
@@ -22,10 +23,12 @@ export const t02: HttpRouter = {
 
     get: ctx => {
         log.info("getParameterNames --> {}", ctx.request.getParameterNames());
-        const limit = ctx.request.getParameter("limit") ?? "3";
-        return jdbc.queryList("select * from tb_order_detail_distinct limit :limit", {
-            limit: Interop.asJInt(limit),
-        });
+        let queryByPage: QueryByPage = ctx.request.getQueryByPage();
+        queryByPage = Interop.fromJMap<QueryByPage>(queryByPage as any);
+        queryByPage.fieldsMapping = {
+            store_no: "store_no",
+        };
+        return jdbc.queryByPage("select * from tb_order_detail_distinct", queryByPage);
     },
 
     put: ctx => {

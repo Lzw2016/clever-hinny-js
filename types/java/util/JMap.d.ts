@@ -49,7 +49,7 @@ interface JMap<K, V> extends JObject {
     /**
      * 返回此映射中映射到指定键的值
      */
-    get(key: any): V;
+    get(key: any): V | null;
 
     /**
      * 如果此映射未包含键-值映射关系，则返回 true
