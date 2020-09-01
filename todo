@@ -39,7 +39,7 @@ RMBUtils            OK
 
 [mvc]       实体参数支持
 [mvc]       参数校验支持
-[mvc]       分页参数，排序参数                                         50%
+[mvc]       分页参数，排序参数                                         OK
 [mvc]       文件上传，文件下载
 [mvc]       Excel导入导出
 [mvc]       路径变量?...

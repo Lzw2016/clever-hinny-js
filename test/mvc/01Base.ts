@@ -28,7 +28,8 @@ export const t02: HttpRouter = {
         queryByPage.fieldsMapping = {
             store_no: "store_no",
         };
-        return jdbc.queryByPage("select * from tb_order_detail_distinct", queryByPage);
+        queryByPage.store_no = Interop.asJLong("1089704947936186369");
+        return jdbc.queryByPage("select * from tb_order_detail_distinct where store_no = :store_no", queryByPage);
     },
 
     put: ctx => {
