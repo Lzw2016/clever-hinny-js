@@ -1,8 +1,7 @@
 // import { commonUtils } from "@hinny/core";
-import { jdbcDatabase } from "@hinny/data-jdbc";
+import { jdbcDatabase, QueryByPage } from "@hinny/data-jdbc";
 import { HttpHandle, HttpMethod, HttpRouter } from "@hinny/mvc";
 import { BuiltinFormats, excelUtils, IndexedColors } from "@hinny/core";
-import { QueryByPage } from "@hinny/mvc/dist/model/request/QueryByPage";
 
 const log = LoggerFactory.getLogger(__filename);
 const jdbc = jdbcDatabase.getDefault();
