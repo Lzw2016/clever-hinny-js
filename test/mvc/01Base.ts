@@ -23,8 +23,8 @@ export const t02: HttpRouter = {
 
     get: ctx => {
         log.info("getParameterNames --> {}", ctx.request.getParameterNames());
-        let queryByPage: QueryByPage = ctx.request.getQueryByPage();
-        queryByPage = Interop.fromJMap<QueryByPage>(queryByPage as any);
+        const queryByPage: QueryByPage = ctx.request.getQueryByPage();
+        // 排序字段映射关系
         queryByPage.fieldsMapping = {
             store_no: "store_no",
         };

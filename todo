@@ -29,10 +29,13 @@ RMBUtils            OK
 
 ------------------------------------------------------------------------------------------------
 
+[types]     StringBuilder
+
 [core]      CookieUtils                                             OK
 [core]      HttpRequestUtils                                        OK
 [core]      ValidatorUtils
 [core]      SendMailUtils
+[core]      IOUtils
 
 [mvc]       实体参数支持
 [mvc]       参数校验支持
