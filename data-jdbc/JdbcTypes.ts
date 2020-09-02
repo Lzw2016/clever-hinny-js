@@ -78,3 +78,238 @@ export interface QueryByPage extends Partial<QueryBySort> {
     /** 查询参数 */
     [name: string]: any;
 }
+
+export interface JdbcConfig {
+    /** 数据库驱动名称: com.mysql.cj.jdbc.Driver */
+    driverClassName: JString;
+    /** 数据库链接url: jdbc:mysql://host:3306/db-name */
+    jdbcUrl: JString;
+    /** 用户名 */
+    username: JString;
+    /** 密码 */
+    password: JString;
+    /** 是否自动提交 */
+    autoCommit?: JBoolean;
+    /** 是否只读 */
+    readOnly?: JBoolean;
+    /** 连接池最大大小 */
+    maxPoolSize?: JInt;
+    /** 最小空闲连接数 */
+    minIdle?: JInt;
+    /** 连接最大存活时间(毫秒) */
+    maxLifetimeMs?: JInt;
+    /** 连接超时时间(毫秒) */
+    connectionTimeoutMs?: JInt;
+    /** 允许连接在池中处于空闲状态的最长时间(毫秒) 。值为0表示从不从池中删除空闲连接 */
+    idleTimeoutMs?: JInt;
+    /** 测试连接可用的SQL语句 */
+    connectionTestQuery?: JString;
+    /** 数据源连接属性 */
+    dataSourceProperties?: JMap<JString, JString | JDouble | JBoolean>;
+}
+
+export interface BatchData<T = DataRowMap> {
+    /**
+     * 列名称集合
+     */
+    getColumnNames(): JList<JString>;
+
+    /**
+     * 列类型集合
+     */
+    getColumnTypes(): JList<JInt>;
+
+    /**
+     * 列宽(列数)
+     */
+    getColumnCount(): JInt;
+
+    /**
+     * 当前批次数
+     */
+    getRowDataList(): JList<T>;
+
+    /**
+     * 当前读取的行数
+     */
+    getRowCount(): JInt;
+
+    /**
+     * 返回当前批次数据量
+     */
+    getBatchCount(): JInt;
+}
+
+export interface RowData<T = DataRowMap> {
+    /**
+     * 列名称集合
+     */
+    getColumnNames(): JList<JString>;
+
+    /**
+     * 列类型集合
+     */
+    getColumnTypes(): JList<JInt>;
+
+    /**
+     * 列宽(列数)
+     */
+    getColumnCount(): JInt;
+
+    /**
+     * 当前行数据
+     */
+    getRowData(): T;
+
+    /**
+     * 当前读取的行数
+     */
+    getRowCount(): JInt;
+}
+
+/**
+ * 游标读取数据回调函数(批量读取)
+ */
+export interface BatchQueryCallback<T = DataRowMap> {
+    (batchData: BatchData<T>): void;
+}
+
+/**
+ * 游标读取数据回调函数
+ */
+export interface QueryCallback<T = DataRowMap> {
+    (batchData: RowData<T>): void;
+}
+
+export interface OrderItem extends JObject {
+    /**
+     * 需要进行排序的字段
+     */
+    getColumn(): JString;
+
+    /**
+     * 是否正序排列，默认 true
+     */
+    isAsc(): JBoolean;
+}
+
+/**
+ * 分页查询返回值
+ */
+export interface IPage<T = DataRowMap> extends JObject {
+    /**
+     * 当前页，默认 1
+     */
+    getCurrent(): JLong;
+
+    /**
+     * 获取排序信息，排序的字段和正反序
+     */
+    orders(): JList<OrderItem>;
+
+    /**
+     * 当前分页总页数
+     */
+    getPages(): JLong;
+
+    /**
+     * 分页记录列表
+     */
+    getRecords(): JList<T>;
+
+    /**
+     * 进行 count 查询 【 默认: true 】
+     */
+    isSearchCount(): JBoolean;
+
+    /**
+     * 当前分页总页数
+     */
+    getSize(): JLong;
+
+    /**
+     * 当前满足条件总行数
+     */
+    getTotal(): JLong;
+}
+
+export interface KeyHolder extends JObject {
+    /**
+     * 所有自动生成的key
+     */
+    getKeysList(): JList<JMap<JString, SqlFieldType>>;
+
+    /**
+     * 当keysList只有一个元素时，才有这个值，值就是那个元素
+     */
+    getKeys(): JMap<JString, SqlFieldType>;
+
+    /**
+     * 当keys只有一个元素时，才有这个值，值就是那个元素的value <br />
+     * 一般是自增长主键值
+     */
+    getKey(): any;
+}
+
+/**
+ * sql insert 返回值
+ */
+export interface InsertResult extends JObject {
+    /**
+     * 新增数据量
+     */
+    getInsertCount(): JInt;
+
+    /**
+     * Insert时，数据库自动生成的key
+     */
+    getKeyHolder(): KeyHolder;
+
+    /**
+     * 当更新数据只有一个自动生成的key时，才会有这个字段，其值就是自动生成的key的值<br />
+     * 一般是自增长主键值
+     */
+    getKeyHolderValue(): any;
+}
+
+/**
+ * 事务状态
+ */
+export interface TransactionStatus extends JObject {
+    /**
+     * 将底层会话刷新到数据存储（如果适用）
+     */
+    flush(): void;
+
+    /**
+     * 此事务是否在内部携带保存点，即是否已基于保存点创建为嵌套事务
+     */
+    hasSavepoint(): JBoolean;
+
+    /**
+     * 此事务是否已完成，即是否已提交或回滚
+     */
+    isCompleted(): JBoolean;
+
+    /**
+     * 当前事务是否为新事务；否则将参与现有事务，或者可能不会首先在实际事务中运行
+     */
+    isNewTransaction(): JBoolean;
+
+    /**
+     * 事务是否已标记为仅回滚（由应用程序或事务基础结构标记）
+     */
+    isRollbackOnly(): JBoolean;
+
+    /**
+     * 仅设置事务回滚。这将指示事务管理器事务的唯一可能结果可能是回滚，作为引发异常的替代方法，后者将反过来触发回滚
+     */
+    setRollbackOnly(): void;
+}
+
+/**
+ * 事务内操作回调函数
+ */
+export interface ActionInTX<T = any> {
+    (status: TransactionStatus): T;
+}

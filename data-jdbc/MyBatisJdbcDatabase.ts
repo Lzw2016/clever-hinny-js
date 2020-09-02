@@ -1,16 +1,16 @@
-import { JdbcDataSource } from "./JdbcDataSource";
+import { MyBatisJdbcDataSource } from "./MyBatisJdbcDataSource";
+import { JdbcConfig } from "./JdbcTypes";
 import { JdbcInfo } from "./JdbcInfo";
 import { JdbcDataSourceStatus } from "./JdbcDataSourceStatus";
-import { JdbcConfig } from "./JdbcTypes";
 
 /**
- * JDBC数据库管理器
+ * MyBatis JDBC数据库管理器
  */
-export interface JdbcDatabase extends JObject {
+export interface MyBatisJdbcDatabase {
     /**
      * 获取默认数据源
      */
-    getDefault(): JdbcDataSource;
+    getDefault(): MyBatisJdbcDataSource;
 
     /**
      * 获取默认数据源名称
@@ -22,7 +22,7 @@ export interface JdbcDatabase extends JObject {
      *
      * @param name 数据源名称
      */
-    getDataSource(name: JString): JdbcDataSource | null;
+    getDataSource(name: JString): MyBatisJdbcDataSource | null;
 
     /**
      * 判断数据源是否存在
@@ -37,7 +37,7 @@ export interface JdbcDatabase extends JObject {
      * @param name       数据源名称
      * @param config     数据源配置
      */
-    add(name: JString, config: JdbcConfig): JdbcDataSource;
+    add(name: JString, config: JdbcConfig): MyBatisJdbcDataSource;
 
     /**
      * 删除数据源
@@ -73,13 +73,4 @@ export interface JdbcDatabase extends JObject {
      * 获取数据源状态
      */
     allStatus(): JMap<JString, JdbcDataSourceStatus>;
-}
-
-/**
- * JDBC数据源管理对象
- */
-const jdbcDatabase: JdbcDatabase = Java.type('org.clever.hinny.graal.data.jdbc.JdbcDatabase').Instance;
-
-export {
-    jdbcDatabase,
 }

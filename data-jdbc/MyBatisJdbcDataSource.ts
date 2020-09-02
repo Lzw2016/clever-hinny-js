@@ -1,12 +1,9 @@
-import { ActionInTX, BatchQueryCallback, DataRowMap, InsertResult, IPage, QueryByPage, QueryBySort, QueryCallback, SqlParamMap } from "./JdbcTypes";
 import { DbType, IsolationLevel, Propagation } from "./JdbcEnum";
+import { ActionInTX, BatchQueryCallback, DataRowMap, InsertResult, IPage, QueryByPage, QueryBySort, QueryCallback, SqlParamMap } from "./JdbcTypes";
 import { JdbcInfo } from "./JdbcInfo";
 import { JdbcDataSourceStatus } from "./JdbcDataSourceStatus";
 
-/**
- * JDBC数据库操作对象
- */
-export interface JdbcDataSource extends JObject {
+export interface MyBatisJdbcDataSource {
     /**
      * 获取数据库类型
      */
@@ -29,226 +26,226 @@ export interface JdbcDataSource extends JObject {
     /**
      * 查询一条数据，返回一个Map
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      */
-    queryMap<T = DataRowMap>(sql: JString, paramMap: SqlParamMap): T;
+    queryMap<T = DataRowMap>(sqlId: JString, paramMap: SqlParamMap): T;
 
     /**
      * 查询一条数据，返回一个Map
      *
-     * @param sql sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      */
-    queryMap<T = DataRowMap>(sql: JString): T;
+    queryMap<T = DataRowMap>(sqlId: JString): T;
 
     /**
      * 查询多条数据，返回一个Map数组
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      */
-    queryList<T = DataRowMap>(sql: JString, paramMap: SqlParamMap): JList<T>;
+    queryList<T = DataRowMap>(sqlId: JString, paramMap: SqlParamMap): JList<T>;
 
     /**
      * 查询多条数据，返回一个Map数组
      *
-     * @param sql sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      */
-    queryList<T = DataRowMap>(sql: JString): JList<T>;
+    queryList<T = DataRowMap>(sqlId: JString): JList<T>;
 
     /**
      * 查询返回一个 String
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      */
-    queryString(sql: JString, paramMap: SqlParamMap): JString;
+    queryString(sqlId: JString, paramMap: SqlParamMap): JString;
 
     /**
      * 查询返回一个 String
      *
-     * @param sql sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      */
-    queryString(sql: JString): JString;
+    queryString(sqlId: JString): JString;
 
     /**
      * 查询返回一个 Long
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      */
-    queryLong(sql: JString, paramMap: SqlParamMap): JLong;
+    queryLong(sqlId: JString, paramMap: SqlParamMap): JLong;
 
     /**
      * 查询返回一个 Long
      *
-     * @param sql sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      */
-    queryLong(sql: JString): JLong;
+    queryLong(sqlId: JString): JLong;
 
     /**
      * 查询返回一个 Double
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      */
-    queryDouble(sql: JString, paramMap: SqlParamMap): JDouble;
+    queryDouble(sqlId: JString, paramMap: SqlParamMap): JDouble;
 
     /**
      * 查询返回一个 Double
      *
-     * @param sql sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      */
-    queryDouble(sql: JString): JDouble;
+    queryDouble(sqlId: JString): JDouble;
 
     /**
      * 查询返回一个 BigDecimal
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      */
-    queryBigDecimal(sql: JString, paramMap: SqlParamMap): JBigDecimal;
+    queryBigDecimal(sqlId: JString, paramMap: SqlParamMap): JBigDecimal;
 
     /**
      * 查询返回一个 BigDecimal
      *
-     * @param sql sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      */
-    queryBigDecimal(sql: JString): JBigDecimal
+    queryBigDecimal(sqlId: JString): JBigDecimal
 
     /**
      * 查询返回一个 Boolean
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      */
-    queryBoolean(sql: JString, paramMap: SqlParamMap): JBoolean;
+    queryBoolean(sqlId: JString, paramMap: SqlParamMap): JBoolean;
 
     /**
      * 查询返回一个 Boolean
      *
-     * @param sql sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      */
-    queryBoolean(sql: JString): JBoolean;
+    queryBoolean(sqlId: JString): JBoolean;
 
     /**
      * 查询返回一个 Date
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      */
-    queryDate(sql: JString, paramMap: SqlParamMap): JDate;
+    queryDate(sqlId: JString, paramMap: SqlParamMap): JDate;
 
     /**
      * 查询返回一个 Date
      *
-     * @param sql sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      */
-    queryDate(sql: JString): JDate;
+    queryDate(sqlId: JString): JDate;
 
     /**
      * SQL Count(获取一个SQL返回的数据总量)
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      */
-    queryCount(sql: JString, paramMap: SqlParamMap): JLong;
+    queryCount(sqlId: JString, paramMap: SqlParamMap): JLong;
 
     /**
      * SQL Count(获取一个SQL返回的数据总量)
      *
-     * @param sql      sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      */
-    queryCount(sql: JString): JLong;
+    queryCount(sqlId: JString): JLong;
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
      *
-     * @param sql       sql脚本，参数格式[:param]
-     * @param paramMap  参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      * @param batchSize 一个批次的数据量
      * @param consumer  游标批次读取数据消费者
      */
-    query<T = DataRowMap>(sql: JString, paramMap: SqlParamMap, batchSize: JInt, consumer: BatchQueryCallback<T>): void;
+    query<T = DataRowMap>(sqlId: JString, paramMap: SqlParamMap, batchSize: JInt, consumer: BatchQueryCallback<T>): void;
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
      *
-     * @param sql       sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      * @param batchSize 一个批次的数据量
      * @param consumer  游标批次读取数据消费者
      */
-    query<T = DataRowMap>(sql: JString, batchSize: JInt, consumer: BatchQueryCallback<T>): void
+    query<T = DataRowMap>(sqlId: JString, batchSize: JInt, consumer: BatchQueryCallback<T>): void
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      * @param consumer 游标读取数据消费者
      */
-    query<T = DataRowMap>(sql: JString, paramMap: SqlParamMap, consumer: QueryCallback<T>): void;
+    query<T = DataRowMap>(sqlId: JString, paramMap: SqlParamMap, consumer: QueryCallback<T>): void;
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
      *
-     * @param sql      sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      * @param consumer 游标读取数据消费者
      */
-    query<T = DataRowMap>(sql: JString, consumer: QueryCallback<T>): void;
+    query<T = DataRowMap>(sqlId: JString, consumer: QueryCallback<T>): void;
 
     /**
      * 排序查询
      *
-     * @param sql      sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      * @param sort     排序配置
-     * @param paramMap 参数，参数格式[:param]
+     * @param paramMap 查询参数
      */
-    queryBySort<T = DataRowMap>(sql: JString, sort: QueryBySort, paramMap: SqlParamMap): JList<T>
+    queryBySort<T = DataRowMap>(sqlId: JString, sort: QueryBySort, paramMap: SqlParamMap): JList<T>
 
     /**
      * 排序查询
      *
-     * @param sql  sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      * @param sort 排序配置
      */
-    queryBySort<T = DataRowMap>(sql: JString, sort: QueryBySort): JList<T>;
+    queryBySort<T = DataRowMap>(sqlId: JString, sort: QueryBySort): JList<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
      *
-     * @param sql        sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      * @param pagination 分页配置(支持排序)
-     * @param paramMap   参数，参数格式[:param]
+     * @param paramMap 查询参数
      * @param countQuery 是否要执行count查询(可选)
      */
-    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
+    queryByPage<T = DataRowMap>(sqlId: JString, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
      *
-     * @param sql        sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      * @param pagination 分页配置(支持排序)
-     * @param paramMap   参数，参数格式[:param]
+     * @param paramMap 查询参数
      */
-    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage, paramMap: SqlParamMap): IPage<T>;
+    queryByPage<T = DataRowMap>(sqlId: JString, pagination: QueryByPage, paramMap: SqlParamMap): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
      *
-     * @param sql        sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      * @param pagination 分页配置(支持排序)
      * @param countQuery 是否要执行count查询(可选)
      */
-    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage, countQuery: JBoolean): IPage<T>;
+    queryByPage<T = DataRowMap>(sqlId: JString, pagination: QueryByPage, countQuery: JBoolean): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
      *
-     * @param sql        sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      * @param pagination 分页配置(支持排序) - 支持加入查询参数
      */
-    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage): IPage<T>;
+    queryByPage<T = DataRowMap>(sqlId: JString, pagination: QueryByPage): IPage<T>;
 
     /**
      * 查询数据库表数据
@@ -291,17 +288,17 @@ export interface JdbcDataSource extends JObject {
     /**
      * 执行更新SQL，返回更新影响数据量
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      */
-    update(sql: JString, paramMap: SqlParamMap): JInt;
+    update(sqlId: JString, paramMap: SqlParamMap): JInt;
 
     /**
      * 执行更新SQL，返回更新影响数据量
      *
-     * @param sql sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      */
-    update(sql: JString): JInt;
+    update(sqlId: JString): JInt;
 
     /**
      * 更新数据库表数据
@@ -344,10 +341,10 @@ export interface JdbcDataSource extends JObject {
     /**
      * 批量执行更新SQL，返回更新影响数据量
      *
-     * @param sql          sql脚本，参数格式[:param]
-     * @param paramMapList 参数数组，参数格式[:param]
+     * @param sqlId         SqlID
+     * @param paramMapList  参数数组
      */
-    batchUpdate(sql: JString, paramMapList: Array<SqlParamMap>): Array<JInt>;
+    batchUpdate(sqlId: JString, paramMapList: Array<SqlParamMap>): Array<JInt>;
 
     // --------------------------------------------------------------------------------------------
     // Delete 操作
@@ -385,17 +382,17 @@ export interface JdbcDataSource extends JObject {
     /**
      * 执行insert SQL，返回数据库自增主键值和新增数据量
      *
-     * @param sql      sql脚本，参数格式[:param]
-     * @param paramMap 参数(可选)，参数格式[:param]
+     * @param sqlId    SqlID
+     * @param paramMap 查询参数
      */
-    insert(sql: JString, paramMap: SqlParamMap): InsertResult;
+    insert(sqlId: JString, paramMap: SqlParamMap): InsertResult;
 
     /**
      * 执行insert SQL，返回数据库自增主键值和新增数据量
      *
-     * @param sql sql脚本，参数格式[:param]
+     * @param sqlId    SqlID
      */
-    insert(sql: JString): InsertResult;
+    insert(sqlId: JString): InsertResult;
 
     /**
      * 数据插入到表
