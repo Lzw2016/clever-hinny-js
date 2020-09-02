@@ -361,6 +361,13 @@ export interface JdbcDataSource extends JObject {
     queryCount(sql: JString, paramMap: SqlParamMap): JLong;
 
     /**
+     * SQL Count(获取一个SQL返回的数据总量)
+     *
+     * @param sql      sql脚本，参数格式[:param]
+     */
+    queryCount(sql: JString): JLong;
+
+    /**
      * 查询多条数据(大量数据)，使用游标读取
      *
      * @param sql       sql脚本，参数格式[:param]
