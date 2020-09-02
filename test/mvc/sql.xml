@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql">
+    <select id="select-01">
+        select * from tb_order_detail_distinct
+        <where>
+            <if test="#str.isNotBlank(storeNo)">
+                and store_no=#{storeNo}
+            </if>
+            <if test="#obj.notEmpty(orderCodeList)">
+                and order_code in
+                <foreach collection='orderCodeList' item='code' open="(" close=")" separator=','>
+                    #{code}
+                </foreach>
+            </if>
+        </where>
+        limit 10
+    </select>
+</mapper>

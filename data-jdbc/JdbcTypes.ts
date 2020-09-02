@@ -9,7 +9,7 @@ export type SqlParamType = JChar | JString | JInt | JLong | JFloat | JDouble | J
  * SQL参数Map
  */
 export interface SqlParamMap {
-    [name: string]: SqlParamType;
+    [name: string]: SqlParamType | JCollection<SqlParamType>;
 }
 
 /**

@@ -74,3 +74,12 @@ export interface MyBatisJdbcDatabase {
      */
     allStatus(): JMap<JString, JdbcDataSourceStatus>;
 }
+
+/**
+ * MyBatis JDBC数据源管理对象
+ */
+const mybatisJdbcDatabase: MyBatisJdbcDatabase = Java.type('org.clever.hinny.graal.data.jdbc.MyBatisJdbcDatabase').Instance;
+
+export {
+    mybatisJdbcDatabase,
+}
