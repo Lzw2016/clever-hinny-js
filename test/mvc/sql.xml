@@ -4,7 +4,7 @@
     <select id="select-01">
         select * from tb_order_detail_distinct
         <where>
-            <if test="#str.isNotBlank(storeNo)">
+            <if test="#obj.notEmpty(storeNo)">
                 and store_no=#{storeNo}
             </if>
             <if test="#obj.notEmpty(orderCodeList)">

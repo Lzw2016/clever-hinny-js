@@ -122,7 +122,7 @@ const mybatis = mybatisJdbcDatabase.getDefault();
 export const t04: HttpRouter = {
     get: ctx => {
         return mybatis.queryList("sql.select-01", {
-            storeNo: '1089704947936186369',
+            // storeNo: '1089704947936186369',
             orderCodeList: Interop.asJList('hubei0XS00000037', 'hubei0XS00000038', 'hubei0XS00000040'),
         });
     },
