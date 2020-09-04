@@ -22,7 +22,7 @@ export interface ValidatorRuleItem<T> {
     /** 必须为 null */
     isNull?: true;
     /** 必须不为 null */
-    isNotNull?: true;
+    notNull?: true;
     /** 必须不为null，且满足：非空字符串、非空集合、非空数组 */
     notEmpty?: true;
     /** 值必须等于给定值 */
@@ -85,7 +85,7 @@ export interface ValidatorRuleItem<T> {
  * 校验规则
  */
 type ValidatorRule<T extends object = ValidatorBean> = {
-    [name in keyof T]?: ValidatorRuleItem<T>;
+    [name in keyof T]?: T[name] extends ValidatorBean ? ValidatorRule<T[name]> : ValidatorRuleItem<T>;
 }
 
 export interface ValidFieldError {
@@ -132,19 +132,21 @@ export interface ValidatorUtils {
     validated<T extends object = ValidatorBean>(bean: T, rule: ValidatorRule<T>): void;
 }
 
-// 常用正则表达式
-
 // ----------------------------------------------------------
 
 declare const validatorUtils: ValidatorUtils;
 
 interface Entity {
-    a: JString,
+    a: JString;
     b: JBoolean;
     c: JInt;
     sub: {
-        d: JDate,
+        d: JDate;
         e: JList<any>;
+        subSub: {
+            f: JBigDecimal;
+            g: JMap<JString, JDate>;
+        }
     }
 }
 
@@ -166,8 +168,20 @@ const entityRule: ValidatorRule<Entity> = {
         }
     },
     sub: {
-        //
-    }
+        d: {
+            notNull: true,
+            pastDate: true,
+            range: {}
+        },
+        e: {
+            isNull: true,
+        },
+        subSub: {
+            f: {
+                equalsIn: [Interop.asJBigDecimal("123.111"), Interop.asJBigDecimal("666.888")],
+            }
+        }
+    },
 }
 
 const entity: Entity = {
@@ -176,7 +190,11 @@ const entity: Entity = {
     c: 123,
     sub: {
         d: Interop.asJDate(""),
-        e: Interop.asJList("", "", "")
+        e: Interop.asJList("", "", ""),
+        subSub: {
+            f: Interop.asJBigDecimal(""),
+            g: Interop.asJMap<JString, JDate>({}),
+        }
     }
 }
 
