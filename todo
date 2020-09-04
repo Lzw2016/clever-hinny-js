@@ -1,12 +1,12 @@
 AssertUtils         OK      OK
 CommonUtils         OK      OK
-StringUtils         OK      需要检查
+StringUtils         OK      OK
 DateUtils           OK      OK
 IDGenerateUtils     OK      OK
 JsonUtils           OK      OK
 XmlUtils            OK      OK
 SpringContext       OK      需要检查
-CryptoUtils         OK      需要检查
+CryptoUtils         OK      OK(没玩太明白😂)
 DigestUtils         OK      OK
 EncodeDecodeUtils   OK      OK
 ThreadUtils         OK      需要检查
