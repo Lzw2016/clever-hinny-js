@@ -195,6 +195,7 @@ const entityRule: ValidatorRule<Entity> = {
             g: {
                 validator: ctx => {
                     ctx.value.get("");
+                    ctx.message = "验证失败！自定义消息"
                     return false;
                 }
             },
