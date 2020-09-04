@@ -16,7 +16,7 @@ export * from './EncodeDecodeUtils';
 export * from './ThreadUtils';
 export * from './CookieUtils';
 export * from './HttpRequestUtils';
-export * from './ValidatorUtils';
+// export * from './ValidatorUtils';
 export * from './ImageValidateUtils';
 export * from './ZxingUtils';
 export * from './SendMailUtils';
