@@ -948,31 +948,31 @@ export interface StringUtils {
 
     /**
      * <pre>
-     *  .subString(null, *)   = null
-     *  .subString("", *)     = ""
-     *  .subString("abc", 0)  = "abc"
-     *  .subString("abc", 2)  = "c"
-     *  .subString("abc", 4)  = ""
-     *  .subString("abc", -2) = "bc"
-     *  .subString("abc", -4) = "abc"
+     *  .substring(null, *)   = null
+     *  .substring("", *)     = ""
+     *  .substring("abc", 0)  = "abc"
+     *  .substring("abc", 2)  = "c"
+     *  .substring("abc", 4)  = ""
+     *  .substring("abc", -2) = "bc"
+     *  .substring("abc", -4) = "abc"
      * </pre>
      */
-    subString(str: JString, start: JInt): JString
+    substring(str: JString, start: JInt): JString
 
     /**
      * <pre>
-     *  .subString(null, *, *)    = null
-     *  .subString("", * ,  *)    = "";
-     *  .subString("abc", 0, 2)   = "ab"
-     *  .subString("abc", 2, 0)   = ""
-     *  .subString("abc", 2, 4)   = "c"
-     *  .subString("abc", 4, 6)   = ""
-     *  .subString("abc", 2, 2)   = ""
-     *  .subString("abc", -2, -1) = "b"
-     *  .subString("abc", -4, 2)  = "ab"
+     *  .substring(null, *, *)    = null
+     *  .substring("", * ,  *)    = "";
+     *  .substring("abc", 0, 2)   = "ab"
+     *  .substring("abc", 2, 0)   = ""
+     *  .substring("abc", 2, 4)   = "c"
+     *  .substring("abc", 4, 6)   = ""
+     *  .substring("abc", 2, 2)   = ""
+     *  .substring("abc", -2, -1) = "b"
+     *  .substring("abc", -4, 2)  = "ab"
      * </pre>
      */
-    subString(str: JString, start: JInt, end: JInt): JString
+    substring(str: JString, start: JInt, end: JInt): JString
 
     // Left/Right/Mid
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -1021,63 +1021,63 @@ export interface StringUtils {
     /**
      * 获取第一次出现分隔符之前的子字符串
      * <pre>
-     *  .subStringBefore(null, *)      = null
-     *  .subStringBefore("", *)        = ""
-     *  .subStringBefore("abc", "a")   = ""
-     *  .subStringBefore("abcba", "b") = "a"
-     *  .subStringBefore("abc", "c")   = "ab"
-     *  .subStringBefore("abc", "d")   = "abc"
-     *  .subStringBefore("abc", "")    = ""
-     *  .subStringBefore("abc", null)  = "abc"
+     *  .substringBefore(null, *)      = null
+     *  .substringBefore("", *)        = ""
+     *  .substringBefore("abc", "a")   = ""
+     *  .substringBefore("abcba", "b") = "a"
+     *  .substringBefore("abc", "c")   = "ab"
+     *  .substringBefore("abc", "d")   = "abc"
+     *  .substringBefore("abc", "")    = ""
+     *  .substringBefore("abc", null)  = "abc"
      * </pre>
      */
-    subJStringBefore(str: JString, separator: JString): JString
+    substringBefore(str: JString, separator: JString): JString
 
     /**
      * 获取第一次出现分隔符后的子字符串
      * <pre>
-     *  .subStringAfter(null, *)      = null
-     *  .subStringAfter("", *)        = ""
-     *  .subStringAfter(*, null)      = ""
-     *  .subStringAfter("abc", "a")   = "bc"
-     *  .subStringAfter("abcba", "b") = "cba"
-     *  .subStringAfter("abc", "c")   = ""
-     *  .subStringAfter("abc", "d")   = ""
-     *  .subStringAfter("abc", "")    = "abc"
+     *  .substringAfter(null, *)      = null
+     *  .substringAfter("", *)        = ""
+     *  .substringAfter(*, null)      = ""
+     *  .substringAfter("abc", "a")   = "bc"
+     *  .substringAfter("abcba", "b") = "cba"
+     *  .substringAfter("abc", "c")   = ""
+     *  .substringAfter("abc", "d")   = ""
+     *  .substringAfter("abc", "")    = "abc"
      * </pre>
      */
-    subStringAfter(str: JString, separator: JString): JString
+    substringAfter(str: JString, separator: JString): JString
 
     /**
      * 获取最后一次出现分隔符之前的子字符串
      * <pre>
-     *  .subStringBeforeLast(null, *)      = null
-     *  .subStringBeforeLast("", *)        = ""
-     *  .subStringBeforeLast("abcba", "b") = "abc"
-     *  .subStringBeforeLast("abc", "c")   = "ab"
-     *  .subStringBeforeLast("a", "a")     = ""
-     *  .subStringBeforeLast("a", "z")     = "a"
-     *  .subStringBeforeLast("a", null)    = "a"
-     *  .subStringBeforeLast("a", "")      = "a"
+     *  .substringBeforeLast(null, *)      = null
+     *  .substringBeforeLast("", *)        = ""
+     *  .substringBeforeLast("abcba", "b") = "abc"
+     *  .substringBeforeLast("abc", "c")   = "ab"
+     *  .substringBeforeLast("a", "a")     = ""
+     *  .substringBeforeLast("a", "z")     = "a"
+     *  .substringBeforeLast("a", null)    = "a"
+     *  .substringBeforeLast("a", "")      = "a"
      * </pre>
      */
-    subStringBeforeLast(str: JString, separator: JString): JString
+    substringBeforeLast(str: JString, separator: JString): JString
 
     /**
      * 获取最后一次出现分隔符后的子字符串
      * <pre>
-     *  .subStringAfterLast(null, *)      = null
-     *  .subStringAfterLast("", *)        = ""
-     *  .subStringAfterLast(*, "")        = ""
-     *  .subStringAfterLast(*, null)      = ""
-     *  .subStringAfterLast("abc", "a")   = "bc"
-     *  .subStringAfterLast("abcba", "b") = "a"
-     *  .subStringAfterLast("abc", "c")   = ""
-     *  .subStringAfterLast("a", "a")     = ""
-     *  .subStringAfterLast("a", "z")     = ""
+     *  .substringAfterLast(null, *)      = null
+     *  .substringAfterLast("", *)        = ""
+     *  .substringAfterLast(*, "")        = ""
+     *  .substringAfterLast(*, null)      = ""
+     *  .substringAfterLast("abc", "a")   = "bc"
+     *  .substringAfterLast("abcba", "b") = "a"
+     *  .substringAfterLast("abc", "c")   = ""
+     *  .substringAfterLast("a", "a")     = ""
+     *  .substringAfterLast("a", "z")     = ""
      * </pre>
      */
-    subStringAfterLast(str: JString, separator: JString): JString
+    substringAfterLast(str: JString, separator: JString): JString
 
     // SubString between
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -1085,44 +1085,44 @@ export interface StringUtils {
     /**
      * 获取嵌套在同一字符串的两个实例之间的字符串
      * <pre>
-     *  .subStringBetween(null, *)            = null
-     *  .subStringBetween("", "")             = ""
-     *  .subStringBetween("", "tag")          = null
-     *  .subStringBetween("tagabctag", null)  = null
-     *  .subStringBetween("tagabctag", "")    = ""
-     *  .subStringBetween("tagabctag", "tag") = "abc"
+     *  .substringBetween(null, *)            = null
+     *  .substringBetween("", "")             = ""
+     *  .substringBetween("", "tag")          = null
+     *  .substringBetween("tagabctag", null)  = null
+     *  .substringBetween("tagabctag", "")    = ""
+     *  .substringBetween("tagabctag", "tag") = "abc"
      * </pre>
      */
-    subStringBetween(str: JString, tag: JString): JString
+    substringBetween(str: JString, tag: JString): JString
 
     /**
      * 获取嵌套在两个字符串之间的字符串。只返回第一个匹配项
      * <pre>
-     *  .subStringBetween("wx[b]yz", "[", "]") = "b"
-     *  .subStringBetween(null, *, *)          = null
-     *  .subStringBetween(*, null, *)          = null
-     *  .subStringBetween(*, *, null)          = null
-     *  .subStringBetween("", "", "")          = ""
-     *  .subStringBetween("", "", "]")         = null
-     *  .subStringBetween("", "[", "]")        = null
-     *  .subStringBetween("yabcz", "", "")     = ""
-     *  .subStringBetween("yabcz", "y", "z")   = "abc"
-     *  .subStringBetween("yabczyabcz", "y", "z")   = "abc"
+     *  .substringBetween("wx[b]yz", "[", "]") = "b"
+     *  .substringBetween(null, *, *)          = null
+     *  .substringBetween(*, null, *)          = null
+     *  .substringBetween(*, *, null)          = null
+     *  .substringBetween("", "", "")          = ""
+     *  .substringBetween("", "", "]")         = null
+     *  .substringBetween("", "[", "]")        = null
+     *  .substringBetween("yabcz", "", "")     = ""
+     *  .substringBetween("yabcz", "y", "z")   = "abc"
+     *  .substringBetween("yabczyabcz", "y", "z")   = "abc"
      * </pre>
      */
-    subStringBetween(str: JString, open: JString, close: JString): JString
+    substringBetween(str: JString, open: JString, close: JString): JString
 
     /**
      * 在字符串中搜索由开始和结束标记分隔的子字符串，返回数组中所有匹配的子字符串
      * <pre>
-     *  .subStringsBetween("[a][b][c]", "[", "]") = ["a","b","c"]
-     *  .subStringsBetween(null, *, *)            = null
-     *  .subStringsBetween(*, null, *)            = null
-     *  .subStringsBetween(*, *, null)            = null
-     *  .subStringsBetween("", "[", "]")          = []
+     *  .substringsBetween("[a][b][c]", "[", "]") = ["a","b","c"]
+     *  .substringsBetween(null, *, *)            = null
+     *  .substringsBetween(*, null, *)            = null
+     *  .substringsBetween(*, *, null)            = null
+     *  .substringsBetween("", "[", "]")          = []
      * </pre>
      */
-    subStringsBetween(str: JString, open: JString, close: JString): JString[]
+    substringsBetween(str: JString, open: JString, close: JString): JString[]
 
     // Nested extraction
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -2243,20 +2243,20 @@ export interface StringUtils {
 
     /**
      * <pre>
-     *  .isAsciiPrJIntable(null)     = false
-     *  .isAsciiPrJIntable("")       = true
-     *  .isAsciiPrJIntable(" ")      = true
-     *  .isAsciiPrJIntable("Ceki")   = true
-     *  .isAsciiPrJIntable("ab2c")   = true
-     *  .isAsciiPrJIntable("!ab-c~") = true
-     *  .isAsciiPrJIntable(" ") = true
-     *  .isAsciiPrJIntable("!") = true
-     *  .isAsciiPrJIntable("~") = true
-     *  .isAsciiPrJIntable("") = false
-     *  .isAsciiPrJIntable("Ceki Gülcü") = false
+     *  .isAsciiPrintable(null)     = false
+     *  .isAsciiPrintable("")       = true
+     *  .isAsciiPrintable(" ")      = true
+     *  .isAsciiPrintable("Ceki")   = true
+     *  .isAsciiPrintable("ab2c")   = true
+     *  .isAsciiPrintable("!ab-c~") = true
+     *  .isAsciiPrintable(" ") = true
+     *  .isAsciiPrintable("!") = true
+     *  .isAsciiPrintable("~") = true
+     *  .isAsciiPrintable("") = false
+     *  .isAsciiPrintable("Ceki Gülcü") = false
      * </pre>
      */
-    isAsciiPrJIntable(cs: JCharSequence): JBoolean
+    isAsciiPrintable(cs: JCharSequence): JBoolean
 
     /**
      * <pre>
@@ -2866,7 +2866,7 @@ export interface StringUtils {
      *  .toCodePoJInts("")     =  []  // empty array
      * </pre>
      */
-    toCodePoJInts(str: JCharSequence): JInt[]
+    toCodePoints(str: JCharSequence): JInt[]
 }
 
 const stringUtils: StringUtils = Java.type('org.clever.hinny.core.StringUtils').Instance
