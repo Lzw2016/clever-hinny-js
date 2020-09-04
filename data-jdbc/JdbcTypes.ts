@@ -3,7 +3,9 @@ import { SortType } from "./JdbcEnum";
 /**
  * SQL参数类型
  */
-export type SqlParamType = JChar | JString | JInt | JLong | JFloat | JDouble | JBigDecimal | JBoolean | JDate | Date | number | string | boolean | null;
+export type SqlParamType = undefined | null | Date
+    | JByte | JShort | JInt | JLong | JFloat | JDouble | JBoolean | JChar | JString
+    | JBigDecimal | JBigInteger | JDate | JCharSequence;
 
 /**
  * SQL参数Map
@@ -15,7 +17,9 @@ export interface SqlParamMap {
 /**
  * 数据库字段值类型
  */
-export type SqlFieldType = JChar | JString | JInt | JLong | JFloat | JDouble | JBigDecimal | JBoolean | JDate | JSqlDate | JSqlTime | JSqlTimestamp;
+export type SqlFieldType = JByte | JShort | JInt | JLong | JFloat | JDouble | JBoolean | JChar | JString
+    | JDate | JSqlDate | JSqlTime | JSqlTimestamp
+    | JBigDecimal | JBigInteger;
 
 /**
  * 通用数据库实体类型
