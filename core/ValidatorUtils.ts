@@ -13,9 +13,21 @@ export interface ValidatorBean {
 }
 
 /**
+ * 自定义验证的回调函数参数类型
+ */
+interface ValidatorContext<T, V> {
+    /** 当前验证的对象 */
+    readonly bean: T;
+    /** 当前验证的字段值 */
+    readonly value: V;
+    /** 验证失败时设置的错误消息 */
+    message: JString;
+}
+
+/**
  * 校验项
  */
-export interface ValidatorRuleItem<T> {
+export interface ValidatorRuleItem<T, V> {
     /** 错误信息 */
     message?: JString;
     // ------------------------------------------------------------------------------------------- 常规
@@ -77,15 +89,15 @@ export interface ValidatorRuleItem<T> {
     /** 必须是电子邮箱地址 */
     email?: true;
     // ------------------------------------------------------------------------------------------- 自定义校验
-    /** */
-    validator?: (bean: T, value: any) => boolean;
+    /** 自定义校验(校验失败返回false) */
+    validator?: (ctx: ValidatorContext<T, V>) => boolean;
 }
 
 /**
  * 校验规则
  */
 type ValidatorRule<T extends object = ValidatorBean> = {
-    [name in keyof T]?: T[name] extends ValidatorBean ? ValidatorRule<T[name]> : ValidatorRuleItem<T>;
+    [name in keyof T]?: T[name] extends ValidatorBean ? ValidatorRule<T[name]> : ValidatorRuleItem<T, T[name]>;
 }
 
 export interface ValidFieldError {
@@ -179,7 +191,13 @@ const entityRule: ValidatorRule<Entity> = {
         subSub: {
             f: {
                 equalsIn: [Interop.asJBigDecimal("123.111"), Interop.asJBigDecimal("666.888")],
-            }
+            },
+            g: {
+                validator: ctx => {
+                    ctx.value.get("");
+                    return false;
+                }
+            },
         }
     },
 }
