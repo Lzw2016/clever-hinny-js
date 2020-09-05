@@ -69,7 +69,7 @@ export interface ValidatorRuleItem<T, V> {
     digits?: {
         /** 最大整数位数 */
         integer?: JInt;
-        /** 最小整数位数 */
+        /** 最大小数位数 */
         fraction?: JInt;
     },
     // ------------------------------------------------------------------------------------------- 时间
@@ -105,7 +105,7 @@ export interface ValidFieldError {
     getFiled(): JString;
 
     /** 验证的字段值 */
-    getValue(): JString;
+    getValue(): BaseType;
 
     /** 验证的错误消息 */
     getMessage(): JString;
