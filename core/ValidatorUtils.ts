@@ -28,6 +28,8 @@ interface ValidatorContext<T, V> {
  * 校验项
  */
 export interface ValidatorRuleItem<T, V> {
+    /** 校验配置标识(校验JMap类型的字段值时需要设置此标识) */
+    __valid_flag?: true;
     /** 错误信息 */
     message?: JString;
     // ------------------------------------------------------------------------------------------- 常规
@@ -96,7 +98,7 @@ export interface ValidatorRuleItem<T, V> {
 /**
  * 校验规则
  */
-type ValidatorRule<T extends object = ValidatorBean> = {
+export type ValidatorRule<T extends object = ValidatorBean> = {
     [name in keyof T]?: T[name] extends ValidatorBean ? ValidatorRule<T[name]> : ValidatorRuleItem<T, T[name]>;
 }
 
@@ -144,78 +146,9 @@ export interface ValidatorUtils {
     validated<T extends object = ValidatorBean>(bean: T, rule: ValidatorRule<T>): void;
 }
 
-// ----------------------------------------------------------
 
-declare const validatorUtils: ValidatorUtils;
+const validatorUtils: ValidatorUtils = Java.type('org.clever.hinny.graal.core.ValidatorUtils').Instance;
 
-interface Entity {
-    a: JString;
-    b: JBoolean;
-    c: JInt;
-    sub: {
-        d: JDate;
-        e: JList<any>;
-        subSub: {
-            f: JBigDecimal;
-            g: JMap<JString, JDate>;
-        }
-    }
+export {
+    validatorUtils,
 }
-
-const entityRule: ValidatorRule<Entity> = {
-    a: {
-        length: {
-            max: 50,
-            min: 6,
-        },
-    },
-    b: {
-        equals: false
-    },
-    c: {
-        range: {
-            min: 12,
-            max: 666,
-            inclusiveMin: false,
-        }
-    },
-    sub: {
-        d: {
-            notNull: true,
-            pastDate: true,
-            range: {}
-        },
-        e: {
-            isNull: true,
-        },
-        subSub: {
-            f: {
-                equalsIn: [Interop.asJBigDecimal("123.111"), Interop.asJBigDecimal("666.888")],
-            },
-            g: {
-                validator: ctx => {
-                    ctx.value.get("");
-                    ctx.message = "验证失败！自定义消息"
-                    return false;
-                }
-            },
-        }
-    },
-}
-
-const entity: Entity = {
-    a: "",
-    b: false,
-    c: 123,
-    sub: {
-        d: Interop.asJDate(""),
-        e: Interop.asJList("", "", ""),
-        subSub: {
-            f: Interop.asJBigDecimal(""),
-            g: Interop.asJMap<JString, JDate>({}),
-        }
-    }
-}
-
-validatorUtils.valid(entity, entityRule);
-
