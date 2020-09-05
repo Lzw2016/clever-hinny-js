@@ -63,7 +63,7 @@ export interface ValidatorRuleItem<T, V> {
         max?: JInt;
     };
     /*** 必须符合指定的正则表达式 */
-    pattern?: RegExp;
+    pattern?: JString;
     // ------------------------------------------------------------------------------------------- 数字
     /** 数字位数取值范围 */
     digits?: {
@@ -134,7 +134,7 @@ export interface ValidatorUtils {
      * @param bean 数据对象
      * @param rule 校验规则
      */
-    valid<T extends object = ValidatorBean>(bean: T, rule: ValidatorRule<T>): JList<ValidResult>;
+    valid<T extends object = ValidatorBean>(bean: T, rule: ValidatorRule<T>): ValidResult;
 
     /**
      * 对象数据校验(验证通不过则抛出异常)
