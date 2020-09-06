@@ -1,7 +1,7 @@
 // import { commonUtils } from "@hinny/core";
 import { jdbcDatabase, mybatisJdbcDatabase, QueryByPage } from "@hinny/data-jdbc";
 import { HttpHandle, HttpMethod, HttpRouter } from "@hinny/mvc";
-import { BuiltinFormats, excelUtils, IndexedColors } from "@hinny/core";
+import { BuiltinFormats, excelUtils, IndexedColors, ValidatorRule, validatorUtils } from "@hinny/core";
 
 const log = LoggerFactory.getLogger(__filename);
 const jdbc = jdbcDatabase.getDefault();
@@ -125,5 +125,30 @@ export const t04: HttpRouter = {
             // storeNo: '1089704947936186369',
             orderCodeList: Interop.asJList('hubei0XS00000037', 'hubei0XS00000038', 'hubei0XS00000040'),
         });
+    },
+}
+
+interface Entity01 {
+    str: JString;
+    bool: JBoolean;
+    num: JLong;
+}
+
+const rule0101: ValidatorRule<Entity01> = {
+    str: {length: {min: 10, max: 20}},
+    bool: {notNull: true, equals: true},
+    num: {range: {min: 0, max: 666}},
+};
+
+
+export const t05: HttpRouter = {
+    get: ctx => {
+        const data01: Entity01 = {
+            str: "aaa1234567890",
+            bool: true,
+            num: 666,
+        }
+        validatorUtils.validated(data01, rule0101);
+        return data01;
     },
 }
