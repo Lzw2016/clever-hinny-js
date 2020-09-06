@@ -140,7 +140,6 @@ const rule0101: ValidatorRule<Entity01> = {
     num: {range: {min: 0, max: 666}},
 };
 
-
 export const t05: HttpRouter = {
     get: ctx => {
         const data01: Entity01 = {
@@ -150,5 +149,9 @@ export const t05: HttpRouter = {
         }
         validatorUtils.validated(data01, rule0101);
         return data01;
+    },
+
+    post: ctx => {
+        log.info("ContentType -> {}", ctx.request.getContentType());
     },
 }
