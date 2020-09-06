@@ -135,9 +135,25 @@ export interface ValidatorUtils {
      * 对象数据校验(返回验证结果)
      * @param bean 数据对象
      * @param rule 校验规则
+     * @param fast 快速验证(只要有一个错误就返回)
+     */
+    valid<T extends object = ValidatorBean>(bean: T, rule: ValidatorRule<T>, fast: JBoolean): ValidResult;
+
+    /**
+     * 对象数据校验(返回验证结果)
+     * @param bean 数据对象
+     * @param rule 校验规则
      */
     valid<T extends object = ValidatorBean>(bean: T, rule: ValidatorRule<T>): ValidResult;
 
+    /**
+     * 对象数据校验(验证通不过则抛出异常)
+     * @param bean 数据对象
+     * @param rule 校验规则
+     * @param fast 快速验证(只要有一个错误就返回)
+     */
+    validated<T extends object = ValidatorBean>(bean: T, rule: ValidatorRule<T>, fast: JBoolean): void;
+    
     /**
      * 对象数据校验(验证通不过则抛出异常)
      * @param bean 数据对象
