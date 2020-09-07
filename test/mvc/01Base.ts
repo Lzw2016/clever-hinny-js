@@ -155,3 +155,59 @@ export const t05: HttpRouter = {
         log.info("ContentType -> {}", ctx.request.getContentType());
     },
 }
+
+// interface PostData {
+//     name: string;
+//     age: number;
+//     isVip: boolean;
+//     sex: string;
+// }
+
+export const t06: HttpRouter = {
+    post: ctx => {
+        const {request} = ctx;
+        // request.get
+
+        // 定义实体类型
+        const postData = {
+            name: "",
+            age: 0,
+            isVip: false,
+            sex: "",
+            sss: {},
+        };
+        // 填充实体数据并校验数据
+        request.fillAndValidatedFromAny(postData, {
+            name: {notBlank: true, length: {min: 6, max: 12}},
+            age: {notNull: true, range: {min: 18, max: 65}},
+            isVip: {notNull: true},
+            sex: {notBlank: true, equalsIn: ["f", "m"]},
+        });
+        // 后面就可以使用 postData 了
+        // ... 省略业务代码
+        // return bizFuc(postData);
+    },
+
+    get: ctx => {
+
+    },
+}
+
+// const t07 : HttpHandle = ctx => {
+//     const {request} = ctx;
+//     // 定义实体类型
+//     request.fillFromAny(postData);
+//
+//     // 填充实体数据并校验数据
+//     request.fillAndValidatedFromAny(postData, {
+//         name: {notBlank: true, length: {min: 6, max: 12}},
+//         age: {notNull: true, range: {min: 18, max: 65}},
+//         isVip: {notNull: true},
+//         sex: {notBlank: true, equalsIn: ["f", "m"]},
+//     });
+// }
+
+// // 业务处理函数 -- 前端使用这个方法签名做前后端一体化
+// function bizFuc(postData): any {
+//     // 业务处理代码
+// }

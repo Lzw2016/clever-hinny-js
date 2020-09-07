@@ -1,3 +1,4 @@
+import { ValidatorBean, ValidatorRule } from "@hinny/core";
 import { HttpSessionWrapper } from "./HttpSessionWrapper";
 import { ServletContextWrapper } from "./ServletContextWrapper";
 import { QueryBySort } from "../model/request/QueryBySort";
@@ -265,4 +266,103 @@ export interface HttpRequestWrapper extends JObject {
      * 获取数据库分页查询参数
      */
     getQueryByPage(): QueryByPage;
+
+    /**
+     * 从Body中填充数据
+     *
+     * @param model    数据结构以及初始值
+     * @param fillNull null值是否也要填充
+     */
+    fillFromBody(model: object, fillNull: boolean): void;
+
+    /**
+     * 从Body中填充数据
+     *
+     * @param model 数据结构以及初始值
+     */
+    fillFromBody(model: object): void;
+
+    /**
+     * 从Params中填充数据
+     *
+     * @param model    数据结构以及初始值
+     * @param fillNull null值是否也要填充
+     */
+    fillFromParams(model: object, fillNull: boolean): void;
+
+    /**
+     * 从Params中填充数据
+     *
+     * @param model 数据结构以及初始值
+     */
+    fillFromParams(model: object): void;
+
+    /**
+     * 从Body或者Params中填充数据
+     *
+     * @param model    数据结构以及初始值
+     * @param fillNull null值是否也要填充
+     */
+    fillFromAny(model: object, fillNull: boolean): void;
+
+    /**
+     * 从Body或者Params中填充数据
+     *
+     * @param model    数据结构以及初始值
+     */
+    fillFromAny(model: object): void;
+
+    /**
+     * 从Body中填充数据然后验证数据
+     *
+     * @param model    数据结构以及初始值
+     * @param rule     校验规则
+     * @param fillNull null值是否也要填充
+     * @param fast     快速验证(只要有一个错误就抛出异常)
+     */
+    fillAndValidatedFromBody<T extends object = ValidatorBean>(model: T, rule: ValidatorRule<T>, fillNull: boolean, fast: boolean): void;
+
+    /**
+     * 从Body中填充数据然后验证数据
+     *
+     * @param model 数据结构以及初始值
+     * @param rule  校验规则
+     */
+    fillAndValidatedFromBody<T extends object = ValidatorBean>(model: T, rule: ValidatorRule<T>): void;
+
+    /**
+     * 从Params中填充数据然后验证数据
+     *
+     * @param model    数据结构以及初始值
+     * @param rule     校验规则
+     * @param fillNull null值是否也要填充
+     * @param fast     快速验证(只要有一个错误就抛出异常)
+     */
+    fillAndValidatedFromParams<T extends object = ValidatorBean>(model: T, rule: ValidatorRule<T>, fillNull: boolean, fast: boolean): void;
+
+    /**
+     * 从Params中填充数据然后验证数据
+     *
+     * @param model 数据结构以及初始值
+     * @param rule  校验规则
+     */
+    fillAndValidatedFromParams<T extends object = ValidatorBean>(model: T, rule: ValidatorRule<T>): void;
+
+    /**
+     * 从Body或者Params中填充数据然后验证数据
+     *
+     * @param model    数据结构以及初始值
+     * @param rule     校验规则
+     * @param fillNull null值是否也要填充
+     * @param fast     快速验证(只要有一个错误就抛出异常)
+     */
+    fillAndValidatedFromAny<T extends object = ValidatorBean>(model: T, rule: ValidatorRule<T>, fillNull: boolean, fast: boolean): void;
+
+    /**
+     * 从Body或者Params中填充数据然后验证数据
+     *
+     * @param model 数据结构以及初始值
+     * @param rule  校验规则
+     */
+    fillAndValidatedFromAny<T extends object = ValidatorBean>(model: T, rule: ValidatorRule<T>): void;
 }

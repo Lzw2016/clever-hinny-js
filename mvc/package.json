@@ -32,5 +32,8 @@
   "bugs": {
     "url": "https://github.com/Lzw2016/clever-hinny-js/issues"
   },
-  "homepage": "https://github.com/Lzw2016/clever-hinny-js#readme"
+  "homepage": "https://github.com/Lzw2016/clever-hinny-js#readme",
+  "dependencies": {
+    "@hinny/core": "0.0.1"
+  }
 }
