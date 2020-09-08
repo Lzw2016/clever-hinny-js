@@ -11,5 +11,8 @@
     "data-jdbc",
     "mvc",
     "test"
-  ]
+  ],
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  }
 }
