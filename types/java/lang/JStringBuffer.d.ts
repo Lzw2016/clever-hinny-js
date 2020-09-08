@@ -124,7 +124,7 @@ interface JStringBuffer extends JObject {
     /**
      * 从指定的索引处开始，返回第一次出现的指定子字符串在该字符串中的索引
      */
-    indexOf(str, JString, fromIndex: JInt): JInt;
+    indexOf(str: JString, fromIndex: JInt): JInt;
 
     /**
      * 将 boolean 参数的字符串表示形式插入此序列中
