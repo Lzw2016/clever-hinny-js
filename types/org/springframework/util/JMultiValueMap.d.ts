@@ -1,9 +1,9 @@
-interface JMultiValueMap<K, V> extends JMap<K, V> {
+interface JMultiValueMap<K, V> extends JMap<K, JList<V>> {
     /**
      * 返回给定键的第一个值
      */
     getFirst(key: K): V | null;
-    
+
     /**
      * 将给定的单个值添加到给定键的当前值列表中
      */

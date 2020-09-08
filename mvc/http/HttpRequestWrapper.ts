@@ -111,6 +111,11 @@ export interface HttpRequestWrapper extends JObject {
     getParameterValues(name: JString): JString[];
 
     /**
+     * 获取所有请求参数
+     */
+    getParameterMap(): JMap<JString, JString[]>;
+
+    /**
      * 返回客户端发送请求的IP地址
      */
     getRemoteAddr(): JString;
@@ -266,6 +271,26 @@ export interface HttpRequestWrapper extends JObject {
      * 获取数据库分页查询参数
      */
     getQueryByPage(): QueryByPage;
+
+    /**
+     * 获取参数对象
+     */
+    getParams<T extends object = any>(): T;
+
+    /**
+     * 获取Body对象
+     */
+    getBody<T extends object = any>(): T;
+
+    /**
+     * 获取参数Map
+     */
+    getParamsMap(): JMultiValueMap<JString, JString>;
+
+    /**
+     * 获取请求参数(Parameter和Body都会取)
+     */
+    getRequestData<T extends object = any>(): T;
 
     /**
      * 从Body中填充数据

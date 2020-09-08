@@ -37,7 +37,7 @@ RMBUtils            OK
 [core]      SendMailUtils
 [core]      IOUtils
 
-[mvc]       实体参数支持
+[mvc]       实体参数支持                                              OK
 [mvc]       参数校验支持                                              OK
 [mvc]       分页参数，排序参数                                         OK
 [mvc]       文件上传，文件下载
