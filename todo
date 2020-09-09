@@ -42,9 +42,8 @@ RMBUtils            OK
 [mvc]       分页参数，排序参数                                         OK
 [mvc]       文件上传，文件下载
 [mvc]       Excel导入导出
-[mvc]       路径变量?...
 [mvc]       ImageValidateUtils                                       OK
-[mvc]       ZxingUtils
+[mvc]       ZxingUtils                                               OK
 
 [data-jdbc] 动态SQL                                                  OK
 [data-jdbc] 表字段：驼峰转下划线，下划线转驼峰

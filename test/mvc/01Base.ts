@@ -1,7 +1,7 @@
 // import { commonUtils } from "@hinny/core";
 import { jdbcDatabase, mybatisJdbcDatabase, QueryByPage } from "@hinny/data-jdbc";
 import { HttpHandle, HttpMethod, HttpRouter, MediaType } from "@hinny/mvc";
-import { BuiltinFormats, excelUtils, imageValidateUtils, IndexedColors, ValidatorRule, validatorUtils } from "@hinny/core";
+import { BarcodeFormat, BuiltinFormats, excelUtils, imageValidateUtils, IndexedColors, ValidatorRule, validatorUtils, zxingUtils } from "@hinny/core";
 
 const log = LoggerFactory.getLogger(__filename);
 const jdbc = jdbcDatabase.getDefault();
@@ -256,6 +256,19 @@ export const t60: HttpRouter = {
 
         // const code = imageValidateUtils.createImageStreamUsePatchca(ctx.response.getOutputStream());
         // log.info("code -> {}", code);
+    },
+}
+
+export const t61: HttpRouter = {
+    get: ctx => {
+        ctx.response.setContentType(MediaType.Png);
+        zxingUtils.createImageStream(
+            "https://blog.csdn.net/weixin_38312502/article/details/83825080",
+            BarcodeFormat.QR_CODE,
+            // 256,
+            // 256,
+            ctx.response.getOutputStream()
+        );
     },
 }
 
