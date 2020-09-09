@@ -1,7 +1,7 @@
 // import { commonUtils } from "@hinny/core";
 import { jdbcDatabase, mybatisJdbcDatabase, QueryByPage } from "@hinny/data-jdbc";
 import { HttpHandle, HttpMethod, HttpRouter, MediaType } from "@hinny/mvc";
-import { AnalysisContext, BarcodeFormat, BuiltinFormats, cookieUtils, ExcelDataType, ExcelRow, excelUtils, httpRequestUtils, imageValidateUtils, IndexedColors, ValidatorRule, validatorUtils, zxingUtils } from "@hinny/core";
+import { AnalysisContext, BarcodeFormat, BuiltinFormats, cookieUtils, ExcelDataType, ExcelRow, excelUtils, httpRequestUtils, imageValidateUtils, IndexedColors, ioUtils, ValidatorRule, validatorUtils, zxingUtils } from "@hinny/core";
 
 const log = LoggerFactory.getLogger(__filename);
 const jdbc = jdbcDatabase.getDefault();
@@ -360,6 +360,22 @@ export const t63: HttpRouter = {
     },
 }
 
+// IOUtils
+export const t64: HttpRouter = {
+    get: ctx => {
+        const path = ioUtils.getAbsolutePath("./");
+        log.info("path -> {}", path);
 
+        // ctx.response.setContentType(MediaType.Xml);
+        // const pomInput = ioUtils.openInputStream("./pom.xml")
+        // ioUtils.copy(pomInput, ctx.response.getOutputStream())
+        // ioUtils.close(pomInput);
+
+        ctx.response.setContentType(MediaType.Plain);
+        const pomInput = ioUtils.openInputStream("./graaljs-test/src/main/java/org/clever/hinny/demo/config/BeanConfiguration.java")
+        ioUtils.copy(pomInput, ctx.response.getOutputStream())
+        ioUtils.close(pomInput);
+    },
+}
 
 

@@ -18,6 +18,7 @@ ExcelUtils          OK
 CookieUtils         OK
 HttpRequestUtils    OK
 ValidatorUtils      OK
+IOUtils             OK
 ImageValidateUtils  OK
 ZxingUtils          OK
 SendMailUtils
@@ -35,7 +36,7 @@ RMBUtils            OK
 [core]      HttpRequestUtils                                        OK
 [core]      ValidatorUtils                                          OK
 [core]      SendMailUtils
-[core]      IOUtils
+[core]      IOUtils                                                 OK
 
 [mvc]       实体参数支持                                              OK
 [mvc]       参数校验支持                                              OK

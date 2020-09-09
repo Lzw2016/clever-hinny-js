@@ -6,13 +6,13 @@ export enum MediaType {
     /** json */
     Json = "application/json;charset=UTF-8",
     /** xml */
-    Xml = "application/xml",
+    Xml = "application/xml;charset=UTF-8",
     /** xhtml + xml */
     XhtmlXml = "application/xhtml+xml",
     /** html */
     Html = "text/html",
     /** plain */
-    Plain = "text/plain",
+    Plain = "text/plain;charset=UTF-8",
     // ----------------------------------------------------------------------------------------- 图片
     /** git */
     Gif = "image/gif",

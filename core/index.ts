@@ -26,3 +26,4 @@ export * from './IPAddressUtils';
 export * from './IdCardUtils';
 export * from './RMBUtils';
 export * from './TypeUtils';
+export * from './IOUtils';

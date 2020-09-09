@@ -42,7 +42,7 @@ interface JInputStream extends JCloseable {
     skip(n: JLong): JLong;
 }
 
-interface JFileInputStream {
+interface JFileInputStream extends JInputStream {
     java_io_FileInputStream: "java.io.FileInputStream";
 }
 
