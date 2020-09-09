@@ -43,7 +43,7 @@ RMBUtils            OK
 [mvc]       文件上传，文件下载
 [mvc]       Excel导入导出
 [mvc]       路径变量?...
-[mvc]       ImageValidateUtils
+[mvc]       ImageValidateUtils                                       OK
 [mvc]       ZxingUtils
 
 [data-jdbc] 动态SQL                                                  OK

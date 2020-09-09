@@ -1,7 +1,7 @@
 // import { commonUtils } from "@hinny/core";
 import { jdbcDatabase, mybatisJdbcDatabase, QueryByPage } from "@hinny/data-jdbc";
-import { HttpHandle, HttpMethod, HttpRouter } from "@hinny/mvc";
-import { BuiltinFormats, excelUtils, IndexedColors, ValidatorRule, validatorUtils } from "@hinny/core";
+import { HttpHandle, HttpMethod, HttpRouter, MediaType } from "@hinny/mvc";
+import { BuiltinFormats, excelUtils, imageValidateUtils, IndexedColors, ValidatorRule, validatorUtils } from "@hinny/core";
 
 const log = LoggerFactory.getLogger(__filename);
 const jdbc = jdbcDatabase.getDefault();
@@ -239,3 +239,24 @@ export const t08: HttpRouter = {
 // function bizFuc(postData): any {
 //     // 业务处理代码
 // }
+
+
+export const t60: HttpRouter = {
+    get: ctx => {
+        ctx.response.setContentType(MediaType.Png);
+
+        // const code = imageValidateUtils.createImageStream(ctx.response.getOutputStream());
+        // log.info("code -> {}", code);
+
+        // const code = imageValidateUtils.createImageStreamUseCage(ctx.response.getOutputStream());
+        // log.info("code -> {}", code);
+
+        const code = imageValidateUtils.createImageStreamUseKaptcha(ctx.response.getOutputStream());
+        log.info("code -> {}", code);
+
+        // const code = imageValidateUtils.createImageStreamUsePatchca(ctx.response.getOutputStream());
+        // log.info("code -> {}", code);
+    },
+}
+
+

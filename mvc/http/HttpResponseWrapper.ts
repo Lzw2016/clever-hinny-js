@@ -1,3 +1,5 @@
+import { MediaType } from "../MediaType";
+
 export interface HttpResponseWrapper extends JObject {
     /**
      * 原始HTTP响应对象
@@ -62,7 +64,7 @@ export interface HttpResponseWrapper extends JObject {
     /**
      * 设置正被发往客户端的响应的内容类型
      */
-    setContentType(type: JString): void;
+    setContentType(type: JString | MediaType): void;
 
     /**
      * 获取响应的内容类型
