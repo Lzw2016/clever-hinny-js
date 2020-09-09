@@ -1,7 +1,7 @@
 // import { commonUtils } from "@hinny/core";
 import { jdbcDatabase, mybatisJdbcDatabase, QueryByPage } from "@hinny/data-jdbc";
 import { HttpHandle, HttpMethod, HttpRouter, MediaType } from "@hinny/mvc";
-import { BarcodeFormat, BuiltinFormats, cookieUtils, excelUtils, httpRequestUtils, imageValidateUtils, IndexedColors, ValidatorRule, validatorUtils, zxingUtils } from "@hinny/core";
+import { AnalysisContext, BarcodeFormat, BuiltinFormats, cookieUtils, ExcelDataType, ExcelRow, excelUtils, httpRequestUtils, imageValidateUtils, IndexedColors, ValidatorRule, validatorUtils, zxingUtils } from "@hinny/core";
 
 const log = LoggerFactory.getLogger(__filename);
 const jdbc = jdbcDatabase.getDefault();
@@ -69,11 +69,12 @@ interface ExcelEntity {
     // create_at: JDate;
 }
 
+// Excel导入导出
 export const t03: HttpRouter = {
     get: ctx => {
         const {request, response} = ctx;
         response.getHeaders("");
-        const limit = request.getParameter("limit") ?? "3";
+        const limit = request.getParameter("limit") ?? "50";
         const listData = jdbc.queryList(
             "select * from tb_order_detail_distinct limit :limit",
             {limit: Interop.asJInt(limit)},
@@ -114,13 +115,64 @@ export const t03: HttpRouter = {
             listData
         );
         // return listData;
-    }
+    },
+    post: ctx => {
+        const excelData = excelUtils.read<ExcelEntity>({
+            request: ctx.request.originalRequest(),
+            columns: {
+                store_no: {dataType: ExcelDataType.JString, column: ["店铺信息", "店铺编号"]},
+                store_prod_no: {dataType: ExcelDataType.JBigDecimal, column: ["店铺信息", "店铺商品编码"]},
+                order_code: {dataType: ExcelDataType.JString, column: ["店铺信息", "订单编码"]},
+                erp_no: {dataType: ExcelDataType.JString, column: ["商品信息", "ERP编码"]},
+                prod_name: {dataType: ExcelDataType.JString, column: ["商品信息", "商品名称"]},
+                prod_specification: {dataType: ExcelDataType.JString, column: ["商品信息", "规格"]},
+            },
+            // headRowNumber: 2,
+            excelRowReader: {
+                readRow(data: ExcelEntity, excelRow: ExcelRow<ExcelEntity>, context: AnalysisContext) {
+                    log.info(" excelRow -> {}", excelRow.getData());
+                },
+                readEnd(context: AnalysisContext) {
+                    log.info(" readEnd -> 导入完成!!!");
+                }
+            },
+        });
+        // excelData.getFirstExcelData().getImportData().size()
+        return excelData.getFirstExcelData().getImportData();
+    },
+
+    put: ctx => {
+        const reader = excelUtils.createReader({
+            request: ctx.request.originalRequest(),
+            columns: {
+                store_no: {dataType: ExcelDataType.JString, column: ["店铺信息", "店铺编号"]},
+                store_prod_no: {dataType: ExcelDataType.JBigDecimal, column: ["店铺信息", "店铺商品编码"]},
+                order_code: {dataType: ExcelDataType.JString, column: ["店铺信息", "订单编码"]},
+                erp_no: {dataType: ExcelDataType.JString, column: ["商品信息", "ERP编码"]},
+                prod_name: {dataType: ExcelDataType.JString, column: ["商品信息", "商品名称"]},
+                prod_specification: {dataType: ExcelDataType.JString, column: ["商品信息", "规格"]},
+            },
+            excelRowReader: {
+                readRow(data: ExcelEntity, excelRow: ExcelRow<ExcelEntity>, context: AnalysisContext) {
+                    log.info("{} excelRow -> {}", excelRow.getExcelRowNum(), excelRow.getData());
+                },
+                readEnd(context: AnalysisContext) {
+                    log.info(" readEnd -> 导入完成!!!");
+                }
+            },
+            enableExcelData: false,
+        });
+        reader.read().sheet(0).doRead();
+        return {success: true};
+    },
 }
 
 const mybatis = mybatisJdbcDatabase.getDefault();
 
 export const t04: HttpRouter = {
     get: ctx => {
+        // mybatis.queryList("sql.select-01", ctx.request.getRequestData());
+
         return mybatis.queryList("sql.select-01", {
             // storeNo: '1089704947936186369',
             orderCodeList: Interop.asJList('hubei0XS00000037', 'hubei0XS00000038', 'hubei0XS00000040'),

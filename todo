@@ -41,7 +41,7 @@ RMBUtils            OK
 [mvc]       参数校验支持                                              OK
 [mvc]       分页参数，排序参数                                         OK
 [mvc]       文件上传，文件下载
-[mvc]       Excel导入导出
+[mvc]       Excel导入导出                                             OK
 [mvc]       ImageValidateUtils                                       OK
 [mvc]       ZxingUtils                                               OK
 

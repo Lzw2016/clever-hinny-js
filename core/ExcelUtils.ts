@@ -969,11 +969,13 @@ export interface ExcelRowReader<T> {
     /**
      * 读取结束时调用
      */
-    readEnd(context: AnalysisContext): void;
+    readEnd?(context: AnalysisContext): void;
 }
 
 /** 读取Excel时的初始化配置 */
 export class ExcelReaderConfig<T extends object> {
+    /** Excel文件上传的请求对象 */
+    request?: JHttpServletRequest;
     /** Excel文件名称(或者Excel文件路径) */
     filename?: JString;
     /** 文件输入流 */
