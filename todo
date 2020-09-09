@@ -41,7 +41,7 @@ RMBUtils            OK
 [mvc]       实体参数支持                                              OK
 [mvc]       参数校验支持                                              OK
 [mvc]       分页参数，排序参数                                         OK
-[mvc]       文件上传，文件下载
+[mvc]       文件上传，文件下载                                         50%
 [mvc]       Excel导入导出                                             OK
 [mvc]       ImageValidateUtils                                       OK
 [mvc]       ZxingUtils                                               OK
@@ -55,7 +55,9 @@ RMBUtils            OK
 
 
 
+------------------------------------------------------------------------------------------------
 
+脚本加载失败就会有 Multi threaded access requested by thread Thread[http-nio-18081-exec-3,5,main] but is not allowed for language(s) js.
 
 
 

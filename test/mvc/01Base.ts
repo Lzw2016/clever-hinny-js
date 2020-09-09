@@ -371,10 +371,17 @@ export const t64: HttpRouter = {
         // ioUtils.copy(pomInput, ctx.response.getOutputStream())
         // ioUtils.close(pomInput);
 
-        ctx.response.setContentType(MediaType.Plain);
-        const pomInput = ioUtils.openInputStream("./graaljs-test/src/main/java/org/clever/hinny/demo/config/BeanConfiguration.java")
-        ioUtils.copy(pomInput, ctx.response.getOutputStream())
-        ioUtils.close(pomInput);
+        // ctx.response.setContentType(MediaType.Plain);
+        // const pomInput = ioUtils.openInputStream("./graaljs-test/src/main/java/org/clever/hinny/demo/config/BeanConfiguration.java")
+        // ioUtils.copy(pomInput, ctx.response.getOutputStream())
+        // ioUtils.close(pomInput);
+
+        ctx.response.setDownloadFileName("二维码.jpeg");
+        const data = zxingUtils.createImage(
+            "https://blog.csdn.net/weixin_38312502/article/details/83825080",
+            BarcodeFormat.QR_CODE
+        );
+        ioUtils.writeByteArray(ctx.response.getOutputStream(), data);
     },
 }
 

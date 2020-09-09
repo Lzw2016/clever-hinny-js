@@ -174,4 +174,19 @@ export interface HttpResponseWrapper extends JObject {
     sendError(sc: JInt, msg: JString): void;
 
     //---------------------------------------------------------------------------------------------------------------------------------------------- 高阶封装
+
+    /**
+     * 设置当前响应是下载文件
+     *
+     * @param fileName      文件名称
+     * @param contentLength 文件内容大小
+     */
+    setDownloadFileName(fileName: JString, contentLength: JLong): void;
+
+    /**
+     * 设置当前响应是下载文件
+     *
+     * @param fileName      文件名称
+     */
+    setDownloadFileName(fileName: JString): void;
 }

@@ -214,7 +214,7 @@ export interface IOUtils {
     /**
      * 写入二进制数据
      */
-    writeLines(output: JOutputStream, data: JByte[]): void;
+    writeByteArray(output: JOutputStream, data: JByte[]): void;
 
     /**
      * 复制流
