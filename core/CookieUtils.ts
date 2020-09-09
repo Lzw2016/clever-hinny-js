@@ -2,7 +2,7 @@ export interface CookieUtils {
     /**
      * 设置Cookie
      *
-     * @param response HTTP请求
+     * @param response HTTP响应
      * @param path     Cookie的Path
      * @param name     名称
      * @param value    值
@@ -11,52 +11,69 @@ export interface CookieUtils {
     setCookie(response: JHttpServletResponse, path: JString, name: JString, value: JString, maxAge: JInt): void;
 
     /**
-     * 设置Cookie(path="/")
+     * 设置Cookie
      *
-     * @param response HTTP请求
+     * @param response HTTP响应
+     * @param path     Cookie的Path
      * @param name     名称
      * @param value    值
      */
-    setRooPathCookie(response: JHttpServletResponse, name: JString, value: JString): void;
+    setCookie(response: JHttpServletResponse, path: JString, name: JString, value: JString): void;
 
     /**
-     * 设置Cookie(不设置path)
+     * 设置Cookie(当前路径)
      *
-     * @param response HTTP请求
-     * @param name     名称
-     * @param value    值
+     * @param response HTTP响应
+     * @param name  名称
+     * @param value 值
      */
-    setCookie(response: JHttpServletResponse, name: JString, value: JString): void;
+    setCookieForCurrentPath(response: JHttpServletResponse, name: JString, value: JString): void;
 
     /**
-     * 获得指定Cookie的值
+     * 设置Cookie(根路径)
      *
-     * @param request  请求对象
-     * @param response 响应对象，设置移除Cookie时(isRemove=true),此对象不能传null
-     * @param name     名字
-     * @param isRemove 是否移除
-     * @return Cookie值，不存在返回null
+     * @param response HTTP响应
+     * @param name  名称
+     * @param value 值
      */
-    getCookie(request: JHttpServletRequest, response: JHttpServletResponse, name: JString, isRemove: JBoolean): void;
+    setCookieForRooPath(response: JHttpServletResponse, name: JString, value: JString): void;
 
     /**
      * 获得指定Cookie的值
      *
      * @param request 请求对象
-     * @param name    名称
-     * @return Cookie值
+     * @param name    名字
+     * @return Cookie值，不存在返回null
      */
-    getCookie(request: JHttpServletRequest, name: JString): void;
+    getCookie(request: JHttpServletRequest, name: JString): JString;
 
     /**
-     * 获得指定Cookie的值，并删除
+     * 删除指定Cookie
      *
      * @param request  请求对象
      * @param response 响应对象
      * @param name     名称
-     * @return Cookie值
+     * @param path     Cookie的Path
      */
-    getCookieAndRemove(request: JHttpServletRequest, response: JHttpServletResponse, name: JString): void;
+    delCookie(request: JHttpServletRequest, response: JHttpServletResponse, name: JString, path: JString): void;
+
+    /**
+     * 删除指定Cookie(当前路径)
+     *
+     * @param request  请求对象
+     * @param response 响应对象
+     * @param name     名称
+     */
+    delCookieForCurrentPath(request: JHttpServletRequest, response: JHttpServletResponse, name: JString): void;
+
+    /**
+     * 删除指定Cookie(根路径)
+     *
+     * @param request  请求对象
+     * @param response 响应对象
+     * @param name     名称
+     */
+    delCookieForRooPath(request: JHttpServletRequest, response: JHttpServletResponse, name: JString): void;
 }
 
 const cookieUtils: CookieUtils = Java.type('org.clever.hinny.core.CookieUtils').Instance;

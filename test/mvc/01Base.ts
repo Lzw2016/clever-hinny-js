@@ -1,7 +1,7 @@
 // import { commonUtils } from "@hinny/core";
 import { jdbcDatabase, mybatisJdbcDatabase, QueryByPage } from "@hinny/data-jdbc";
 import { HttpHandle, HttpMethod, HttpRouter, MediaType } from "@hinny/mvc";
-import { BarcodeFormat, BuiltinFormats, excelUtils, imageValidateUtils, IndexedColors, ValidatorRule, validatorUtils, zxingUtils } from "@hinny/core";
+import { BarcodeFormat, BuiltinFormats, cookieUtils, excelUtils, httpRequestUtils, imageValidateUtils, IndexedColors, ValidatorRule, validatorUtils, zxingUtils } from "@hinny/core";
 
 const log = LoggerFactory.getLogger(__filename);
 const jdbc = jdbcDatabase.getDefault();
@@ -241,6 +241,7 @@ export const t08: HttpRouter = {
 // }
 
 
+// 图片验证码
 export const t60: HttpRouter = {
     get: ctx => {
         ctx.response.setContentType(MediaType.Png);
@@ -259,6 +260,7 @@ export const t60: HttpRouter = {
     },
 }
 
+// 条形码、二维码
 export const t61: HttpRouter = {
     get: ctx => {
         ctx.response.setContentType(MediaType.Png);
@@ -271,5 +273,41 @@ export const t61: HttpRouter = {
         );
     },
 }
+
+// Cookie操作
+export const t62: HttpRouter = {
+    get: ctx => {
+        // cookieUtils.setCookieForCurrentPath(ctx.response.originalResponse(), "test-01", "aaabbb");
+        // cookieUtils.setCookieForRooPath(ctx.response.originalResponse(), "test-01", "aaabbb");
+
+        cookieUtils.delCookieForRooPath(ctx.request.originalRequest(), ctx.response.originalResponse(), "test-01");
+        cookieUtils.delCookieForCurrentPath(ctx.request.originalRequest(), ctx.response.originalResponse(), "test-01");
+        cookieUtils.delCookieForRooPath(ctx.request.originalRequest(), ctx.response.originalResponse(), "Authorization");
+        cookieUtils.delCookieForRooPath(ctx.request.originalRequest(), ctx.response.originalResponse(), "USEDEFAULTSITE");
+        cookieUtils.delCookieForRooPath(ctx.request.originalRequest(), ctx.response.originalResponse(), "auth");
+        return {success: true};
+    },
+}
+
+// HttpRequestUtils
+export const t63: HttpRouter = {
+    get: ctx => {
+        const params = httpRequestUtils.getRequestParams(ctx.request.originalRequest());
+        log.info("params -> {}", params);
+
+        const uri = httpRequestUtils.getRequestURI(ctx.request.originalRequest());
+        log.info("uri -> {}", uri);
+
+        const url = httpRequestUtils.getRequestURL(ctx.request.originalRequest());
+        log.info("url -> {}", url);
+
+        const uriNotSuffix = httpRequestUtils.getRequestURINotSuffix(ctx.request.originalRequest());
+        log.info("uriNotSuffix -> {}", uriNotSuffix);
+
+        return {params, uri, url, uriNotSuffix};
+    },
+}
+
+
 
 

@@ -15,8 +15,8 @@ HttpUtils           OK
 TreeUtils           OK
 SpringContext       OK
 ExcelUtils          OK
-CookieUtil
-HttpRequestUtils
+CookieUtils         OK
+HttpRequestUtils    OK
 ValidatorUtils      OK
 ImageValidateUtils  OK
 ZxingUtils          OK
