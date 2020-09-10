@@ -47,8 +47,8 @@ RMBUtils            OK
 [mvc]       ZxingUtils                                               OK
 
 [data-jdbc] 动态SQL                                                  OK
-[data-jdbc] 表字段：驼峰转下划线，下划线转驼峰
-[data-jdbc] 查询结果以实体类为主
+[data-jdbc] 表字段：驼峰转下划线，下划线转驼峰                           OK
+[data-jdbc] 查询结果以实体类为主                                       30%
 
 [other]     spring boot autoconfig
 

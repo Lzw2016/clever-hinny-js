@@ -170,14 +170,44 @@ export const t03: HttpRouter = {
 
 const mybatis = mybatisJdbcDatabase.getDefault();
 
+interface OrderDetailDistinct {
+    id: JLong,
+    storeNo: JString,
+    orderCode: JString,
+    storeProdNo: JString,
+    erpNo: JString,
+    prodName: JString,
+    prodSpecification: JString,
+    packageUnit: JString,
+    manufacture: JString,
+    frontPic: JString,
+    merchandiseNumber: JBigDecimal,
+    outNumber: JBigDecimal,
+    noOutNumber: JBigDecimal,
+    goodsStatus: JBigDecimal,
+    memberPrice: JBigDecimal,
+    averagePrice: JBigDecimal,
+    createAt: JSqlDate,
+    updateAt: JSqlDate,
+}
+
 export const t04: HttpRouter = {
     get: ctx => {
         // mybatis.queryList("sql.select-01", ctx.request.getRequestData());
+        const entity = mybatis.queryTableEntity<OrderDetailDistinct>(
+            "tb_order_detail_distinct",
+            {
+                id: "1107982724040765441",
+                storeProdNo: "1089710052089581571",
+            },
+        );
+        log.info("storeNo -> {}", entity.storeNo);
 
-        return mybatis.queryList("sql.select-01", {
-            // storeNo: '1089704947936186369',
-            orderCodeList: Interop.asJList('hubei0XS00000037', 'hubei0XS00000038', 'hubei0XS00000040'),
-        });
+        return entity;
+        // return mybatis.queryList("sql.select-01", {
+        //     // storeNo: '1089704947936186369',
+        //     orderCodeList: Interop.asJList('hubei0XS00000037', 'hubei0XS00000038', 'hubei0XS00000040'),
+        // });
     },
 }
 
