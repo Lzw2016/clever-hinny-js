@@ -29,10 +29,27 @@ export interface JdbcDataSource extends JObject {
     /**
      * 查询一条数据，返回一个Map
      *
+     * @param sql              sql脚本，参数格式[:param]
+     * @param paramMap         参数(可选)，参数格式[:param]
+     * @param underlineToCamel 下划线转驼峰
+     */
+    queryMap<T = DataRowMap>(sql: JString, paramMap: SqlParamMap, underlineToCamel: JBoolean): T;
+
+    /**
+     * 查询一条数据，返回一个Map
+     *
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
     queryMap<T = DataRowMap>(sql: JString, paramMap: SqlParamMap): T;
+
+    /**
+     * 查询一条数据，返回一个Map
+     *
+     * @param sql              sql脚本，参数格式[:param]
+     * @param underlineToCamel 下划线转驼峰
+     */
+    queryMap<T = DataRowMap>(sql: JString, underlineToCamel: JBoolean): T;
 
     /**
      * 查询一条数据，返回一个Map
@@ -44,10 +61,27 @@ export interface JdbcDataSource extends JObject {
     /**
      * 查询多条数据，返回一个Map数组
      *
+     * @param sql              sql脚本，参数格式[:param]
+     * @param paramMap         参数(可选)，参数格式[:param]
+     * @param underlineToCamel 下划线转驼峰
+     */
+    queryList<T = DataRowMap>(sql: JString, paramMap: SqlParamMap, underlineToCamel: JBoolean): JList<T>;
+
+    /**
+     * 查询多条数据，返回一个Map数组
+     *
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      */
     queryList<T = DataRowMap>(sql: JString, paramMap: SqlParamMap): JList<T>;
+
+    /**
+     * 查询多条数据，返回一个Map数组
+     *
+     * @param sql sql脚本，参数格式[:param]
+     * @param underlineToCamel 下划线转驼峰
+     */
+    queryList<T = DataRowMap>(sql: JString, underlineToCamel: JBoolean): JList<T>;
 
     /**
      * 查询多条数据，返回一个Map数组
@@ -164,12 +198,33 @@ export interface JdbcDataSource extends JObject {
     /**
      * 查询多条数据(大量数据)，使用游标读取
      *
+     * @param sql              sql脚本，参数格式[:param]
+     * @param paramMap         参数(可选)，参数格式[:param]
+     * @param batchSize        一个批次的数据量
+     * @param consumer         游标批次读取数据消费者
+     * @param underlineToCamel 下划线转驼峰
+     */
+    query<T = DataRowMap>(sql: JString, paramMap: SqlParamMap, batchSize: JInt, consumer: BatchQueryCallback<T>, underlineToCamel: JBoolean): void;
+
+    /**
+     * 查询多条数据(大量数据)，使用游标读取
+     *
      * @param sql       sql脚本，参数格式[:param]
      * @param paramMap  参数(可选)，参数格式[:param]
      * @param batchSize 一个批次的数据量
      * @param consumer  游标批次读取数据消费者
      */
     query<T = DataRowMap>(sql: JString, paramMap: SqlParamMap, batchSize: JInt, consumer: BatchQueryCallback<T>): void;
+
+    /**
+     * 查询多条数据(大量数据)，使用游标读取
+     *
+     * @param sql              sql脚本，参数格式[:param]
+     * @param batchSize        一个批次的数据量
+     * @param consumer         游标批次读取数据消费者
+     * @param underlineToCamel 下划线转驼峰
+     */
+    query<T = DataRowMap>(sql: JString, batchSize: JInt, consumer: BatchQueryCallback<T>, underlineToCamel: JBoolean): void
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -183,6 +238,16 @@ export interface JdbcDataSource extends JObject {
     /**
      * 查询多条数据(大量数据)，使用游标读取
      *
+     * @param sql              sql脚本，参数格式[:param]
+     * @param paramMap         参数(可选)，参数格式[:param]
+     * @param consumer         游标读取数据消费者
+     * @param underlineToCamel 下划线转驼峰
+     */
+    query<T = DataRowMap>(sql: JString, paramMap: SqlParamMap, consumer: QueryCallback<T>, underlineToCamel: JBoolean): void;
+
+    /**
+     * 查询多条数据(大量数据)，使用游标读取
+     *
      * @param sql      sql脚本，参数格式[:param]
      * @param paramMap 参数(可选)，参数格式[:param]
      * @param consumer 游标读取数据消费者
@@ -192,10 +257,29 @@ export interface JdbcDataSource extends JObject {
     /**
      * 查询多条数据(大量数据)，使用游标读取
      *
+     * @param sql              sql脚本，参数格式[:param]
+     * @param consumer         游标读取数据消费者
+     * @param underlineToCamel 下划线转驼峰
+     */
+    query<T = DataRowMap>(sql: JString, consumer: QueryCallback<T>, underlineToCamel: JBoolean): void;
+
+    /**
+     * 查询多条数据(大量数据)，使用游标读取
+     *
      * @param sql      sql脚本，参数格式[:param]
      * @param consumer 游标读取数据消费者
      */
     query<T = DataRowMap>(sql: JString, consumer: QueryCallback<T>): void;
+
+    /**
+     * 排序查询
+     *
+     * @param sql              sql脚本，参数格式[:param]
+     * @param sort             排序配置
+     * @param paramMap         参数，参数格式[:param]
+     * @param underlineToCamel 下划线转驼峰
+     */
+    queryBySort<T = DataRowMap>(sql: JString, sort: QueryBySort, paramMap: SqlParamMap, underlineToCamel: JBoolean): JList<T>
 
     /**
      * 排序查询
@@ -209,10 +293,30 @@ export interface JdbcDataSource extends JObject {
     /**
      * 排序查询
      *
+     * @param sql               sql脚本，参数格式[:param]
+     * @param sort              排序配置
+     * @param underlineToCamel  下划线转驼峰
+     */
+    queryBySort<T = DataRowMap>(sql: JString, sort: QueryBySort, underlineToCamel: JBoolean): JList<T>;
+
+    /**
+     * 排序查询
+     *
      * @param sql  sql脚本，参数格式[:param]
      * @param sort 排序配置
      */
     queryBySort<T = DataRowMap>(sql: JString, sort: QueryBySort): JList<T>;
+
+    /**
+     * 分页查询(支持排序)，返回分页对象
+     *
+     * @param sql              sql脚本，参数格式[:param]
+     * @param pagination       分页配置(支持排序)
+     * @param paramMap         参数，参数格式[:param]
+     * @param countQuery       是否要执行count查询(可选)
+     * @param underlineToCamel 下划线转驼峰
+     */
+    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean, underlineToCamel: JBoolean): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -255,9 +359,19 @@ export interface JdbcDataSource extends JObject {
      *
      * @param tableName         表名称
      * @param whereMap          更新条件字段(只支持=，and条件)
-     * @param camelToUnderscore 字段驼峰转下划线(可选)
+     * @param camelToUnderscore whereMap字段驼峰转下划线(可选)
+     * @param underlineToCamel  返回数据下划线转驼峰
      */
-    queryTableList<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap, camelToUnderscore: JBoolean): JList<T>
+    queryTableList<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap, camelToUnderscore: JBoolean, underlineToCamel: JBoolean): JList<T>;
+
+    /**
+     * 查询数据库表数据
+     *
+     * @param tableName         表名称
+     * @param whereMap          更新条件字段(只支持=，and条件)
+     * @param camelToUnderscore whereMap字段驼峰转下划线(可选)
+     */
+    queryTableList<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap, camelToUnderscore: JBoolean): JList<T>;
 
     /**
      * 查询数据库表数据
@@ -266,6 +380,16 @@ export interface JdbcDataSource extends JObject {
      * @param whereMap          更新条件字段(只支持=，and条件)
      */
     queryTableList<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap): JList<T>
+
+    /**
+     * 查询数据库表数据
+     *
+     * @param tableName         表名称
+     * @param whereMap          更新条件字段(只支持=，and条件)
+     * @param camelToUnderscore whereMap字段驼峰转下划线(可选)
+     * @param underlineToCamel  返回数据下划线转驼峰
+     */
+    queryTableMap<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap, camelToUnderscore: JBoolean, underlineToCamel: JBoolean): T;
 
     /**
      * 查询数据库表数据
