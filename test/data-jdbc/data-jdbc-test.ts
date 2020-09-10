@@ -17,11 +17,11 @@ const t01 = function () {
     const resList = jdbc.queryList("select * from tb_order_main limit 3");
     log.info("resList                           -> {}", resList);
     log.info("[resList]                         -> {}", [resList]);
-    log.info("resList[0]                        -> {}", resList[0]);
+    log.info("resList[0]                        -> {}", resList.get(0));
     // log.info("resList[0]                        -> {}", resList[0]);
-    log.info("fromJMap(resList[1])              -> {}", Interop.fromJMap(resList[1]));//fixme org.graalvm.polyglot.proxy.ProxyObject$1@257e0827  返回代理类路径?
-    log.info("fromJMap(resList[1]).order_id     -> {}", Interop.fromJMap<Entity>(resList[1]).order_id);
-    log.info("fromJMap(resList[1]).total_price  -> {}", Interop.fromJMap<Entity>(resList[1]).total_price);
+    log.info("fromJMap(resList[1])              -> {}", Interop.fromJMap(resList.get(1)));//fixme org.graalvm.polyglot.proxy.ProxyObject$1@257e0827  返回代理类路径?
+    log.info("fromJMap(resList[1]).order_id     -> {}", Interop.fromJMap<Entity>(resList.get(1)).order_id);
+    log.info("fromJMap(resList[1]).total_price  -> {}", Interop.fromJMap<Entity>(resList.get(1)).total_price);
     log.info("undefined                         -> {}", undefined);
 
     // log.info("total_price       -> {}", Interop.fromJMap({}));
@@ -46,7 +46,7 @@ limit 3
 const t03 = function () {
     const sql = "select * from tb_order_main limit 87";
     jdbc.query(sql, 10, batchData => {
-        log.info("batchData -> BatchCount={} | order_id={}", batchData.getBatchCount(), Interop.fromJMap<Entity>(batchData.getRowDataList()[0]).order_id)
+        log.info("batchData -> BatchCount={} | order_id={}", batchData.getBatchCount(), Interop.fromJMap<Entity>(batchData.getRowDataList().get(0)).order_id)
     });
 
     const sql2 = "select * from tb_order_main limit :limit";
@@ -107,7 +107,7 @@ const t05 = function () {
     );
     // console.log("--> {}", list_2[0].sss);
     log.info("list_2 --> {}", [list_2]);
-    log.info("list_2 --> {}", Interop.fromJMap<Entity>(list_2[0]).order_id);// fixme 无法获取属性值
+    log.info("list_2 --> {}", Interop.fromJMap<Entity>(list_2.get(0)).order_id);// fixme 无法获取属性值
 }
 const t06 = function () {
     const sql = "select * from tb_order_main where order_id = :order_id";

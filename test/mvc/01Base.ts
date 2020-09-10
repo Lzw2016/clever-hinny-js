@@ -94,7 +94,7 @@ export const t03: HttpRouter = {
                     prod_name: {column: ["商品信息", "商品名称"], columnWidth: 30},
                     prod_specification: {column: ["商品信息", "规格"], columnWidth: 16},
                     package_unit: {column: ["商品信息", "单位"], columnWidth: 10},
-                    manufacture: {column: ["商品信息", "厂家"], columnWidth: 60},
+                    manufacture: {column: ["商品信息", "厂家"], columnWidth: 30},
                     merchandise_number: {column: ["购买信息", "购买数量"], columnWidth: 12},
                     out_number: {column: ["购买信息", "出库数量"], columnWidth: 12},
                     no_out_number: {column: ["购买信息", "不出库数量"], columnWidth: 16},
@@ -130,7 +130,8 @@ export const t03: HttpRouter = {
             // headRowNumber: 2,
             excelRowReader: {
                 readRow(data: ExcelEntity, excelRow: ExcelRow<ExcelEntity>, context: AnalysisContext) {
-                    log.info(" excelRow -> {}", excelRow.getData());
+                    log.info("# {} | excelRow -> {}", excelRow.getExcelRowNum(), excelRow.getData());
+                    // jdbc.in
                 },
                 readEnd(context: AnalysisContext) {
                     log.info(" readEnd -> 导入完成!!!");
@@ -317,10 +318,10 @@ export const t61: HttpRouter = {
     get: ctx => {
         ctx.response.setContentType(MediaType.Png);
         zxingUtils.createImageStream(
-            "https://blog.csdn.net/weixin_38312502/article/details/83825080",
-            BarcodeFormat.QR_CODE,
-            // 256,
-            // 256,
+            "123234",
+            BarcodeFormat.CODE_39,
+            256,
+            64,
             ctx.response.getOutputStream()
         );
     },
@@ -385,4 +386,28 @@ export const t64: HttpRouter = {
     },
 }
 
+// 文件上传
+export const t65: HttpRouter = {
+    get: ctx => {
+        const filenames = ctx.request.getUploadFileNames();
+        log.info("filenames -> {}", [filenames]);
+        const allFile = ctx.request.getAllUploadFiles();
+        const iterator = allFile.keySet().iterator();
+        while (iterator.hasNext()) {
+            const files = allFile.get(iterator.next());
+            if (!files) {
+                continue;
+            }
+            for (let i = 0; i < files.size(); i++) {
+                const file = files.get(i);
+                log.info("file -> Name={} | OriginalFilename={} | Size={}", file.getName(), file.getOriginalFilename(), file.getSize());
+            }
+        }
+        const file = ctx.request.getFirstUploadFile();
+        const path = ioUtils.normalize(ioUtils.getAbsolutePath("./temp.jpg"));
+        log.info("path -> {}", path);
+        file.transferTo(path);
+        ioUtils.writeByteArray(ctx.response.getOutputStream(), file.getBytes());
+    },
+}
 

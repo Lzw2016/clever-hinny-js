@@ -45,8 +45,8 @@ const t02 = function () {
         const list = jdbc.queryList(sql);
 
         for (let i = 0; i < list.size(); i++) {
-            const parentId = Interop.fromJMap<CompanyCertificateDic>(list[i]).parent_id
-            const id = Interop.fromJMap<CompanyCertificateDic>(list[i]).id
+            const parentId = Interop.fromJMap<CompanyCertificateDic>(list.get(i)).parent_id
+            const id = Interop.fromJMap<CompanyCertificateDic>(list.get(i)).id
             if (parentId === 2) {
                 const count = jdbc.beginTX(() => {
                     return jdbc.insertTables(

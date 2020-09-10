@@ -1,5 +1,5 @@
 const log = LoggerFactory.getLogger(__filename);
-import {AnyEntity, jdbcDatabase} from "@hinny/data-jdbc";
+import { AnyEntity, jdbcDatabase } from "@hinny/data-jdbc";
 
 interface Test extends AnyEntity {
     sql_time: JSqlTime;
@@ -21,8 +21,8 @@ const t01 = function () {
         const sql = "select sql_time,date,year from test limit 5"
         const list = jdbc.queryList(sql);
 
-        const date = Interop.toJDate(Interop.fromJMap<Test>(list[1]).sql_time);
-        const date2 = Interop.toJDate(Interop.fromJMap<Test>(list[2]).sql_time);
+        const date = Interop.toJDate(Interop.fromJMap<Test>(list.get(1)).sql_time);
+        const date2 = Interop.toJDate(Interop.fromJMap<Test>(list.get(2)).sql_time);
         log.info("date       -> {}", date);
         log.info("date2      -> {}", date2);
         log.info("after      -> {}", date.after(date2));
@@ -39,9 +39,8 @@ const t01 = function () {
         log.info("================================================================================");
 
 
-
-        const time = Interop.fromJMap<Test>(list[1]).sql_time;
-        const time2 = Interop.fromJMap<Test>(list[2]).sql_time;
+        const time = Interop.fromJMap<Test>(list.get(1)).sql_time;
+        const time2 = Interop.fromJMap<Test>(list.get(2)).sql_time;
         //fixme  JSqlTime 输出是否应主动截取yyyy-MM-dd 只展示time值
         // 现在显示的:'1970-01-01T13:26:33.000Z'  是否应换为--->  '13:26:33.000Z'
         log.info("time               -> {}", time);

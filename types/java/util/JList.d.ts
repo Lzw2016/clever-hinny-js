@@ -4,7 +4,7 @@
 interface JList<E> extends JCollection<E> {
     java_util_List: "java.util.List";
 
-    [index: number]: E;
+    // [index: number]: E;
 
     /**
      * 向列表的尾部追加指定的元素（可选操作）

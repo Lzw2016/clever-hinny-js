@@ -4,6 +4,48 @@ import { ServletContextWrapper } from "./ServletContextWrapper";
 import { QueryBySort } from "../model/request/QueryBySort";
 import { QueryByPage } from "../model/request/QueryByPage";
 
+export interface UploadFile {
+    /**
+     * 参数的名称
+     */
+    getName(): JString;
+
+    /**
+     * 原始文件名，如果在多部分形式中未选择文件，则为空字符串；如果未定义或不可用，则为空字符串
+     */
+    getOriginalFilename(): JString;
+
+    /**
+     * 内容类型，如果未定义，则为空（或在多部分形式中未选择文件）
+     */
+    getContentType(): JString;
+
+    /**
+     * 返回上传的文件是否为空，即没有在多部分表单中选择文件或所选文件没有内容
+     */
+    isEmpty(): JBoolean;
+
+    /**
+     * 文件的大小，如果为空，则为0
+     */
+    getSize(): JLong;
+
+    /**
+     * 文件的内容为字节，如果为空，则为空字节数组
+     */
+    getBytes(): JByte[];
+
+    /**
+     * 文件的内容为流，如果为空，则为空流
+     */
+    getInputStream(): JInputStream;
+
+    /**
+     * 将接收到的文件传输到给定的目标文件
+     */
+    transferTo(filePath: JString): void;
+}
+
 export interface HttpRequestWrapper extends JObject {
     /**
      * 原始HTTP请求对象
@@ -390,4 +432,40 @@ export interface HttpRequestWrapper extends JObject {
      * @param rule  校验规则
      */
     fillAndValidatedFromAny<T extends object = ValidatorBean>(model: T, rule: ValidatorRule<T>): void;
+
+    /**
+     * 获取上传的文件名称
+     */
+    getUploadFileNames(): JList<JString>;
+
+    /**
+     * 获取上传的文件
+     *
+     * @param filename 文件名称
+     */
+    getUploadFile(filename: JString): UploadFile;
+
+    /**
+     * 获取上传的文件
+     *
+     * @param filename 文件名称
+     */
+    getUploadFiles(filename: JString): JList<UploadFile>;
+
+    /**
+     * 获取所有上传的文件
+     */
+    getAllUploadFiles(): JMultiValueMap<JString, UploadFile>;
+
+    /**
+     * 获取所有上传的文件
+     *
+     * @param filename 文件名称
+     */
+    getAllUploadFiles(filename: JString): JList<UploadFile>;
+
+    /**
+     * 获取第一个上传的文件
+     */
+    getFirstUploadFile(): UploadFile;
 }

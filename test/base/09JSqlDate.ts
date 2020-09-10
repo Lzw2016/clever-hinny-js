@@ -1,5 +1,5 @@
 const log = LoggerFactory.getLogger(__filename);
-import {AnyEntity, jdbcDatabase} from "@hinny/data-jdbc";
+import { AnyEntity, jdbcDatabase } from "@hinny/data-jdbc";
 
 interface Test extends AnyEntity {
     sql_time: JSqlTime;
@@ -23,8 +23,8 @@ const t01 = function () {
         log.info("date               -> {}", [list]);
 
         //fixme JSqlDate(java.sql.Date) 无法使用
-        const date = Interop.toJDate(Interop.fromJMap<Test>(list[1]).date);
-        const date2 = Interop.toJDate(Interop.fromJMap<Test>(list[2]).date);
+        const date = Interop.toJDate(Interop.fromJMap<Test>(list.get(1)).date);
+        const date2 = Interop.toJDate(Interop.fromJMap<Test>(list.get(2)).date);
         log.info("date               -> {}", date);
         log.info("date2              -> {}", date);
         log.info("after              -> {}", date.after(date2));
@@ -40,8 +40,8 @@ const t01 = function () {
         log.info("getMonth           -> {}", date.getMonth());
         log.info("getDay             -> {}", date.getDay());
 
-        const year = Interop.toJDate(Interop.fromJMap<Test>(list[1]).year);
-        const year2 = Interop.toJDate(Interop.fromJMap<Test>(list[2]).year);
+        const year = Interop.toJDate(Interop.fromJMap<Test>(list.get(1)).year);
+        const year2 = Interop.toJDate(Interop.fromJMap<Test>(list.get(2)).year);
         log.info("year               -> {}", year);
         log.info("year2              -> {}", year2);
         log.info("after              -> {}", year.after(year2));

@@ -1,5 +1,5 @@
 const log = LoggerFactory.getLogger(__filename);
-import {AnyEntity, jdbcDatabase} from "@hinny/data-jdbc";
+import { AnyEntity, jdbcDatabase } from "@hinny/data-jdbc";
 
 interface TbOrderMain extends AnyEntity {
     order_id: JInt;
@@ -22,8 +22,8 @@ const t01 = function () {
     if (jdbc != null) {
         const sql = "select order_id,user_agent_id,store_no,total_price,create_at from tb_order_main limit 5"
         const resList = jdbc.queryList(sql);
-        const sqlTimestamp = Interop.fromJMap<TbOrderMain>(resList[1]).create_at;
-        const sqlTimestamp2 = Interop.fromJMap<TbOrderMain>(resList[2]).create_at;
+        const sqlTimestamp = Interop.fromJMap<TbOrderMain>(resList.get(1)).create_at;
+        const sqlTimestamp2 = Interop.fromJMap<TbOrderMain>(resList.get(2)).create_at;
         log.info("sqlTimestamp               -> {}", sqlTimestamp);
         log.info("sqlTimestamp2              -> {}", sqlTimestamp2);
         log.info("after                      -> {}", sqlTimestamp.after(sqlTimestamp2));
