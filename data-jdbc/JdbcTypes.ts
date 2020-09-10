@@ -33,7 +33,6 @@ export interface AnyEntity {
  */
 export type DataRowMap = JMap<JString, SqlFieldType>;
 
-
 /**
  * 查询排序参数
  */

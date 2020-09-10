@@ -1,7 +1,14 @@
 import { DbType, IsolationLevel, Propagation } from "./JdbcEnum";
-import { ActionInTX, BatchQueryCallback, DataRowMap, InsertResult, IPage, QueryByPage, QueryBySort, QueryCallback, SqlParamMap } from "./JdbcTypes";
+import { ActionInTX, BatchQueryCallback, InsertResult, IPage, QueryByPage, QueryBySort, QueryCallback, SqlFieldType, SqlParamMap } from "./JdbcTypes";
 import { JdbcInfo } from "./JdbcInfo";
 import { JdbcDataSourceStatus } from "./JdbcDataSourceStatus";
+
+/**
+ * 数据库数据行
+ */
+interface DataRowEntity {
+    [field: string]: SqlFieldType;
+}
 
 export interface MyBatisJdbcDataSource {
     /**
@@ -29,14 +36,14 @@ export interface MyBatisJdbcDataSource {
      * @param sqlId    SqlID
      * @param paramMap 查询参数
      */
-    queryMap<T = DataRowMap>(sqlId: JString, paramMap: SqlParamMap): T;
+    queryEntity<T = DataRowEntity>(sqlId: JString, paramMap: SqlParamMap): T;
 
     /**
      * 查询一条数据，返回一个Map
      *
      * @param sqlId    SqlID
      */
-    queryMap<T = DataRowMap>(sqlId: JString): T;
+    queryEntity<T = DataRowEntity>(sqlId: JString): T;
 
     /**
      * 查询多条数据，返回一个Map数组
@@ -44,14 +51,14 @@ export interface MyBatisJdbcDataSource {
      * @param sqlId    SqlID
      * @param paramMap 查询参数
      */
-    queryList<T = DataRowMap>(sqlId: JString, paramMap: SqlParamMap): JList<T>;
+    queryList<T = DataRowEntity>(sqlId: JString, paramMap: SqlParamMap): JList<T>;
 
     /**
      * 查询多条数据，返回一个Map数组
      *
      * @param sqlId    SqlID
      */
-    queryList<T = DataRowMap>(sqlId: JString): JList<T>;
+    queryList<T = DataRowEntity>(sqlId: JString): JList<T>;
 
     /**
      * 查询返回一个 String
@@ -166,7 +173,7 @@ export interface MyBatisJdbcDataSource {
      * @param batchSize 一个批次的数据量
      * @param consumer  游标批次读取数据消费者
      */
-    query<T = DataRowMap>(sqlId: JString, paramMap: SqlParamMap, batchSize: JInt, consumer: BatchQueryCallback<T>): void;
+    query<T = DataRowEntity>(sqlId: JString, paramMap: SqlParamMap, batchSize: JInt, consumer: BatchQueryCallback<T>): void;
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -175,7 +182,7 @@ export interface MyBatisJdbcDataSource {
      * @param batchSize 一个批次的数据量
      * @param consumer  游标批次读取数据消费者
      */
-    query<T = DataRowMap>(sqlId: JString, batchSize: JInt, consumer: BatchQueryCallback<T>): void
+    query<T = DataRowEntity>(sqlId: JString, batchSize: JInt, consumer: BatchQueryCallback<T>): void
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -184,7 +191,7 @@ export interface MyBatisJdbcDataSource {
      * @param paramMap 查询参数
      * @param consumer 游标读取数据消费者
      */
-    query<T = DataRowMap>(sqlId: JString, paramMap: SqlParamMap, consumer: QueryCallback<T>): void;
+    query<T = DataRowEntity>(sqlId: JString, paramMap: SqlParamMap, consumer: QueryCallback<T>): void;
 
     /**
      * 查询多条数据(大量数据)，使用游标读取
@@ -192,7 +199,7 @@ export interface MyBatisJdbcDataSource {
      * @param sqlId    SqlID
      * @param consumer 游标读取数据消费者
      */
-    query<T = DataRowMap>(sqlId: JString, consumer: QueryCallback<T>): void;
+    query<T = DataRowEntity>(sqlId: JString, consumer: QueryCallback<T>): void;
 
     /**
      * 排序查询
@@ -201,7 +208,7 @@ export interface MyBatisJdbcDataSource {
      * @param sort     排序配置
      * @param paramMap 查询参数
      */
-    queryBySort<T = DataRowMap>(sqlId: JString, sort: QueryBySort, paramMap: SqlParamMap): JList<T>
+    queryBySort<T = DataRowEntity>(sqlId: JString, sort: QueryBySort, paramMap: SqlParamMap): JList<T>
 
     /**
      * 排序查询
@@ -209,7 +216,7 @@ export interface MyBatisJdbcDataSource {
      * @param sqlId    SqlID
      * @param sort 排序配置
      */
-    queryBySort<T = DataRowMap>(sqlId: JString, sort: QueryBySort): JList<T>;
+    queryBySort<T = DataRowEntity>(sqlId: JString, sort: QueryBySort): JList<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -219,7 +226,7 @@ export interface MyBatisJdbcDataSource {
      * @param paramMap 查询参数
      * @param countQuery 是否要执行count查询(可选)
      */
-    queryByPage<T = DataRowMap>(sqlId: JString, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
+    queryByPage<T = DataRowEntity>(sqlId: JString, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -228,7 +235,7 @@ export interface MyBatisJdbcDataSource {
      * @param pagination 分页配置(支持排序)
      * @param paramMap 查询参数
      */
-    queryByPage<T = DataRowMap>(sqlId: JString, pagination: QueryByPage, paramMap: SqlParamMap): IPage<T>;
+    queryByPage<T = DataRowEntity>(sqlId: JString, pagination: QueryByPage, paramMap: SqlParamMap): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -237,7 +244,7 @@ export interface MyBatisJdbcDataSource {
      * @param pagination 分页配置(支持排序)
      * @param countQuery 是否要执行count查询(可选)
      */
-    queryByPage<T = DataRowMap>(sqlId: JString, pagination: QueryByPage, countQuery: JBoolean): IPage<T>;
+    queryByPage<T = DataRowEntity>(sqlId: JString, pagination: QueryByPage, countQuery: JBoolean): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -245,16 +252,7 @@ export interface MyBatisJdbcDataSource {
      * @param sqlId    SqlID
      * @param pagination 分页配置(支持排序) - 支持加入查询参数
      */
-    queryByPage<T = DataRowMap>(sqlId: JString, pagination: QueryByPage): IPage<T>;
-
-    /**
-     * 查询数据库表数据
-     *
-     * @param tableName         表名称
-     * @param whereMap          更新条件字段(只支持=，and条件)
-     * @param camelToUnderscore 字段驼峰转下划线(可选)
-     */
-    queryTableList<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap, camelToUnderscore: JBoolean): JList<T>
+    queryByPage<T = DataRowEntity>(sqlId: JString, pagination: QueryByPage): IPage<T>;
 
     /**
      * 查询数据库表数据
@@ -262,16 +260,7 @@ export interface MyBatisJdbcDataSource {
      * @param tableName         表名称
      * @param whereMap          更新条件字段(只支持=，and条件)
      */
-    queryTableList<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap): JList<T>
-
-    /**
-     * 查询数据库表数据
-     *
-     * @param tableName         表名称
-     * @param whereMap          更新条件字段(只支持=，and条件)
-     * @param camelToUnderscore 字段驼峰转下划线(可选)
-     */
-    queryTableMap<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap, camelToUnderscore: JBoolean): T;
+    queryTableList<T = DataRowEntity>(tableName: JString, whereMap: { [field in keyof T]?: T[field] } | { [field: string]: SqlFieldType }): JList<T>
 
     /**
      * 查询数据库表数据
@@ -279,7 +268,7 @@ export interface MyBatisJdbcDataSource {
      * @param tableName         表名称
      * @param whereMap          更新条件字段(只支持=，and条件)
      */
-    queryTableMap<T = DataRowMap>(tableName: JString, whereMap: SqlParamMap): T;
+    queryTableEntity<T = DataRowEntity>(tableName: JString, whereMap: { [field in keyof T]?: T[field] } | { [field: string]: SqlFieldType }): T;
 
     // --------------------------------------------------------------------------------------------
     // Update 操作
@@ -303,31 +292,11 @@ export interface MyBatisJdbcDataSource {
     /**
      * 更新数据库表数据
      *
-     * @param tableName         表名称
-     * @param fields            更新字段值
-     * @param whereMap          更新条件字段(只支持=，and条件)
-     * @param camelToUnderscore 字段驼峰转下划线(可选)
-     */
-    updateTable(tableName: JString, fields: SqlParamMap, whereMap: SqlParamMap, camelToUnderscore: JBoolean): JInt;
-
-    /**
-     * 更新数据库表数据
-     *
      * @param tableName 表名称
      * @param fields    更新字段值
      * @param whereMap  更新条件字段(只支持=，and条件)
      */
-    updateTable(tableName: JString, fields: SqlParamMap, whereMap: SqlParamMap): JInt;
-
-    /**
-     * 更新数据库表数据
-     *
-     * @param tableName         表名称
-     * @param fields            更新字段值
-     * @param where             自定义where条件(不用写where关键字)
-     * @param camelToUnderscore 字段驼峰转下划线(可选)
-     */
-    updateTable(tableName: JString, fields: SqlParamMap, where: JString, camelToUnderscore: JBoolean): JInt;
+    updateTable<T = DataRowEntity>(tableName: JString, fields: { [field in keyof T]?: T[field] } | { [field: string]: SqlFieldType }, whereMap: { [field in keyof T]?: T[field] } | { [field: string]: SqlFieldType }): JInt;
 
     /**
      * 更新数据库表数据
@@ -336,7 +305,7 @@ export interface MyBatisJdbcDataSource {
      * @param fields    更新字段值
      * @param where     自定义where条件(不用写where关键字)
      */
-    updateTable(tableName: JString, fields: SqlParamMap, where: JString): JInt;
+    updateTable<T = DataRowEntity>(tableName: JString, fields: { [field in keyof T]?: T[field] } | { [field: string]: SqlFieldType }, where: JString): JInt;
 
     /**
      * 批量执行更新SQL，返回更新影响数据量
@@ -353,19 +322,10 @@ export interface MyBatisJdbcDataSource {
     /**
      * 删除数据库表数据
      *
-     * @param tableName         表名称
-     * @param whereMap          更新条件字段(只支持=，and条件)
-     * @param camelToUnderscore 字段驼峰转下划线(可选)
-     */
-    deleteTable(tableName: JString, whereMap: SqlParamMap, camelToUnderscore: JBoolean): JInt;
-
-    /**
-     * 删除数据库表数据
-     *
      * @param tableName 表名称
      * @param whereMap  更新条件字段(只支持=，and条件)
      */
-    deleteTable(tableName: JString, whereMap: SqlParamMap): JInt;
+    deleteTable<T = DataRowEntity>(tableName: JString, whereMap: { [field in keyof T]?: T[field] } | { [field: string]: SqlFieldType }): JInt;
 
     /**
      * 删除数据库表数据
@@ -397,28 +357,10 @@ export interface MyBatisJdbcDataSource {
     /**
      * 数据插入到表
      *
-     * @param tableName         表名称
-     * @param fields            字段名
-     * @param camelToUnderscore 字段驼峰转下划线(可选)
-     */
-    insertTable(tableName: JString, fields: SqlParamMap, camelToUnderscore: JBoolean): InsertResult;
-
-    /**
-     * 数据插入到表
-     *
      * @param tableName 表名称
      * @param fields    字段名
      */
-    insertTable(tableName: JString, fields: SqlParamMap): InsertResult;
-
-    /**
-     * 数据插入到表
-     *
-     * @param tableName         表名称
-     * @param fieldsList        字段名集合
-     * @param camelToUnderscore 字段驼峰转下划线(可选)
-     */
-    insertTables(tableName: JString, fieldsList: Array<SqlParamMap>, camelToUnderscore: JBoolean): JList<InsertResult>;
+    insertTable<T = DataRowEntity>(tableName: JString, fields: { [field in keyof T]?: T[field] } | { [field: string]: SqlFieldType }): InsertResult;
 
     /**
      * 数据插入到表
@@ -426,7 +368,7 @@ export interface MyBatisJdbcDataSource {
      * @param tableName  表名称
      * @param fieldsList 字段名集合
      */
-    insertTables(tableName: JString, fieldsList: Array<SqlParamMap>): JList<InsertResult>;
+    insertTables<T = DataRowEntity>(tableName: JString, fieldsList: Array<{ [field in keyof T]?: T[field] } | { [field: string]: SqlFieldType }>): JList<InsertResult>;
 
     // --------------------------------------------------------------------------------------------
     //  事务操作
