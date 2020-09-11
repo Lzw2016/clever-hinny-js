@@ -174,14 +174,14 @@ export interface RowData<T = DataRowMap> {
  * 游标读取数据回调函数(批量读取)
  */
 export interface BatchQueryCallback<T = DataRowMap> {
-    (batchData: BatchData<T>): void;
+    (batch: BatchData<T>): void;
 }
 
 /**
  * 游标读取数据回调函数
  */
 export interface QueryCallback<T = DataRowMap> {
-    (batchData: RowData<T>): void;
+    (row: RowData<T>): void;
 }
 
 export interface OrderItem extends JObject {

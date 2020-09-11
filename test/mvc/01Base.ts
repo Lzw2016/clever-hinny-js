@@ -209,6 +209,15 @@ export const t04: HttpRouter = {
         //     orderCodeList: Interop.asJList('hubei0XS00000037', 'hubei0XS00000038', 'hubei0XS00000040'),
         // });
     },
+
+    put: ctx => {
+        const array: OrderDetailDistinct[] = [];
+        mybatis.query<OrderDetailDistinct>("sql.select-01", row => {
+            log.info("storeNo -> {}", row.getRowData().storeNo)
+            array.push(row.getRowData());
+        });
+        return array;
+    }
 }
 
 interface Entity01 {
