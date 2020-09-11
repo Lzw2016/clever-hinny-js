@@ -1,5 +1,5 @@
 /**
- * 继承类型
+ * 基础类型
  */
 export type BaseType = undefined | null | Date
     | JByte | JShort | JInt | JLong | JFloat | JDouble | JBoolean | JChar | JString

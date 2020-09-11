@@ -29,7 +29,6 @@ IdCardUtils         OK
 RMBUtils            OK
 
 ------------------------------------------------------------------------------------------------
-
 [types]     StringBuilder
 
 [core]      CookieUtils                                             OK
@@ -48,7 +47,7 @@ RMBUtils            OK
 
 [data-jdbc] 动态SQL                                                  OK
 [data-jdbc] 表字段：驼峰转下划线，下划线转驼峰                           OK
-[data-jdbc] 查询结果以实体类为主                                       30%
+[data-jdbc] 查询结果以实体类为主                                       OK
 
 [other]     spring boot autoconfig
 
@@ -56,7 +55,19 @@ RMBUtils            OK
 
 
 ------------------------------------------------------------------------------------------------
+实体类全覆盖
+    MyBatisJdbcDataSource.ts                    OK
+    JdbcDataSource.ts                           不计划
+    ExcelUtils.ts                               OK
+    HttpUtils.ts
 
+数组集合的快速遍历工具
+    Array
+    Collection
+    Map
+    Object
+
+------------------------------------------------------------------------------------------------
 脚本加载失败就会有 Multi threaded access requested by thread Thread[http-nio-18081-exec-3,5,main] but is not allowed for language(s) js.
 
 

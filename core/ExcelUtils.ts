@@ -1,5 +1,18 @@
 import { isNumber, isString } from "./TypeUtils";
 import { RoundingMode } from "./JavaEnum";
+
+/**
+ * 基础类型
+ */
+type BaseType = undefined | null | Date
+    | JByte | JShort | JInt | JLong | JFloat | JDouble | JBoolean | JChar | JString
+    | JBigDecimal | JBigInteger | JDate | JCharSequence;
+
+
+interface BaseEntity {
+    [field: string]: BaseType;
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------------- Excel枚举
 /** Excel文件格式 */
 export enum ExcelTypeEnum {
@@ -354,42 +367,42 @@ export interface ExcelReaderSheetBuilder<E> extends AbstractExcelReaderParameter
     doReadSync(): JList<E>;
 }
 
-export interface ExcelReaderBuilder<E> extends AbstractExcelReaderParameterBuilder<ExcelReaderBuilder<E>> {
+export interface ExcelReaderBuilder<E> extends AbstractExcelReaderParameterBuilder<ExcelReaderBuilder<JMap<JString, BaseType>>> {
     /** 文件输入流 */
-    file(inputStream: JInputStream): ExcelReaderBuilder<E>;
+    file(inputStream: JInputStream): ExcelReaderBuilder<JMap<JString, BaseType>>;
 
     /** 强制使用输入流，如果为false，则将“inputStream”传输到临时文件以提高效率 */
-    mandatoryUseInputStream(mandatoryUseInputStream: JBoolean): ExcelReaderBuilder<E>;
+    mandatoryUseInputStream(mandatoryUseInputStream: JBoolean): ExcelReaderBuilder<JMap<JString, BaseType>>;
 
     /** 是否自动关闭输入流 */
-    autoCloseStream(autoCloseStream: JBoolean): ExcelReaderBuilder<E>;
+    autoCloseStream(autoCloseStream: JBoolean): ExcelReaderBuilder<JMap<JString, BaseType>>;
 
     /** 是否忽略空行 */
-    ignoreEmptyRow(ignoreEmptyRow: JBoolean): ExcelReaderBuilder<E>;
+    ignoreEmptyRow(ignoreEmptyRow: JBoolean): ExcelReaderBuilder<JMap<JString, BaseType>>;
 
     /** 设置一个自定义对象，可以在侦听器中读取此对象(AnalysisContext.getCustom()) */
-    customObject(customObject: any): ExcelReaderBuilder<E>;
+    customObject(customObject: any): ExcelReaderBuilder<JMap<JString, BaseType>>;
 
     /** Excel文件密码 */
-    password(password: JString): ExcelReaderBuilder<E>;
+    password(password: JString): ExcelReaderBuilder<JMap<JString, BaseType>>;
 
     /**
      * 设置读取的页签
      * @param sheetNo 页签编号(从0开始)
      */
-    sheet(sheetNo: JInt): ExcelReaderSheetBuilder<E>;
+    sheet(sheetNo: JInt): ExcelReaderSheetBuilder<JMap<JString, BaseType>>;
 
     /**
      * 设置读取的页签
      * @param sheetName 页签名称(xlsx格式才支持)
      */
-    sheet(sheetName: JString): ExcelReaderSheetBuilder<E>;
+    sheet(sheetName: JString): ExcelReaderSheetBuilder<JMap<JString, BaseType>>;
 
     /** 开始读取所有的页签数据 */
     doReadAll(): void;
 
     /** 开始读取所有的页签数据，并返回所有结果(数据量大时，会消耗大量内存) */
-    doReadAllSynTc(): JList<E>;
+    doReadAllSync(): JList<JMap<JString, BaseType>>;
 }
 
 // export interface AbstractExcelWriterParameterBuilder<T extends AbstractExcelWriterParameterBuilder<T>> extends AbstractParameterBuilder<T> {
@@ -973,7 +986,7 @@ export interface ExcelRowReader<T> {
 }
 
 /** 读取Excel时的初始化配置 */
-export class ExcelReaderConfig<T extends object> {
+export class ExcelReaderConfig<T extends object = BaseEntity> {
     /** Excel文件上传的请求对象 */
     request?: JHttpServletRequest;
     /** Excel文件名称(或者Excel文件路径) */
@@ -1108,24 +1121,24 @@ export interface ExcelUtils {
      * 创建Excel数据读取器
      * @param initConfig 初始化配置
      */
-    createReader<T extends object = JMap<JString, any>>(initConfig: ExcelReaderConfig<T>): ExcelDataReader<T>;
+    createReader<T extends object = BaseEntity>(initConfig: ExcelReaderConfig<T>): ExcelDataReader<T>;
 
     /**
      * 读取Excel数据
      * @param config 配置
      */
-    read<T extends object = JMap<JString, any>>(config: ExcelReaderConfig<T>): ExcelDataMap<T>;
+    read<T extends object = BaseEntity>(config: ExcelReaderConfig<T>): ExcelDataMap<T>;
 
     /**
      * 创建Excel数据写入器
      * @param initConfig 初始化配置
      */
-    createWriter<T extends object = object>(initConfig: ExcelWriterConfig<T>): ExcelWriter<T>;
+    createWriter<T extends object = BaseEntity>(initConfig: ExcelWriterConfig<T>): ExcelWriter<T>;
 
     /**
      * 直接一次性写入数据
      */
-    write<T extends object = JMap<JString, any>>(config: ExcelWriterConfig<T>, listData: JList<T | JMap<JString, any>>): void;
+    write<T extends object = BaseEntity>(config: ExcelWriterConfig<T>, listData: JList<T | JMap<JString, any>>): void;
 }
 
 const excelUtils: ExcelUtils = Java.type('org.clever.hinny.graal.core.ExcelUtils').Instance;

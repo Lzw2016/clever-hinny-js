@@ -116,6 +116,7 @@ export const t03: HttpRouter = {
         );
         // return listData;
     },
+
     post: ctx => {
         const excelData = excelUtils.read<ExcelEntity>({
             request: ctx.request.originalRequest(),
@@ -130,7 +131,7 @@ export const t03: HttpRouter = {
             // headRowNumber: 2,
             excelRowReader: {
                 readRow(data: ExcelEntity, excelRow: ExcelRow<ExcelEntity>, context: AnalysisContext) {
-                    log.info("# {} | excelRow -> {}", excelRow.getExcelRowNum(), excelRow.getData());
+                    log.info("# {} | excelRow -> {}", excelRow.getExcelRowNum(), excelRow.getData().prod_specification);
                     // jdbc.in
                 },
                 readEnd(context: AnalysisContext) {
@@ -143,7 +144,7 @@ export const t03: HttpRouter = {
     },
 
     put: ctx => {
-        const reader = excelUtils.createReader({
+        const reader = excelUtils.createReader<ExcelEntity>({
             request: ctx.request.originalRequest(),
             columns: {
                 store_no: {dataType: ExcelDataType.JString, column: ["店铺信息", "店铺编号"]},
@@ -161,10 +162,15 @@ export const t03: HttpRouter = {
                     log.info(" readEnd -> 导入完成!!!");
                 }
             },
-            enableExcelData: false,
+            enableExcelData: true,
         });
         reader.read().sheet(0).doRead();
-        return {success: true};
+        // const map = reader.getFirstExcelData().getImportData().get(0) as any as JMap<any, any>;
+        // map.get("prod_specification")
+        // Interop.fromJMap<ExcelEntity>(map).merchandise_number;
+        log.info("row -> {}", reader.getFirstExcelData().getImportData().get(0));
+        log.info("prod_specification -> {}", reader.getFirstExcelData().getImportData().get(0).order_code);
+        return reader.getFirstExcelData();
     },
 }
 
