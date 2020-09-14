@@ -62,8 +62,7 @@ const t05 = function () {
             return a + b;
         }
     }));
-    //fixme new Date()不是北京时间   少了8小时
-    log.info("# toJString         -> {}", Interop.toJString(new Date()));
+    log.info("# toJString         -> {}", new Date());
 }
 
 export {
