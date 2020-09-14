@@ -30,6 +30,16 @@ export interface CommonUtils {
      * 获取当前时间 Date
      */
     now(): JDate;
+
+    /**
+     * 获取对象的Java类型
+     */
+    getClass(obj: any): JClass;
+
+    /**
+     * 获取对象的Java类型名称
+     */
+    getClassName(obj: any): JString;
 }
 
 const commonUtils: CommonUtils = Java.type('org.clever.hinny.core.CommonUtils').Instance;
