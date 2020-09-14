@@ -34,6 +34,7 @@ const t03 = function () {
     log.info("# asJList         -> {}", Interop.asJList([111, 222, 333]));
     log.info("# asJSet          -> {}", Interop.asJSet("111", "222", "333", "333"));
     log.info("# asJSet          -> {}", Interop.asJSet(["111", "222", "333", "333"]));
+    // TODO 输出有问题
     log.info("# asJSet          -> {}", Interop.asJSet([111, 222, 333, 333], [111, 222, 333, 333], [111, 222, 333, 333]));
     log.info("# asJMap          -> {}", Interop.asJMap({
         a: "aaa", b: 123, c: false, d: 12.87, fuc: function (a: number, b: number) {
