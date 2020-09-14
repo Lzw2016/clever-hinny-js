@@ -118,12 +118,6 @@ interface Interop extends JObject {
     asJMap<K, V>(arg: object): JMap<K, V>;
 
     // TODO 补充常用类型
-    /**
-     * 创建 java.util.Collection 集合
-     * @param arg JavaScript对象
-     */
-    //fixme JCollection无法创建
-    asJCollection<E>(arg: JSet | JList | JMap): JCollection<E>;
 
     /**
      * 获取对象的字符串表示形式
