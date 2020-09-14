@@ -24,7 +24,7 @@ const t01 = function () {
 
         const date = Interop.toJDate(Interop.fromJMap<Test>(list.get(0)).date);
         const date2 = Interop.toJDate(Interop.fromJMap<Test>(list.get(1)).date);
-        log.info("date               -> {}", date);
+        // log.info("date               -> {}", date);
         log.info("date2              -> {}", date);
         log.info("after              -> {}", date.after(date2));
         log.info("before             -> {}", date.before(date2));
