@@ -60,9 +60,9 @@ export interface HttpResponse {
     getBody(): JString;
 
     /**
-     * 响应Header TODO JMultiValueMap
+     * 响应Header
      */
-    getHeaders(): any;
+    getHeaders(): JMultiValueMap<JString, JString>;
 
     /**
      * 是否重定向
