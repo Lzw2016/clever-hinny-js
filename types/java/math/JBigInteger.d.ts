@@ -142,9 +142,9 @@ interface JBigInteger extends JObject, Comparable<JBigInteger> {
     or(val: JBigInteger): JBigInteger;
 
     /**
-     * 返回其值为 (this exponent) 的 BigInteger
+     * 返回其值为 (this^exponent) 的 BigInteger
      */
-    pow(): JBigInteger;
+    pow(exponent: JInt): JBigInteger;
 
     /**
      * 返回其值为 (this % val) 的 BigInteger

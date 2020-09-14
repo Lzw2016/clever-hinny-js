@@ -18,9 +18,8 @@ const t01 = function () {
     log.info("multiply(a)            ======>{}", a.multiply(b));
     log.info("negate(a)              ======>{}", a.negate());
     log.info("not(a)                 ======>{}", a.not());
-    // log.info("pow(a)                 ======>{}", a.pow());
+    log.info("pow(a)                 ======>{}", a.pow(2));
     log.info("toByteArray(a)         ======>{}", [a.toByteArray()]);
-    //fixme     xor(val: BigInteger): JString;返回值很诡异 自行测试几次就懂了
     log.info("xor(a)                 ======>{}", a.xor(Interop.asJBigDecimal("50").toBigInteger()));
 
 }
