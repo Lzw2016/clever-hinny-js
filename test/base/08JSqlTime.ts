@@ -2,7 +2,7 @@ const log = LoggerFactory.getLogger(__filename);
 import { AnyEntity, jdbcDatabase } from "@hinny/data-jdbc";
 
 interface Test extends AnyEntity {
-    sql_time: JSqlTime;
+    sqlTime: JSqlTime;
     date: JSqlDate;
     year: JSqlDate;
 }
@@ -21,8 +21,8 @@ const t01 = function () {
         const sql = "select sql_time,date,year from test limit 5"
         const list = jdbc.queryList(sql);
 
-        const date = Interop.toJDate(Interop.fromJMap<Test>(list.get(1)).sql_time);
-        const date2 = Interop.toJDate(Interop.fromJMap<Test>(list.get(2)).sql_time);
+        const date = Interop.toJDate(Interop.fromJMap<Test>(list.get(1)).sqlTime);
+        const date2 = Interop.toJDate(Interop.fromJMap<Test>(list.get(2)).sqlTime);
         log.info("date       -> {}", date);
         log.info("date2      -> {}", date2);
         log.info("after      -> {}", date.after(date2));
@@ -39,10 +39,8 @@ const t01 = function () {
         log.info("================================================================================");
 
 
-        const time = Interop.fromJMap<Test>(list.get(1)).sql_time;
-        const time2 = Interop.fromJMap<Test>(list.get(2)).sql_time;
-        //fixme  JSqlTime 输出是否应主动截取yyyy-MM-dd 只展示time值
-        // 现在显示的:'1970-01-01T13:26:33.000Z'  是否应换为--->  '13:26:33.000Z'
+        const time = Interop.fromJMap<Test>(list.get(1)).sqlTime;
+        const time2 = Interop.fromJMap<Test>(list.get(2)).sqlTime;
         log.info("time               -> {}", time);
         log.info("time2              -> {}", time2);
         log.info("after              -> {}", time.after(time2));
@@ -52,15 +50,8 @@ const t01 = function () {
         log.info("getHours           -> {}", time.getHours());
         log.info("getMinutes         -> {}", time.getMinutes());
         log.info("getSeconds         -> {}", time.getSeconds());
-        //fixme  JSqlTime没有以下时间值  应取消以下接口
-        log.info("getDate            -> {}", time.getDate());
         log.info("toString           -> {}", time.toString());
-        log.info("getYear            -> {}", time.getYear());
-        log.info("getMonth           -> {}", time.getMonth());
-        log.info("getDay             -> {}", time.getDay());
-
     }
-
 }
 
 export {

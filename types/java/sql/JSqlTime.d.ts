@@ -5,4 +5,24 @@
  */
 interface JSqlTime extends JDate {
     java_sql_Time: "java.sql.Time";
+
+    /**
+     * JSqlTime不支持的API
+     */
+    getDate(): JInt;
+
+    /**
+     * JSqlTime不支持的API
+     */
+    getYear(): JInt;
+
+    /**
+     * JSqlTime不支持的API
+     */
+    getMonth(): JInt;
+
+    /**
+     * JSqlTime不支持的API
+     */
+    getDay(): JInt;
 }

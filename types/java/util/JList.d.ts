@@ -69,7 +69,7 @@ interface JList<E> extends JCollection<E> {
     /**
      * 返回列表中元素的列表迭代器（以正确的顺序）
      */
-    ListIterator(): JIterator<E>;
+    listIterator(): JIterator<E>;
 
     /**
      * 返回列表中元素的列表迭代器（以正确的顺序），从列表的指定位置开始
