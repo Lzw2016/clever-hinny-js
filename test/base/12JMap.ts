@@ -20,6 +20,7 @@ const t01 = function () {
         hh: Interop.asJInt(2222),
     });
     map.putAll(map2)
+    map.put("putNum", 123);
     log.info("map                  ======>{}", [map]);
     log.info("isEmpty              ======>{}", map.isEmpty());
     log.info("remove               ======>{}", map.remove(1));

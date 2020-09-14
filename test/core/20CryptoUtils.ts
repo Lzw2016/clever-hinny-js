@@ -3,7 +3,6 @@ import {cryptoUtils} from '@hinny/core';
 const log = LoggerFactory.getLogger(__filename);
 
 const t01 = function () {
-    //fixme 没玩明白
     log.info("generateIV                  --------------->{}", cryptoUtils.generateIV());
     log.info("generateIV(20)              --------------->{}", cryptoUtils.generateIV(20));
     log.info("aes                         --------------->{}", cryptoUtils.aes([Interop.asJByte(123)], [Interop.asJByte(100)], 1));
