@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "data-jdbc-tsc": "tsc -w"
+    "data-jdbc-tsc": "tsc -w",
+    "data-jdbc-publish": "tsc && npm publish --access public"
   },
   "repository": {
     "type": "git",

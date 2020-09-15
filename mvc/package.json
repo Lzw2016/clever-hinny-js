@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "mvc-tsc": "tsc -w"
+    "mvc-tsc": "tsc -w",
+    "mvc-publish": "tsc && npm publish --access public"
   },
   "repository": {
     "type": "git",

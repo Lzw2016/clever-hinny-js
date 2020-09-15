@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "core-tsc": "tsc -w"
+    "core-tsc": "tsc -w",
+    "core-publish": "tsc && npm publish --access public"
   },
   "repository": {
     "type": "git",
