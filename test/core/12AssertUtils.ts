@@ -11,7 +11,7 @@ const t01 = function () {
     log.info("hasText        -> {}", assertUtils.hasText("额为全额全额", "null or ''----->异常msg"));
     log.info("doesNotContain -> {}", assertUtils.doesNotContain("11111111111", "2", "text包含 sub ---------------->异常msg"));
     log.info("notEmpty       -> {}", assertUtils.notEmpty([1], "length==0 or null---->异常msg"));
-    log.info("noNullElements -> {}", assertUtils.noNullElements(null as any, "数组中有null ----->异常msg,这个数据是null不会抛异常"));
+    log.info("noNullElements -> {}", assertUtils.noNullElements([], "数组中有null ----->异常msg,这个数据是null不会抛异常"));
 }
 
 export {

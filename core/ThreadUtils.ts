@@ -29,6 +29,11 @@ export interface ThreadUtils {
      * @param millis 毫秒
      */
     sleep(millis: JLong): void;
+
+    /**
+     * 获取当前线程
+     */
+    currentThread(): JThread;
 }
 
 const threadUtils: ThreadUtils = Java.type('org.clever.hinny.core.ThreadUtils').Instance;

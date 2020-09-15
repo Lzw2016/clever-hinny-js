@@ -13,7 +13,7 @@ const t01 = function () {
     logger.info("hasDataSource  -> {}", has_jdbc_2);
     jdbc_2 = jdbcDatabase.add("jdbc_2", {
         driverClassName: 'com.mysql.cj.jdbc.Driver',
-        jdbcUrl: 'jdbc:mysql://192.168.31.40:3306/clever-template',
+        jdbcUrl: 'jdbc:mysql://mysql.msvc.top:3306/clever-template',
         username: 'clever-template',
         password: 'lizhiwei1993',
         readOnly: true,
