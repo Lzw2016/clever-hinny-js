@@ -724,7 +724,7 @@ export interface StringUtils {
      *  .contains("abc", 'z') = false
      * </pre>
      */
-    contains(seq: JCharSequence | JString, searchChar: JInt): JBoolean
+    contains(seq: JCharSequence | JString, searchChar: JInt | JString): JBoolean
 
     /**
      * <pre>
