@@ -217,7 +217,7 @@ export interface HttpUtils {
      * @param params  Url Query Parameter(可选)
      * @param headers 请求头(可选)
      */
-    getMap<T = ResultMap>(url: JString, body: BodyDataType, params: ParamsMap, headers: HeadersMap): T;
+    postMap<T = ResultMap>(url: JString, body: BodyDataType, params: ParamsMap, headers: HeadersMap): T;
 
     /**
      * 使用HTTP POST请求获取数据，支持参数，返回字符串
@@ -226,7 +226,7 @@ export interface HttpUtils {
      * @param body   Json Body(非空)
      * @param params Url Query Parameter(可选)
      */
-    getMap<T = ResultMap>(url: JString, body: BodyDataType, params: ParamsMap): T;
+    postMap<T = ResultMap>(url: JString, body: BodyDataType, params: ParamsMap): T;
 
     /**
      * 使用HTTP POST请求获取数据，支持参数，返回字符串
@@ -234,7 +234,7 @@ export interface HttpUtils {
      * @param url  请求url(非空)
      * @param body Json Body(非空)
      */
-    getMap<T = ResultMap>(url: JString, body: BodyDataType): T;
+    postMap<T = ResultMap>(url: JString, body: BodyDataType): T;
 
     /**
      * 使用HTTP POST请求获取数据，支持参数，返回字符串
@@ -242,14 +242,14 @@ export interface HttpUtils {
      * @param url    请求url(非空)
      * @param params Url Query Parameter(可选)
      */
-    getMap<T = ResultMap>(url: JString, params: ParamsMap): T;
+    postMap<T = ResultMap>(url: JString, params: ParamsMap): T;
 
     /**
      * 使用HTTP POST请求获取数据，支持参数，返回字符串
      *
      * @param url 请求url(非空)
      */
-    getMap<T = ResultMap>(url: JString): T;
+    postMap<T = ResultMap>(url: JString): T;
 
     // DELETE请求
     //----------------------------------------------------------------------------------------------------------------------------------------------
