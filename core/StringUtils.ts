@@ -3,6 +3,16 @@ export interface StringUtils {
     //----------------------------------------------------------------------------------------------------------------------------------------------
 
     /**
+     * 获取字符串byte[]数据
+     */
+    getByteFromString(str: JString):JByte[];
+
+    /**
+     * 根据byte[]数据初始化字符串
+     */
+    getStringFromByte(bytes: JByte[]):JString;
+
+    /**
      * 调用对象的toString方法，如果对象为空返回默认值
      *
      * @param object     需要toString的对象
