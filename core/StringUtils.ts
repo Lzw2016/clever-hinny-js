@@ -394,7 +394,7 @@ export interface StringUtils {
      *  .equals("abc", "ABC") = false
      * </pre>
      */
-    equals(cs1: JCharSequence, cs2: JCharSequence): JBoolean
+    equals(cs1: JCharSequence | JString, cs2: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -405,7 +405,7 @@ export interface StringUtils {
      *  .equalsIgnoreCase("abc", "ABC") = true
      * </pre>
      */
-    equalsIgnoreCase(str1: JCharSequence, str2: JCharSequence): JBoolean
+    equalsIgnoreCase(str1: JCharSequence | JString, str2: JCharSequence | JString): JBoolean
 
     // Compare
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -493,7 +493,7 @@ export interface StringUtils {
      *  .equalsAny("abc", "ABC", "DEF") = false
      * </pre>
      */
-    equalsAny(string: JCharSequence, searchStrings: JCharSequence[]): JBoolean
+    equalsAny(string: JCharSequence | JString, searchStrings: JCharSequence[] | JString[]): JBoolean
 
     /**
      * 将给定字符串与搜索字符串的JCharSequences vararg进行比较，如果字符串等于任何搜索字符串，则返回true。忽略大小写
@@ -506,7 +506,7 @@ export interface StringUtils {
      *  .equalsAnyIgnoreCase("abc", "ABC", "DEF") = true
      * </pre>
      */
-    equalsAnyIgnoreCase(string: JCharSequence, searchStrings: JCharSequence[]): JBoolean
+    equalsAnyIgnoreCase(string: JCharSequence | JString, searchStrings: JCharSequence[] | JString[]): JBoolean
 
     // IndexOf
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -519,7 +519,7 @@ export interface StringUtils {
      *  .indexOf("aabaabaa", 'b') = 2
      * </pre>
      */
-    indexOf(seq: JCharSequence, searchChar: JInt): JInt
+    indexOf(seq: JCharSequence | JString, searchChar: JInt): JInt
 
     /**
      * <pre>
@@ -531,7 +531,7 @@ export interface StringUtils {
      *  .indexOf("aabaabaa", 'b', -1) = 2
      * </pre>
      */
-    indexOf(seq: JCharSequence, searchChar: JInt, startPos: JInt): JInt
+    indexOf(seq: JCharSequence | JString, searchChar: JInt, startPos: JInt): JInt
 
     /**
      * <pre>
@@ -545,7 +545,7 @@ export interface StringUtils {
      *  .indexOf("aabaabaa", "")   = 0
      * </pre>
      */
-    indexOf(seq: JCharSequence, searchSeq: JCharSequence): JInt
+    indexOf(seq: JCharSequence | JString, searchSeq: JCharSequence | JString): JInt
 
     /**
      * <pre>
@@ -563,7 +563,7 @@ export interface StringUtils {
      *  .indexOf("abc", "", 9)        = 3
      * </pre>
      */
-    indexOf(seq: JCharSequence, searchSeq: JCharSequence, startPos: JInt): JInt
+    indexOf(seq: JCharSequence | JString, searchSeq: JCharSequence | JString, startPos: JInt): JInt
 
     /**
      * <pre>
@@ -584,7 +584,7 @@ export interface StringUtils {
      * @param str
      * @param searchStr
      */
-    ordinalIndexOf(str: JCharSequence, searchStr: JCharSequence, ordinal: JInt): JInt
+    ordinalIndexOf(str: JCharSequence | JString, searchStr: JCharSequence | JString, ordinal: JInt): JInt
 
     /**
      * <pre>
@@ -596,7 +596,7 @@ export interface StringUtils {
      *  .indexOfIgnoreCase("aabaabaa", "ab") = 1
      * </pre>
      */
-    indexOfIgnoreCase(str: JCharSequence, searchStr: JCharSequence): JInt
+    indexOfIgnoreCase(str: JCharSequence | JString, searchStr: JCharSequence | JString): JInt
 
     /**
      * <pre>
@@ -613,7 +613,7 @@ export interface StringUtils {
      *  .indexOfIgnoreCase("abc", "", 9)        = -1
      * </pre>
      */
-    indexOfIgnoreCase(str: JCharSequence, searchStr: JCharSequence, startPos: JInt): JInt
+    indexOfIgnoreCase(str: JCharSequence | JString, searchStr: JCharSequence | JString, startPos: JInt): JInt
 
     // LastIndexOf
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -626,14 +626,14 @@ export interface StringUtils {
      *  .lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
      */
-    lastIndexOf(seq: JCharSequence, searchChar: JInt): JInt
+    lastIndexOf(seq: JCharSequence | JString, searchChar: JInt): JInt
 
     /**
      * <pre>
      *
      * </pre>
      */
-    lastIndexOf(seq: JCharSequence, searchChar: JInt, startPos: JInt): JInt
+    lastIndexOf(seq: JCharSequence | JString, searchChar: JInt, startPos: JInt): JInt
 
     /**
      * <pre>
@@ -646,7 +646,7 @@ export interface StringUtils {
      *  .lastIndexOf("aabaabaa", "")   = 8
      * </pre>
      */
-    lastIndexOf(seq: JCharSequence, searchSeq: JCharSequence): JInt
+    lastIndexOf(seq: JCharSequence | JString, searchSeq: JCharSequence | JString): JInt
 
     /**
      * <pre>
@@ -667,7 +667,7 @@ export interface StringUtils {
      * @param str
      * @param searchStr
      */
-    lastOrdinalIndexOf(str: JCharSequence, searchStr: JCharSequence, ordinal: JInt): JInt
+    lastOrdinalIndexOf(str: JCharSequence | JString, searchStr: JCharSequence | JString, ordinal: JInt): JInt
 
     /**
      * <pre>
@@ -685,7 +685,7 @@ export interface StringUtils {
      *  .lastIndexOf("aabaabaa", "ba", 2)  = 2
      * </pre>
      */
-    lastIndexOf(seq: JCharSequence, searchSeq: JCharSequence, startPos: JInt): JInt
+    lastIndexOf(seq: JCharSequence | JString, searchSeq: JCharSequence | JString, startPos: JInt): JInt
 
     /**
      * <pre>
@@ -696,7 +696,7 @@ export interface StringUtils {
      *  .lastIndexOfIgnoreCase("aabaabaa", "AB") = 4
      * </pre>
      */
-    lastIndexOfIgnoreCase(str: JCharSequence, searchStr: JCharSequence): JInt
+    lastIndexOfIgnoreCase(str: JCharSequence | JString, searchStr: JCharSequence | JString): JInt
 
     /**
      * <pre>
@@ -711,7 +711,7 @@ export interface StringUtils {
      *  .lastIndexOfIgnoreCase("aabaabaa", "B", 0)  = -1
      * </pre>
      */
-    lastIndexOfIgnoreCase(str: JCharSequence, searchStr: JCharSequence, startPos: JInt): JInt
+    lastIndexOfIgnoreCase(str: JCharSequence | JString, searchStr: JCharSequence | JString, startPos: JInt): JInt
 
     // Contains
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -724,7 +724,7 @@ export interface StringUtils {
      *  .contains("abc", 'z') = false
      * </pre>
      */
-    contains(seq: JCharSequence, searchChar: JInt): JBoolean
+    contains(seq: JCharSequence | JString, searchChar: JInt): JBoolean
 
     /**
      * <pre>
@@ -736,7 +736,7 @@ export interface StringUtils {
      *  .contains("abc", "z")  = false
      * </pre>
      */
-    contains(seq: JCharSequence, searchSeq: JCharSequence): JBoolean
+    contains(seq: JCharSequence | JString, searchSeq: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -750,12 +750,12 @@ export interface StringUtils {
      *  .containsIgnoreCase("abc", "Z") = false
      * </pre>
      */
-    containsIgnoreCase(str: JCharSequence, searchStr: JCharSequence): JBoolean
+    containsIgnoreCase(str: JCharSequence | JString, searchStr: JCharSequence | JString): JBoolean
 
     /**
      * 检查给定的JCharSequence是否包含任何空白字符
      */
-    containsWhitespace(seq: JCharSequence): JBoolean
+    containsWhitespace(seq: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -768,7 +768,7 @@ export interface StringUtils {
      *  .indexOfAny("aba", ['z'])           = -1
      * </pre>
      */
-    indexOfAny(cs: JCharSequence, searchChars: JChar[]): JInt
+    indexOfAny(cs: JCharSequence | JString, searchChars: JChar[]): JInt
 
     /**
      * <pre>
@@ -781,7 +781,7 @@ export interface StringUtils {
      *  .indexOfAny("aba","z")          = -1
      * </pre>
      */
-    indexOfAny(cs: JCharSequence, searchChars: JString): JInt
+    indexOfAny(cs: JCharSequence | JString, searchChars: JString): JInt
 
     /**
      * <pre>
@@ -795,7 +795,7 @@ export interface StringUtils {
      *  .containsAny("aba", ['z'])           = false
      * </pre>
      */
-    containsAny(cs: JCharSequence, searchChars: JChar[]): JBoolean
+    containsAny(cs: JCharSequence | JString, searchChars: JChar[]): JBoolean
 
     /**
      * <pre>
@@ -811,7 +811,7 @@ export interface StringUtils {
      *  .containsAny("aba","z")             = false
      * </pre>
      */
-    containsAny(cs: JCharSequence, searchChars: JCharSequence): JBoolean
+    containsAny(cs: JCharSequence | JString, searchChars: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -824,7 +824,7 @@ export interface StringUtils {
      *  .containsAny("abc", "d", "abc")  = true
      * </pre>
      */
-    containsAny(cs: JCharSequence, searchJCharSequences: JCharSequence[]): JBoolean
+    containsAny(cs: JCharSequence | JString, searchJCharSequences: JCharSequence[] | JString[]): JBoolean
 
     // IndexOfAnyBut JChars
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -841,7 +841,7 @@ export interface StringUtils {
      *  .indexOfAnyBut("aba", new JChar[] {'a', 'b'} )        = -1
      * </pre>
      */
-    indexOfAnyBut(cs: JCharSequence, searchChars: JChar[]): JInt
+    indexOfAnyBut(cs: JCharSequence | JString, searchChars: JChar[]): JInt
 
     /**
      * 搜索JCharSequence以查找不在给定字符集中的任何字符的第一个索引。空的JCharSequence将返回-1。空搜索字符串将返回-1。
@@ -855,7 +855,7 @@ export interface StringUtils {
      *  .indexOfAnyBut("aba","ab")         = -1
      * </pre>
      */
-    indexOfAnyBut(seq: JCharSequence, searchChars: JCharSequence): JInt
+    indexOfAnyBut(seq: JCharSequence  | JString, searchChars: JCharSequence  | JString): JInt
 
     // ContainsOnly
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -872,7 +872,7 @@ export interface StringUtils {
      *  .containsOnly("abz", 'abc')  = false
      * </pre>
      */
-    containsOnly(cs: JCharSequence, valid: JChar[]): JBoolean
+    containsOnly(cs: JCharSequence | JString, valid: JChar[]): JBoolean
 
     /**
      * 检查JCharSequence是否只包含某些字符
@@ -886,7 +886,7 @@ export interface StringUtils {
      *  .containsOnly("abz", "abc")  = false
      * </pre>
      */
-    containsOnly(cs: JCharSequence, validChars: JString): JBoolean
+    containsOnly(cs: JCharSequence | JString, validChars: JString | JString): JBoolean
 
     // ContainsNone
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -903,7 +903,7 @@ export interface StringUtils {
      *  .containsNone("abz", 'xyz')  = false
      * </pre>
      */
-    containsNone(cs: JCharSequence, searchChars: JChar[]): JBoolean
+    containsNone(cs: JCharSequence | JString, searchChars: JChar[]): JBoolean
 
     /**
      * 检查JCharSequence是否不包含某些字符
@@ -917,7 +917,7 @@ export interface StringUtils {
      *  .containsNone("abz", "xyz")  = false
      * </pre>
      */
-    containsNone(cs: JCharSequence, invalidChars: JString): JBoolean
+    containsNone(cs: JCharSequence | JString, invalidChars: JString): JBoolean
 
     // IndexOfAny Strings
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -936,7 +936,7 @@ export interface StringUtils {
      *  .indexOfAny("", ["a"])                   = -1
      * </pre>
      */
-    indexOfAny(str: JCharSequence, searchStrs: JCharSequence[]): JInt
+    indexOfAny(str: JCharSequence | JString, searchStrs: JCharSequence[] | JString[]): JInt
 
     /**
      * <pre>
@@ -951,7 +951,7 @@ export interface StringUtils {
      *  .lastIndexOfAny("zzabyycdxx", ["mn",""])   = 10
      * </pre>
      */
-    lastIndexOfAny(str: JCharSequence, searchStrs: JCharSequence[]): JInt
+    lastIndexOfAny(str: JCharSequence | JString, searchStrs: JCharSequence[] | JString[]): JInt
 
     // SubString
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -2183,7 +2183,7 @@ export interface StringUtils {
      *  .countMatches("abba", "xxx") = 0
      * </pre>
      */
-    countMatches(str: JCharSequence, sub: JCharSequence): JInt
+    countMatches(str: JCharSequence | JString, sub: JCharSequence | JString): JInt
 
     /**
      * <pre>
@@ -2195,7 +2195,7 @@ export interface StringUtils {
      *  .countMatches("abba", 'x')   = 0
      * </pre>
      */
-    countMatches(str: JCharSequence, ch: JChar): JInt
+    countMatches(str: JCharSequence | JString, ch: JChar): JInt
 
     // Character Tests
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -2210,7 +2210,7 @@ export interface StringUtils {
      *  .isAlpha("ab-c") = false
      * </pre>
      */
-    isAlpha(cs: JCharSequence): JBoolean
+    isAlpha(cs: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2223,7 +2223,7 @@ export interface StringUtils {
      *  .isAlphaSpace("ab-c") = false
      * </pre>
      */
-    isAlphaSpace(cs: JCharSequence): JBoolean
+    isAlphaSpace(cs: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2236,7 +2236,7 @@ export interface StringUtils {
      *  .isAlphanumeric("ab-c") = false
      * </pre>
      */
-    isAlphanumeric(cs: JCharSequence): JBoolean
+    isAlphanumeric(cs: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2249,7 +2249,7 @@ export interface StringUtils {
      *  .isAlphanumericSpace("ab-c") = false
      * </pre>
      */
-    isAlphanumericSpace(cs: JCharSequence): JBoolean
+    isAlphanumericSpace(cs: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2266,7 +2266,7 @@ export interface StringUtils {
      *  .isAsciiPrintable("Ceki Gülcü") = false
      * </pre>
      */
-    isAsciiPrintable(cs: JCharSequence): JBoolean
+    isAsciiPrintable(cs: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2283,7 +2283,7 @@ export interface StringUtils {
      *  .isNumeric("+123") = false
      * </pre>
      */
-    isNumeric(cs: JCharSequence): JBoolean
+    isNumeric(cs: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2299,7 +2299,7 @@ export interface StringUtils {
      *  .isNumericSpace("12.3") = false
      * </pre>
      */
-    isNumericSpace(cs: JCharSequence): JBoolean
+    isNumericSpace(cs: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2324,7 +2324,7 @@ export interface StringUtils {
      *  .isWhitespace("ab-c") = false
      * </pre>
      */
-    isWhitespace(cs: JCharSequence): JBoolean
+    isWhitespace(cs: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2338,7 +2338,7 @@ export interface StringUtils {
      *  .isAllLowerCase("ab/c") = false
      * </pre>
      */
-    isAllLowerCase(cs: JCharSequence): JBoolean
+    isAllLowerCase(cs: JCharSequence  | JString): JBoolean
 
     /**
      * <pre>
@@ -2352,7 +2352,7 @@ export interface StringUtils {
      *  .isAllUpperCase("A/C")  = false
      * </pre>
      */
-    isAllUpperCase(cs: JCharSequence): JBoolean
+    isAllUpperCase(cs: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2367,7 +2367,7 @@ export interface StringUtils {
      *  .isMixedCase("aC\t")  = true
      * </pre>
      */
-    isMixedCase(cs: JCharSequence): JBoolean
+    isMixedCase(cs: JCharSequence | JString): JBoolean
 
     // Defaults
     //-----------------------------------------------------------------------
@@ -2401,7 +2401,7 @@ export interface StringUtils {
      *  .firstNonBlank()                     = null
      * </pre>
      */
-    firstNonBlank<T extends JCharSequence>(values: T[]): T
+    firstNonBlank<T extends JCharSequence | JString>(values: T[]): T
 
     /**
      * <pre>
@@ -2415,7 +2415,7 @@ export interface StringUtils {
      *  .firstNonEmpty()                   = null
      * </pre>
      */
-    firstNonEmpty<T extends JCharSequence>(values: T[]): T
+    firstNonEmpty<T extends JCharSequence | JString>(values: T[]): T
 
     /**
      * <pre>
@@ -2426,7 +2426,7 @@ export interface StringUtils {
      *  .defaultIfBlank("", null)      = null
      * </pre>
      */
-    defaultIfBlank<T extends JCharSequence>(str: T, defaultStr: T): T
+    defaultIfBlank<T extends JCharSequence | JString>(str: T, defaultStr: T): T
 
     /**
      * <pre>
@@ -2437,7 +2437,7 @@ export interface StringUtils {
      *  .defaultIfEmpty("", null)      = null
      * </pre>
      */
-    defaultIfEmpty<T extends JCharSequence>(str: T, defaultStr: T): T
+    defaultIfEmpty<T extends JCharSequence | JString>(str: T, defaultStr: T): T
 
     // Rotating (circular shift)
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -2587,7 +2587,7 @@ export interface StringUtils {
      *  .indexOfDifference("abcde", "xyz")   = 0
      * </pre>
      */
-    indexOfDifference(cs1: JCharSequence, cs2: JCharSequence): JInt
+    indexOfDifference(cs1: JCharSequence | JString, cs2: JCharSequence | JString): JInt
 
     /**
      * <pre>
@@ -2610,7 +2610,7 @@ export interface StringUtils {
      *  .indexOfDifference(new String[] {"i am a machine", "i am a robot"}) = 7
      * </pre>
      */
-    indexOfDifference(css: JCharSequence[]): JInt
+    indexOfDifference(css: JCharSequence[] | JString[]): JInt
 
     /**
      * <pre>
@@ -2650,7 +2650,7 @@ export interface StringUtils {
      *  .startsWith("ABCDEF", "abc") = false
      * </pre>
      */
-    startsWith(str: JCharSequence, prefix: JCharSequence): JBoolean
+    startsWith(str: JCharSequence | JString, prefix: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2661,7 +2661,7 @@ export interface StringUtils {
      *  .startsWithIgnoreCase("ABCDEF", "abc") = true
      * </pre>
      */
-    startsWithIgnoreCase(str: JCharSequence, prefix: JCharSequence): JBoolean
+    startsWithIgnoreCase(str: JCharSequence | JString, prefix: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2675,7 +2675,7 @@ export interface StringUtils {
      *  .startsWithAny("ABCXYZ", null, "xyz", "abc")                 = false
      * </pre>
      */
-    startsWithAny(sequence: JCharSequence, searchStrings: JCharSequence[]): JBoolean
+    startsWithAny(sequence: JCharSequence | JString, searchStrings: JCharSequence[] | JString[]): JBoolean
 
     // endsWith
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -2691,7 +2691,7 @@ export interface StringUtils {
      *  .endsWith("ABCDEF", "")    = true
      * </pre>
      */
-    endsWith(str: JCharSequence, suffix: JCharSequence): JBoolean
+    endsWith(str: JCharSequence | JString, suffix: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
@@ -2703,7 +2703,7 @@ export interface StringUtils {
      *  .endsWithIgnoreCase("ABCDEF", "cde") = false
      * </pre>
      */
-    endsWithIgnoreCase(str: JCharSequence, suffix: JCharSequence): JBoolean
+    endsWithIgnoreCase(str: JCharSequence | JString, suffix: JCharSequence | JString): JBoolean
 
     /**
      *
@@ -2722,7 +2722,7 @@ export interface StringUtils {
      *  .endsWithAny("abcXYZ", "def", "xyz")                        = false
      * </pre>
      */
-    endsWithAny(sequence: JCharSequence, searchStrings: JCharSequence[]): JBoolean
+    endsWithAny(sequence: JCharSequence | JString, searchStrings: JCharSequence[] | JString[]): JBoolean
 
     /**
      * <pre>
@@ -2734,7 +2734,7 @@ export interface StringUtils {
      *  .appendIfMissing("abcXYZ", "xyz")   = "abcXYZxyz"
      * </pre>
      */
-    appendIfMissing(str: JString, suffix: JCharSequence, suffixes: JCharSequence[]): JString
+    appendIfMissing(str: JString, suffix: JCharSequence | JString, suffixes: JCharSequence[] | JString[]): JString
 
     /**
      * <pre>
@@ -2746,7 +2746,7 @@ export interface StringUtils {
      *  .appendIfMissingIgnoreCase("abcXYZ", "xyz") = "abcXYZ"
      * </pre>
      */
-    appendIfMissingIgnoreCase(str: JString, suffix: JCharSequence, suffixes: JCharSequence[]): JString
+    appendIfMissingIgnoreCase(str: JString, suffix: JCharSequence | JString, suffixes: JCharSequence[] | JString[]): JString
 
     /**
      * <pre>
@@ -2758,7 +2758,7 @@ export interface StringUtils {
      *  .prependIfMissing("XYZabc", "xyz") = "xyzXYZabc"
      * </pre>
      */
-    prependIfMissing(str: JString, prefix: JCharSequence, prefixes: JCharSequence[]): JString
+    prependIfMissing(str: JString, prefix: JCharSequence | JString, prefixes: JCharSequence[] | JString[]): JString
 
     /**
      * <pre>
@@ -2770,7 +2770,7 @@ export interface StringUtils {
      *  .prependIfMissingIgnoreCase("XYZabc", "xyz") = "XYZabc"
      * </pre>
      */
-    prependIfMissingIgnoreCase(str: JString, prefix: JCharSequence, prefixes: JCharSequence[]): JString
+    prependIfMissingIgnoreCase(str: JString, prefix: JCharSequence | JString, prefixes: JCharSequence[] | JString[]): JString
 
     // /**
     //  * 使用指定的字符编码将byte[]转换为字符串
@@ -2876,7 +2876,7 @@ export interface StringUtils {
      *  .toCodePoJInts("")     =  []  // empty array
      * </pre>
      */
-    toCodePoints(str: JCharSequence): JInt[]
+    toCodePoints(str: JCharSequence | JString): JInt[]
 }
 
 const stringUtils: StringUtils = Java.type('org.clever.hinny.core.StringUtils').Instance
