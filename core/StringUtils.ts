@@ -2054,7 +2054,7 @@ export interface StringUtils {
     /**
      * 获取JCharSequence长度，如果JCharSequence为null，则获取0
      */
-    length(cs: JCharSequence): JInt
+    length(cs: JCharSequence | JString): JInt
 
     // Centering
     //----------------------------------------------------------------------------------------------------------------------------------------------
