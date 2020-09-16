@@ -24,12 +24,12 @@ interface JStringBuffer extends JObject {
     /**
      * 将指定的 CharSequence 追加到该序列
      */
-    append(s: JCharSequence): JStringBuffer;
+    append(s: JCharSequence | JString): JStringBuffer;
 
     /**
      * 将指定 CharSequence 的子序列追加到此序列
      */
-    append(s: JCharSequence, offset: JInt, len: JInt): JStringBuffer;
+    append(s: JCharSequence | JString, offset: JInt, len: JInt): JStringBuffer;
 
     /**
      * 将 double 参数的字符串表示形式追加到此序列
@@ -149,12 +149,12 @@ interface JStringBuffer extends JObject {
     /**
      * 将指定 CharSequence 插入此序列中
      */
-    insert(offset: JInt, s: JCharSequence): JStringBuffer;
+    insert(offset: JInt, s: JCharSequence | JString): JStringBuffer;
 
     /**
      * 将指定 CharSequence 的子序列插入此序列中
      */
-    insert(dstOffset: JInt, s: JCharSequence, start: JInt, end: JInt): JStringBuffer;
+    insert(dstOffset: JInt, s: JCharSequence | JString, start: JInt, end: JInt): JStringBuffer;
 
     /**
      * 将 double 参数的字符串表示形式插入此序列中

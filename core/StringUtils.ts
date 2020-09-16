@@ -519,7 +519,7 @@ export interface StringUtils {
      *  .indexOf("aabaabaa", 'b') = 2
      * </pre>
      */
-    indexOf(seq: JCharSequence | JString, searchChar: JInt): JInt
+    indexOf(seq: JCharSequence | JString, searchChar: JInt | JString): JInt
 
     /**
      * <pre>
@@ -626,14 +626,21 @@ export interface StringUtils {
      *  .lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
      */
-    lastIndexOf(seq: JCharSequence | JString, searchChar: JInt): JInt
+    lastIndexOf(seq: JCharSequence | JString, searchChar: JInt | JString): JInt
 
     /**
      * <pre>
-     *
+     *  .lastIndexOf(null, *, *)          = -1
+     *  .lastIndexOf("", *,  *)           = -1
+     *  .lastIndexOf("aabaabaa", 'b', 8)  = 5
+     *  .lastIndexOf("aabaabaa", 'b', 4)  = 2
+     *  .lastIndexOf("aabaabaa", 'b', 0)  = -1
+     *  .lastIndexOf("aabaabaa", 'b', 9)  = 5
+     *  .lastIndexOf("aabaabaa", 'b', -1) = -1
+     *  .lastIndexOf("aabaabaa", 'a', 0)  = 0
      * </pre>
      */
-    lastIndexOf(seq: JCharSequence | JString, searchChar: JInt, startPos: JInt): JInt
+    lastIndexOf(seq: JCharSequence | JString, searchChar: JInt | JString, startPos: JInt): JInt
 
     /**
      * <pre>
