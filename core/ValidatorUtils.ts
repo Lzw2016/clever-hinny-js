@@ -37,7 +37,7 @@ export interface ValidatorRuleItem<T, V> {
     isNull?: true;
     /** 必须不为 null */
     notNull?: true;
-    /** 必须不为null，且满足：非空字符串、非空集合、非空数组 */
+    /** 可以为null，但需要满足：非空字符串、非空集合、非空数组 */
     notEmpty?: true;
     /** 值必须等于给定值 */
     equals?: any;
