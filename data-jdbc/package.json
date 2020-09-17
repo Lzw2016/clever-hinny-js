@@ -1,6 +1,6 @@
 {
   "name": "@hinny/data-jdbc",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "clever-hinny数据库交互js模块",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

@@ -1,6 +1,6 @@
 {
   "name": "@hinny/mvc",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "clever-hinny Web开发js模块",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -35,6 +35,6 @@
   },
   "homepage": "https://github.com/Lzw2016/clever-hinny-js#readme",
   "dependencies": {
-    "@hinny/core": "0.0.1"
+    "@hinny/core": "0.0.3"
   }
 }
