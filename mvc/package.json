@@ -1,6 +1,6 @@
 {
   "name": "@hinny/mvc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "clever-hinny Web开发js模块",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
