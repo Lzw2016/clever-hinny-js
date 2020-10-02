@@ -3,14 +3,30 @@ export interface StringUtils {
     //----------------------------------------------------------------------------------------------------------------------------------------------
 
     /**
+     * 字符串驼峰转下划线格式
+     *
+     * @param param 需要转换的字符串
+     * @return 转换好的字符串
+     */
+    camelToUnderline(param: JString): JString;
+
+    /**
+     * 字符串下划线转驼峰格式
+     *
+     * @param param 需要转换的字符串
+     * @return 转换好的字符串
+     */
+    underlineToCamel(param: JString): JString;
+    
+    /**
      * 获取字符串byte[]数据
      */
-    getByteFromString(str: JString):JByte[];
+    getByteFromString(str: JString): JByte[];
 
     /**
      * 根据byte[]数据初始化字符串
      */
-    getStringFromByte(bytes: JByte[]):JString;
+    getStringFromByte(bytes: JByte[]): JString;
 
     /**
      * 调用对象的toString方法，如果对象为空返回默认值
@@ -862,7 +878,7 @@ export interface StringUtils {
      *  .indexOfAnyBut("aba","ab")         = -1
      * </pre>
      */
-    indexOfAnyBut(seq: JCharSequence  | JString, searchChars: JCharSequence  | JString): JInt
+    indexOfAnyBut(seq: JCharSequence | JString, searchChars: JCharSequence | JString): JInt
 
     // ContainsOnly
     //----------------------------------------------------------------------------------------------------------------------------------------------
@@ -2345,7 +2361,7 @@ export interface StringUtils {
      *  .isAllLowerCase("ab/c") = false
      * </pre>
      */
-    isAllLowerCase(cs: JCharSequence  | JString): JBoolean
+    isAllLowerCase(cs: JCharSequence | JString): JBoolean
 
     /**
      * <pre>
