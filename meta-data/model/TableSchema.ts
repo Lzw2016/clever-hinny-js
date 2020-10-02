@@ -22,6 +22,11 @@ export interface TableSchema {
     getDescription(): JString;
 
     /**
+     * 其他列属性
+     */
+    getAttributes(): JMap<JString, any>;
+
+    /**
      * 数据库列
      */
     getColumnList(): JList<TableColumn>;

@@ -1,6 +1,6 @@
 {
   "name": "@hinny/meta-data",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "clever-hinny 数据库元数据模块",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
