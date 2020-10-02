@@ -1,6 +1,6 @@
 {
   "name": "@hinny/core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "clever-hinny核心js模块",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
