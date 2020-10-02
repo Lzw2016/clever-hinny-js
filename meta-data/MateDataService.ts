@@ -7,6 +7,8 @@ export interface MateDataService {
      */
     reload(): void;
 
+    getDataBaseSummaryList(): JList<DataBaseSummary>;
+
     /**
      * @param database 数据库名称(schema名称)
      */
