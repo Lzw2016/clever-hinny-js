@@ -17,6 +17,15 @@ export interface StringUtils {
      * @return 转换好的字符串
      */
     underlineToCamel(param: JString): JString;
+
+    /**
+     * 字符串下划线转驼峰格式
+     *
+     * @param param          需要转换的字符串
+     * @param firstUpperCase 首字母是否大写
+     * @return 转换好的字符串
+     */
+    underlineToCamel(param: JString, firstUpperCase: JBoolean): JString;
     
     /**
      * 获取字符串byte[]数据
