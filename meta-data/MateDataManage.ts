@@ -49,3 +49,12 @@ export interface MateDataManage {
      */
     allNames(): JSet<JString>;
 }
+
+/**
+ * 数据源元数据管理对象
+ */
+const mateDataManage: MateDataManage = Java.type('org.clever.hinny.graal.meta.data.MateDataManage').Instance;
+
+export {
+    mateDataManage,
+}
