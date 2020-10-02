@@ -90,6 +90,11 @@ export interface TableColumn {
     isPartOfUniqueIndex(): JBoolean;
 
     /**
+     * 字段映射的Java类型
+     */
+    getMappedClass(): JClass;
+
+    /**
      * 其他列属性
      */
     getAttributes(): JMap<JString, any>;
