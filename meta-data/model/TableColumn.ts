@@ -42,12 +42,12 @@ export interface TableColumn {
     /**
      * 是否不能为空
      */
-    isNotNull(): JBoolean;
+    getNotNull(): JBoolean;
 
     /**
      * 是否自增长
      */
-    isAutoIncrement(): JBoolean;
+    getAutoIncrement(): JBoolean;
 
     /**
      * 默认值
@@ -62,32 +62,32 @@ export interface TableColumn {
     /**
      * 所谓Generated Column，就是数据库中这一列由其他列计算而得
      */
-    isGenerated(): JBoolean;
+    getGenerated(): JBoolean;
 
     /**
      * 是否是隐藏的列
      */
-    isHidden(): JBoolean;
+    getHidden(): JBoolean;
 
     /**
      * 是否是外键
      */
-    isPartOfForeignKey(): JBoolean;
+    getPartOfForeignKey(): JBoolean;
 
     /**
      * 是否建了索引
      */
-    isPartOfIndex(): JBoolean;
+    getPartOfIndex(): JBoolean;
 
     /**
      * 是否是主键
      */
-    isPartOfPrimaryKey(): JBoolean;
+    getPartOfPrimaryKey(): JBoolean;
 
     /**
      * 是否唯一约束
      */
-    isPartOfUniqueIndex(): JBoolean;
+    getPartOfUniqueIndex(): JBoolean;
 
     /**
      * 字段映射的Java类型
