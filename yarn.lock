@@ -2,23 +2,6 @@
 # yarn lockfile v1
 
 
-"@hinny/core@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.npm.taobao.org/@hinny/core/download/@hinny/core-0.0.1.tgz#38276f1c7f530377078ab32fc3a8ee8e46ecd374"
-  integrity sha1-OCdvHH9TA3cHirMvw6jujkbs03Q=
-
-"@hinny/data-jdbc@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.npm.taobao.org/@hinny/data-jdbc/download/@hinny/data-jdbc-0.0.1.tgz#c49a99f5d6a77b8d7beff02bb2bbb17cdf537bf4"
-  integrity sha1-xJqZ9dane4177/ArsruxfN9Te/Q=
-
-"@hinny/mvc@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.npm.taobao.org/@hinny/mvc/download/@hinny/mvc-0.0.1.tgz#37d097d8ed53e1ecc4ada25834462b7e6faaed69"
-  integrity sha1-N9CX2O1T4ezEraJYNEYrfm+q7Wk=
-  dependencies:
-    "@hinny/core" "0.0.1"
-
 typescript@^4.0.3:
   version "4.0.3"
   resolved "https://registry.npm.taobao.org/typescript/download/typescript-4.0.3.tgz#153bbd468ef07725c1df9c77e8b453f8d36abba5"
