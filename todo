@@ -68,7 +68,7 @@ RMBUtils            OK
     Object
 
 ------------------------------------------------------------------------------------------------
-脚本加载失败就会有 Multi threaded access requested by thread Thread[http-nio-18081-exec-3,5,main] but is not allowed for language(s) js.
+
 
 
 
