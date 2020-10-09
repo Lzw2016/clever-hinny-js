@@ -49,7 +49,7 @@ RMBUtils            OK
 [data-jdbc] 表字段：驼峰转下划线，下划线转驼峰                           OK
 [data-jdbc] 查询结果以实体类为主                                       OK
 
-[other]     spring boot autoconfig
+[other]     spring boot autoconfig                                   OK
 
 
 

@@ -35,6 +35,6 @@
   },
   "homepage": "https://github.com/Lzw2016/clever-hinny-js#readme",
   "dependencies": {
-    "@hinny/core": "0.0.3"
+    "@hinny/core": "*"
   }
 }
