@@ -52,8 +52,8 @@ export interface SnowFlake {
     nextId(): JLong;
 }
 
-const iDGenerateUtils: IDGenerateUtils = Java.type('org.clever.hinny.core.IDGenerateUtils').Instance;
+const idGenerateUtils: IDGenerateUtils = Java.type('org.clever.hinny.core.IDGenerateUtils').Instance;
 
 export {
-    iDGenerateUtils,
+    idGenerateUtils,
 }
