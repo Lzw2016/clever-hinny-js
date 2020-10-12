@@ -59,7 +59,7 @@ RMBUtils            OK
     MyBatisJdbcDataSource.ts                    OK
     JdbcDataSource.ts                           不计划
     ExcelUtils.ts                               OK
-    HttpUtils.ts                                计划
+    HttpUtils.ts                                OK
 
 数组集合的快速遍历工具
     Array
