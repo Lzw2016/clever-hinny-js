@@ -165,12 +165,19 @@ interface Interop extends JObject {
     /**
      * 把Java对象转成Js Array
      */
+    fromJArray<T>(list: JList<T>): T[];
+
+    /**
+     * 把Java对象转成Js Array
+     */
     fromJArray<T>(...array: T[]): T[];
 
     /**
      * 把Java Map对象转成Js Object
      */
     fromJMap<T extends object>(obj: JMap<string, any>): T;
+
+    // TODO 补充常用类型 fromJava对象
 }
 
 declare const Interop: Interop;
