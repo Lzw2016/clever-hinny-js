@@ -21,8 +21,8 @@ const t01 = function () {
         const sql = "select sql_time,date,year from test limit 5"
         const list = jdbc.queryList(sql);
 
-        const date = Interop.toJDate(Interop.fromJMap<Test>(list.get(1)).sqlTime);
-        const date2 = Interop.toJDate(Interop.fromJMap<Test>(list.get(2)).sqlTime);
+        const date = Interop.asJDate(Interop.fromJMap<Test>(list.get(1)).sqlTime);
+        const date2 = Interop.asJDate(Interop.fromJMap<Test>(list.get(2)).sqlTime);
         log.info("date       -> {}", date);
         log.info("date2      -> {}", date2);
         log.info("after      -> {}", date.after(date2));

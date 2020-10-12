@@ -22,8 +22,8 @@ const t01 = function () {
         const list = jdbc.queryList(sql);
         log.info("date               -> {}", [list]);
 
-        const date = Interop.toJDate(Interop.fromJMap<Test>(list.get(0)).date);
-        const date2 = Interop.toJDate(Interop.fromJMap<Test>(list.get(1)).date);
+        const date = Interop.asJDate(Interop.fromJMap<Test>(list.get(0)).date);
+        const date2 = Interop.asJDate(Interop.fromJMap<Test>(list.get(1)).date);
         // log.info("date               -> {}", date);
         log.info("date2              -> {}", date);
         log.info("after              -> {}", date.after(date2));
@@ -39,8 +39,8 @@ const t01 = function () {
         log.info("getMonth           -> {}", date.getMonth());
         log.info("getDay             -> {}", date.getDay());
 
-        const year = Interop.toJDate(Interop.fromJMap<Test>(list.get(0)).year);
-        const year2 = Interop.toJDate(Interop.fromJMap<Test>(list.get(1)).year);
+        const year = Interop.asJDate(Interop.fromJMap<Test>(list.get(0)).year);
+        const year2 = Interop.asJDate(Interop.fromJMap<Test>(list.get(1)).year);
         log.info("year               -> {}", year);
         log.info("year2              -> {}", year2);
         log.info("after              -> {}", year.after(year2));

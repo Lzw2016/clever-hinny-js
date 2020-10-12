@@ -1,3 +1,8 @@
+/**
+ * 方法命名规则 <br/>
+ * 1. as***: 把对象转成Java对象 <br/>
+ * 2. from***: 把对象转成Script对象 <br/>
+ */
 interface Interop extends JObject {
     /**
      * 获取Java Class
@@ -10,6 +15,12 @@ interface Interop extends JObject {
      * @param className Java Class Name全名称
      */
     newJObject(className: string): JObject;
+
+    /**
+     * 创建一个Java Class对象
+     * @param clazz Java Class对象
+     */
+    newJObject(clazz: JClass): JObject;
 
     /**
      * 创建Java byte 值 (-128~127)
@@ -27,6 +38,11 @@ interface Interop extends JObject {
     asJInt(arg: number | string): JInt;
 
     /**
+     * BigInteger 转换成 JInt
+     */
+    asJInt(arg: JBigInteger): JInt;
+
+    /**
      * 创建Java long 值 (-9,223,372,036,854,774,808 ~ 9,223,372,036,854,774,807)
      */
     asJLong(arg: number | string): JLong;
@@ -34,7 +50,7 @@ interface Interop extends JObject {
     /**
      * 创建Java float 值
      */
-    asJFloat(arg: string): JFloat;
+    asJFloat(arg: number | string): JFloat;
 
     /**
      * 创建Java double 值
@@ -78,6 +94,11 @@ interface Interop extends JObject {
     asJDate(arg: string | number | Date): JDate;
 
     /**
+     * 把jdbc时间类型转换成 java.util.Date 类型
+     */
+    asJDate(arg: JSqlDate | JSqlTime | JSqlTimestamp): JDate;
+
+    /**
      * 创建Java java.math.BigDecimal 对象
      */
     asJBigDecimal(arg: string): JBigDecimal;
@@ -117,33 +138,39 @@ interface Interop extends JObject {
      */
     asJMap<K, V>(arg: object): JMap<K, V>;
 
-    // TODO 补充常用类型
+    // TODO 补充常用类型 asJava对象
 
     /**
      * 获取对象的字符串表示形式
      */
     toJString(obj: any): JString;
 
-    /**
-     * 把jdbc时间类型转换成 java.util.Date 类型
-     */
-    toJDate(arg: JSqlDate | JSqlTime | JSqlTimestamp): JDate;
+    // ----------------------------------------------------------------------------------------------------------
 
     /**
-     * BigInteger 转换成 JInt
+     * 把Java时间对象转成Js Date
      */
-    toJInt(arg: JBigInteger): JInt;
+    fromJDate(date: JDate | JSqlDate | JLocalDate | JDuration | JInstant | LocalTime | JZoneId): Date;
 
+    /**
+     * 转换成Js Array
+     */
+    fromJList<T>(list: JList<T>): T[];
 
-    // fromJList<T>(list: JList<T>): T[];
+    /**
+     * 转换成Js Array
+     */
+    fromJList<T>(...array: T[]): T[];
 
-    // fromJArray<T>(...array: T[]): T[];
+    /**
+     * 把Java对象转成Js Array
+     */
+    fromJArray<T>(...array: T[]): T[];
 
+    /**
+     * 把Java Map对象转成Js Object
+     */
     fromJMap<T extends object>(obj: JMap<string, any>): T;
-
-    // fromJMap<T>(map: JMap<string, any>): T;
-
-    fromJDate(date: JDate): Date;
 }
 
 declare const Interop: Interop;

@@ -28,6 +28,13 @@
 /// <reference path="java/util/JSet.d.ts" />
 /// <reference path="java/util/JEnumeration.d.ts" />
 
+// ----------------------------------------------------------------------- time
+/// <reference path="java/time/JDuration.d.ts" />
+/// <reference path="java/time/JInstant.d.ts" />
+/// <reference path="java/time/JLocalDate.d.ts" />
+/// <reference path="java/time/JLocalTime.d.ts" />
+/// <reference path="java/time/JZoneId.d.ts" />
+
 // ----------------------------------------------------------------------- util.concurrent
 
 // ----------------------------------------------------------------------- sql
