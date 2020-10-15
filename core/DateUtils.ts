@@ -75,7 +75,7 @@ export interface DateUtils {
      * @param date    日期对象
      * @param pattern 日期格式，如："yyyy-MM-dd" "HH:mm:ss" "E"
      */
-    formatToJString(date: JDate, pattern: JString): JString
+    formatToString(date: JDate, pattern: JString): JString
 
     /**
      * 得到日期时间字符串，转换格式（yyyy-MM-dd HH:mm:ss）
@@ -83,7 +83,7 @@ export interface DateUtils {
      * @param date 日期对象
      * @return 日期格式字符串，如：2015-03-01 10:21:14
      */
-    formatToJString(date: JDate): JString
+    formatToString(date: JDate): JString
 
     // 解析时间得到字符串
     //----------------------------------------------------------------------------------------------------------------------------------------------
