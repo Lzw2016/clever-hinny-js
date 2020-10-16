@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "allowJs": true,
+    "target": "ES5",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "inlineSources": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "checkJs": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "lib": [
+      "ES5",
+      "ES2015",
+      "ES2016",
+      "ES2017",
+      "ES2018",
+      "ES2019",
+      "ES2020"
+    ]
+  },
+  "include": [
+    "types/**/*",
+    "core/**/*",
+    "data-jdbc/**/*",
+    "meta-data/**/*",
+    "mvc/**/*"
+  ],
+  "exclude": [
+    "types/dist",
+    "core/dist",
+    "data-jdbc/dist",
+    "meta-data/dist",
+    "mvc/dist"
+  ],
+  "typedocOptions": {
+    "mode": "library",
+    "out": "docs/api",
+    "name": "hinny-js",
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeExternals": true,
+    "includeDeclarations": true,
+    "hideGenerator": true,
+    "includeVersion": false,
+    "disableSources": true,
+    "theme": "default"
+  }
+}

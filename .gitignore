@@ -89,7 +89,7 @@ dist
 # public
 
 # vuepress build output
-.vuepress/dist
+docs/.vuepress/dist
 
 # Serverless directories
 .serverless/
@@ -106,4 +106,6 @@ dist
 # 自定义忽略文件
 .idea
 build
-
+/docs/api
+/docs/api-html
+/docs/api-markdown

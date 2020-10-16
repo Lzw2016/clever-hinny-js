@@ -1,4 +1,4 @@
-import { HttpMethod, httpUtils } from '@hinny/core';
+import { commonUtils, HttpMethod, httpUtils } from '@hinny/core';
 
 const log = LoggerFactory.getLogger(__filename);
 
@@ -29,7 +29,7 @@ const t01 = function () {
     log.info("res  -> {}", res);
 
     const res2 = httpUtils.getMap(url, {keyWord: "体温计"});
-    log.info("res2 -> {}", res2.getClass());
+    log.info("res2 -> {}", commonUtils.getClass(res2));
 }
 
 const t02 = function () {
