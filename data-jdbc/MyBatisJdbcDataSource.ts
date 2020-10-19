@@ -224,27 +224,8 @@ export interface MyBatisJdbcDataSource {
      * @param sqlId    SqlID
      * @param pagination 分页配置(支持排序)
      * @param paramMap 查询参数
-     * @param countQuery 是否要执行count查询(可选)
-     */
-    queryByPage<T = DataRowEntity>(sqlId: JString, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
-
-    /**
-     * 分页查询(支持排序)，返回分页对象
-     *
-     * @param sqlId    SqlID
-     * @param pagination 分页配置(支持排序)
-     * @param paramMap 查询参数
      */
     queryByPage<T = DataRowEntity>(sqlId: JString, pagination: QueryByPage, paramMap: SqlParamMap): IPage<T>;
-
-    /**
-     * 分页查询(支持排序)，返回分页对象
-     *
-     * @param sqlId    SqlID
-     * @param pagination 分页配置(支持排序)
-     * @param countQuery 是否要执行count查询(可选)
-     */
-    queryByPage<T = DataRowEntity>(sqlId: JString, pagination: QueryByPage, countQuery: JBoolean): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象

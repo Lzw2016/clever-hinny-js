@@ -313,20 +313,9 @@ export interface JdbcDataSource extends JObject {
      * @param sql              sql脚本，参数格式[:param]
      * @param pagination       分页配置(支持排序)
      * @param paramMap         参数，参数格式[:param]
-     * @param countQuery       是否要执行count查询(可选)
      * @param underlineToCamel 下划线转驼峰
      */
-    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean, underlineToCamel: JBoolean): IPage<T>;
-
-    /**
-     * 分页查询(支持排序)，返回分页对象
-     *
-     * @param sql        sql脚本，参数格式[:param]
-     * @param pagination 分页配置(支持排序)
-     * @param paramMap   参数，参数格式[:param]
-     * @param countQuery 是否要执行count查询(可选)
-     */
-    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage, paramMap: SqlParamMap, countQuery: JBoolean): IPage<T>;
+    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage, paramMap: SqlParamMap, underlineToCamel: JBoolean): IPage<T>;
 
     /**
      * 分页查询(支持排序)，返回分页对象
@@ -342,15 +331,6 @@ export interface JdbcDataSource extends JObject {
      *
      * @param sql        sql脚本，参数格式[:param]
      * @param pagination 分页配置(支持排序)
-     * @param countQuery 是否要执行count查询(可选)
-     */
-    queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage, countQuery: JBoolean): IPage<T>;
-
-    /**
-     * 分页查询(支持排序)，返回分页对象
-     *
-     * @param sql        sql脚本，参数格式[:param]
-     * @param pagination 分页配置(支持排序) - 支持加入查询参数
      */
     queryByPage<T = DataRowMap>(sql: JString, pagination: QueryByPage): IPage<T>;
 
