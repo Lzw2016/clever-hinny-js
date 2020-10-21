@@ -26,6 +26,6 @@
   },
   "devDependencies-bak": {
     "vuepress": "^1.7.1",
-    "vuepress-plugin-typedoc": "^0.1.0"
+    "vuepress-plugin-typedoc": "^0.1.1"
   }
 }
