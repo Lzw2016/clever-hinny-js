@@ -36,11 +36,15 @@ module.exports = {
                 // plugin: ['typedoc-plugin-markdown'],
 
                 // Pass in any additional TypeDoc options (see typedoc --help)
-                mode: 'modules',
-
-                // theme: "default",
-
-                disableOutputCheck: true,
+                mode: 'file',
+                excludePrivate: true,
+                excludeProtected: true,
+                excludeExternals: true,
+                includeDeclarations: true,
+                hideGenerator: true,
+                includeVersion: false,
+                disableSources: true,
+                ignoreCompilerErrors: true
             },
         ],
     ],

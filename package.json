@@ -5,9 +5,7 @@
     "all-tsc": "yarn install && tsc -b core data-jdbc meta-data mvc test -w -v",
     "all-tsc-fast": "tsc -b core data-jdbc meta-data mvc test -w -v",
     "doc-html": "typedoc --plugin none --out docs/api-html",
-    "doc-markdown": "typedoc --out docs/api-markdown"
-  },
-  "scripts-bak": {
+    "doc-markdown": "typedoc --out docs/api-markdown",
     "doc-dev": "vuepress dev docs",
     "doc-build": "vuepress build docs"
   },
@@ -22,9 +20,7 @@
   "devDependencies": {
     "typescript": "^4.0.3",
     "typedoc": "^0.19.2",
-    "typedoc-plugin-markdown": "^3.0.9"
-  },
-  "devDependencies-bak": {
+    "typedoc-plugin-markdown": "^3.0.9",
     "vuepress": "^1.7.1",
     "vuepress-plugin-typedoc": "^0.1.1"
   }

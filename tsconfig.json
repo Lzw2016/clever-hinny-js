@@ -54,6 +54,7 @@
     "hideGenerator": true,
     "includeVersion": false,
     "disableSources": true,
+    "ignoreCompilerErrors": true,
     "theme": "default"
   }
 }
