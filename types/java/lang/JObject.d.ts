@@ -136,7 +136,7 @@ interface JClass extends JObject {
     isSynthetic(): JBoolean;
 }
 
-interface Comparable<T> {
+interface JComparable<T> {
     java_lang_Comparable: "java.lang.Comparable"
 
     /**

@@ -3,7 +3,7 @@
  * 请使用内置对象“Interop”创建该类型实例<br />
  * @see Interop
  */
-interface JBigDecimal extends JObject, Comparable<JBigDecimal> {
+interface JBigDecimal extends JObject, JComparable<JBigDecimal> {
     java_math_BigDecimal: "java.math.BigDecimal";
 
     /**

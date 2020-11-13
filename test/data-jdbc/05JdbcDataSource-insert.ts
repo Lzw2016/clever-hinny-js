@@ -1,5 +1,5 @@
 // JdbcDatabase 新增操作
-import { AnyEntity, InsertResult, jdbcDatabase, Propagation } from "@hinny/data-jdbc";
+import { AnyEntity, InsertResult, jdbcDatabase, jdbcDatabaseManage, Propagation } from "@hinny/data-jdbc";
 
 const log = LoggerFactory.getLogger(module.filename);
 
@@ -29,7 +29,7 @@ interface CompanyCertificateDic extends AnyEntity {
 }
 
 const t02 = function () {
-    let jdbc_2 = jdbcDatabase.add("jdbc_2", {
+    let jdbc_2 = jdbcDatabaseManage.add("jdbc_2", {
         driverClassName: 'com.mysql.cj.jdbc.Driver',
         jdbcUrl: 'jdbc:mysql://111.229.118.217:3306/snj_sjpt',
         username: 'root',

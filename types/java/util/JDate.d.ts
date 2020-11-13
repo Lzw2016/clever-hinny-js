@@ -3,7 +3,7 @@
  * 请使用内置对象“Interop”创建该类型实例<br />
  * @see Interop
  */
-interface JDate extends JObject, Comparable<JDate> {
+interface JDate extends JObject, JComparable<JDate> {
     java_util_Date: "java.util.Date";
 
     /**

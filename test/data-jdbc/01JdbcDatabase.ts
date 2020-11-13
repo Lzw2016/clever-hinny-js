@@ -1,4 +1,4 @@
-import { jdbcDatabase } from "@hinny/data-jdbc";
+import { jdbcDatabase, jdbcDatabaseManage } from "@hinny/data-jdbc";
 
 const logger = LoggerFactory.getLogger(__filename);
 
@@ -11,7 +11,7 @@ const t01 = function () {
     logger.info("jdbcDataSource -> {}", jdbc_2);
     let has_jdbc_2 = jdbcDatabase.hasDataSource("jdbc_2");
     logger.info("hasDataSource  -> {}", has_jdbc_2);
-    jdbc_2 = jdbcDatabase.add("jdbc_2", {
+    jdbc_2 = jdbcDatabaseManage.add("jdbc_2", {
         driverClassName: 'com.mysql.cj.jdbc.Driver',
         jdbcUrl: 'jdbc:mysql://mysql.msvc.top:3306/clever-template',
         username: 'clever-template',

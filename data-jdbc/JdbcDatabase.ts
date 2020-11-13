@@ -1,7 +1,6 @@
 import { JdbcDataSource } from "./JdbcDataSource";
 import { JdbcInfo } from "./JdbcInfo";
 import { JdbcDataSourceStatus } from "./JdbcDataSourceStatus";
-import { JdbcConfig } from "./JdbcTypes";
 
 /**
  * JDBC数据库管理器
@@ -30,21 +29,6 @@ export interface JdbcDatabase extends JObject {
      * @param name 数据源名称
      */
     hasDataSource(name: JString): JBoolean;
-
-    /**
-     * 添加数据源
-     *
-     * @param name       数据源名称
-     * @param config     数据源配置
-     */
-    add(name: JString, config: JdbcConfig): JdbcDataSource;
-
-    /**
-     * 删除数据源
-     *
-     * @param name 数据源名称
-     */
-    del(name: JString): JBoolean;
 
     /**
      * 获取所有数据源名称

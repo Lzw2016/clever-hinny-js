@@ -1,5 +1,5 @@
 const log = LoggerFactory.getLogger(__filename);
-import { AnyEntity, jdbcDatabase } from "@hinny/data-jdbc";
+import { AnyEntity, jdbcDatabase, jdbcDatabaseManage } from "@hinny/data-jdbc";
 
 interface Test extends AnyEntity {
     sqlTime: JSqlTime;
@@ -8,7 +8,7 @@ interface Test extends AnyEntity {
 }
 
 const t01 = function () {
-    let jdbc_2 = jdbcDatabase.add("jdbc_2", {
+    let jdbc_2 = jdbcDatabaseManage.add("jdbc_2", {
         driverClassName: 'com.mysql.cj.jdbc.Driver',
         jdbcUrl: 'jdbc:mysql://mysql.msvc.top:3306/clever-template',
         username: 'clever-template',
