@@ -966,9 +966,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    public Long zsRemove(String key, Object... values) {
-        return delegate.zsRemove(key, values);
-    }
+     zsRemove( key:JString, ... values:object[]):JLong;
 
     /**
      * 移除有序集合中的一个或多个成员
@@ -976,9 +974,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    public Long zsRemove(String key, Collection<Object> values) {
-        return delegate.zsRemove(key, values.toArray());
-    }
+    zsRemove( key:JString,  values:JCollection<object>):JLong;
 
     /**
      * 有序集合中对指定成员的分数加上增量 increment
@@ -987,9 +983,7 @@ export interface RedisDataSource extends JObject {
      * @param value value
      * @param delta increment
      */
-    public Double zsIncrementScore(String key, Object value, Number delta) {
-        return delegate.zsIncrementScore(key, value, delta.doubleValue());
-    }
+    zsIncrementScore( key:JString,  value:object,  delta:number):JDouble;
 
     /**
      * 返回有序集合中指定成员的索引
@@ -997,9 +991,7 @@ export interface RedisDataSource extends JObject {
      * @param key key
      * @param o   o
      */
-    public Long zsRank(String key, Object o) {
-        return delegate.zsRank(key, o);
-    }
+    zsRank( key:JString,  o:object):JLong;
 
     /**
      * 确定元素的索引值在排序集时得分从高到低
@@ -1007,9 +999,7 @@ export interface RedisDataSource extends JObject {
      * @param key key
      * @param o   o
      */
-    public Long zsReverseRank(String key, Object o) {
-        return delegate.zsReverseRank(key, o);
-    }
+    zsReverseRank( key:JString,  o:object):JLong;
 
     /**
      * 从已排序集获取开始和结束之间的元素
@@ -1018,9 +1008,7 @@ export interface RedisDataSource extends JObject {
      * @param start start
      * @param end   end
      */
-    public Set<Object> zsRange(String key, Number start, Number end) {
-        return delegate.zsRange(key, start.longValue(), end.longValue());
-    }
+    zsRange( key:JString,  start:number,  end:number):JSet<object>;
 
     /**
      * 从已排序集获取开始和结束之间的元素
@@ -1029,9 +1017,7 @@ export interface RedisDataSource extends JObject {
      * @param start start
      * @param end   end
      */
-    public List<ZSetValue> zsRangeWithScores(String key, Number start, Number end) {
-        return delegate.zsRangeWithScores(key, start.longValue(), end.longValue());
-    }
+    zsRangeWithScores( key:JString,  start:number,  end:number):JList<ZSetValue>;
 
     /**
      * 从排序后的集合中获取得分介于最小值和最大值之间的元素
@@ -1040,9 +1026,7 @@ export interface RedisDataSource extends JObject {
      * @param min min
      * @param max max
      */
-    public Set<Object> zsRangeByScore(String key, Number min, Number max) {
-        return delegate.zsRangeByScore(key, min.doubleValue(), max.doubleValue());
-    }
+    zsRangeByScore( key:JString,  min:number,  max:number):JSet<object>;
 
     /**
      * 从排序后的集合中获取得分介于最小值和最大值之间的元素
@@ -1051,9 +1035,7 @@ export interface RedisDataSource extends JObject {
      * @param min min
      * @param max max
      */
-    public List<ZSetValue> zsRangeByScoreWithScores(String key, Number min, Number max) {
-        return delegate.zsRangeByScoreWithScores(key, min.doubleValue(), max.doubleValue());
-    }
+     zsRangeByScoreWithScores( key:JString,  min:number,  max:number):JList<ZSetValue>;
 
     /**
      * 获取从开始到结束的范围内的元素，其中得分在排序集的最小值和最大值之间
@@ -1064,9 +1046,7 @@ export interface RedisDataSource extends JObject {
      * @param offset offset
      * @param count  count
      */
-    public Set<Object> zsRangeByScore(String key, Number min, Number max, Number offset, Number count) {
-        return delegate.zsRangeByScore(key, min.doubleValue(), max.doubleValue(), offset.longValue(), count.longValue());
-    }
+     zsRangeByScore( key:JString,  min:number,  max:number,  offset:number,  count:number):JSet<object>;
 
     /**
      * 获取从开始到结束的范围内的元素，其中得分在排序集的最小值和最大值之间
@@ -1077,9 +1057,7 @@ export interface RedisDataSource extends JObject {
      * @param offset offset
      * @param count  count
      */
-    public List<ZSetValue> zsRangeByScoreWithScores(String key, Number min, Number max, Number offset, Number count) {
-        return delegate.zsRangeByScoreWithScores(key, min.doubleValue(), max.doubleValue(), offset.longValue(), count.longValue());
-    }
+    zsRangeByScoreWithScores( key:JString,  min:number,  max:number,  offset:number,  count:number):JList<ZSetValue>;
 
     /**
      * 获取范围从开始到结束的元素，从高到低排序的集合
@@ -1088,9 +1066,7 @@ export interface RedisDataSource extends JObject {
      * @param start start
      * @param end   end
      */
-    public Set<Object> zsReverseRange(String key, Number start, Number end) {
-        return delegate.zsReverseRange(key, start.longValue(), end.longValue());
-    }
+     zsReverseRange( key:JString,  start:number,  end:number):JSet<object>;
 
     /**
      * 获取范围从开始到结束的元素，从高到低排序的集合
@@ -1099,9 +1075,7 @@ export interface RedisDataSource extends JObject {
      * @param start start
      * @param end   end
      */
-    public List<ZSetValue> zsReverseRangeWithScores(String key, Number start, Number end) {
-        return delegate.zsReverseRangeWithScores(key, start.longValue(), end.longValue());
-    }
+    zsReverseRangeWithScores( key:JString,  start:number,  end:number):JList<ZSetValue>;
 
     /**
      * 获取得分介于最小值和最大值之间的元素，从高到低排序
@@ -1110,9 +1084,7 @@ export interface RedisDataSource extends JObject {
      * @param min min
      * @param max max
      */
-    public Set<Object> zsReverseRangeByScore(String key, Number min, Number max) {
-        return delegate.zsReverseRangeByScore(key, min.doubleValue(), max.doubleValue());
-    }
+    zsReverseRangeByScore( key:JString,  min:number,  max:number):JSet<object>
 
     /**
      * 获取得分介于最小值和最大值之间的元素，从高到低排序
@@ -1121,9 +1093,7 @@ export interface RedisDataSource extends JObject {
      * @param min min
      * @param max max
      */
-    public List<ZSetValue> zsReverseRangeByScoreWithScores(String key, Number min, Number max) {
-        return delegate.zsReverseRangeByScoreWithScores(key, min.doubleValue(), max.doubleValue());
-    }
+    zsReverseRangeByScoreWithScores( key:JString,  min:number,  max:number):JList<ZSetValue>;
 
     /**
      * 获取从开始到结束的范围内的元素，其中得分在最小和最大之间，排序集高 -> 低
@@ -1134,9 +1104,7 @@ export interface RedisDataSource extends JObject {
      * @param offset offset
      * @param count  count
      */
-    public Set<Object> zsReverseRangeByScore(String key, Number min, Number max, Number offset, Number count) {
-        return delegate.zsReverseRangeByScore(key, min.doubleValue(), max.doubleValue(), offset.longValue(), count.longValue());
-    }
+    zsReverseRangeByScore( key:JString,  min:number, max:number,  offset:number,  count:number):JSet<object>;
 
     /**
      * 获取从开始到结束的范围内的元素，其中得分在最小和最大之间，排序集高 -> 低
@@ -1147,9 +1115,7 @@ export interface RedisDataSource extends JObject {
      * @param offset offset
      * @param count  count
      */
-    public List<ZSetValue> zsReverseRangeByScoreWithScores(String key, Number min, Number max, Number offset, Number count) {
-        return delegate.zsReverseRangeByScoreWithScores(key, min.doubleValue(), max.doubleValue(), offset.longValue(), count.longValue());
-    }
+     zsReverseRangeByScoreWithScores( key:JString,  min:number,  max:number, offset:number,  count:number):JList<ZSetValue>;
 
     /**
      * 用最小值和最大值之间的值计算排序集中的元素数
@@ -1158,27 +1124,21 @@ export interface RedisDataSource extends JObject {
      * @param min min
      * @param max max
      */
-    public Long zsCount(String key, Number min, Number max) {
-        return delegate.zsCount(key, min.doubleValue(), max.doubleValue());
-    }
+     zsCount( key:JString,  min:number,  max:number):JLong;
 
     /**
      * 返回按给定键存储的已排序集的元素数
      *
      * @param key key
      */
-    public Long zsSize(String key) {
-        return delegate.zsSize(key);
-    }
+     zsSize( key:JString):JLong;
 
     /**
      * 获取有序集合的成员数
      *
      * @param key key
      */
-    public Long zsZCard(String key) {
-        return delegate.zsZCard(key);
-    }
+     zsZCard( key:JString):JLong;
 
     /**
      * 返回有序集中，成员的分数值
@@ -1186,9 +1146,7 @@ export interface RedisDataSource extends JObject {
      * @param key key
      * @param o   o
      */
-    public Double zsScore(String key, Object o) {
-        return delegate.zsScore(key, o);
-    }
+     zsScore( key:JString,  o:object):JDouble;
 
     /**
      * 从按键排序的集合中删除开始和结束之间范围内的元素
@@ -1197,9 +1155,7 @@ export interface RedisDataSource extends JObject {
      * @param start start
      * @param end   end
      */
-    public Long zsRemoveRange(String key, Number start, Number end) {
-        return delegate.zsRemoveRange(key, start.longValue(), end.longValue());
-    }
+     zsRemoveRange( key:JString,  start:number,  end:number):JLong;
 
     /**
      * 从按键排序的集合中删除得分在min和max之间的元素
@@ -1208,9 +1164,7 @@ export interface RedisDataSource extends JObject {
      * @param min min
      * @param max max
      */
-    public Long zsRemoveRangeByScore(String key, Number min, Number max) {
-        return delegate.zsRemoveRangeByScore(key, min.doubleValue(), max.doubleValue());
-    }
+     zsRemoveRangeByScore( key:JString,  min:number,  max:number):JLong;
 
     /**
      * 计算给定的一个或多个有序集的并集，并存储在新的 destKey 中
@@ -1219,9 +1173,7 @@ export interface RedisDataSource extends JObject {
      * @param otherKey otherKey
      * @param destKey  destKey
      */
-    public Long zsUnionAndStore(String key, String otherKey, String destKey) {
-        return delegate.zsUnionAndStore(key, otherKey, destKey);
-    }
+     zsUnionAndStore( key:JString,  otherKey:JString,  destKey:JString):JLong;
 
     /**
      * 计算给定的一个或多个有序集的并集，并存储在新的 destKey 中
@@ -1230,9 +1182,7 @@ export interface RedisDataSource extends JObject {
      * @param otherKeys otherKeys
      * @param destKey   destKey
      */
-    public Long zsUnionAndStore(String key, Collection<String> otherKeys, String destKey) {
-        return delegate.zsUnionAndStore(key, otherKeys, destKey);
-    }
+     zsUnionAndStore( key:JString,  otherKeys:JCollection<JString>,  destKey:JString):JLong;
 
     /**
      * 计算给定的一个或多个有序集的并集，并存储在新的 destKey 中
@@ -1241,9 +1191,7 @@ export interface RedisDataSource extends JObject {
      * @param otherKeys otherKeys
      * @param destKey   destKey
      */
-    public Long zsUnionAndStore(String key, String[] otherKeys, String destKey) {
-        return delegate.zsUnionAndStore(key, Arrays.asList(otherKeys), destKey);
-    }
+     zsUnionAndStore( key:JString,  otherKeys:JString[],  destKey:JString):JLong;
 
     /**
      * 计算给定的一个或多个有序集的交集并将结果集存储在新的有序集合 key 中
@@ -1252,9 +1200,7 @@ export interface RedisDataSource extends JObject {
      * @param otherKey otherKey
      * @param destKey  destKey
      */
-    public Long zsIntersectAndStore(String key, String otherKey, String destKey) {
-        return delegate.zsIntersectAndStore(key, otherKey, destKey);
-    }
+     zsIntersectAndStore( key:JString,  otherKey:JString,  destKey:JString):JLong;
 
     /**
      * 计算给定的一个或多个有序集的交集并将结果集存储在新的有序集合 key 中
@@ -1263,9 +1209,7 @@ export interface RedisDataSource extends JObject {
      * @param otherKeys otherKeys
      * @param destKey   destKey
      */
-    public Long zsIntersectAndStore(String key, Collection<String> otherKeys, String destKey) {
-        return delegate.zsIntersectAndStore(key, otherKeys, destKey);
-    }
+    zsIntersectAndStore( key:JString,  otherKeys:JCollection<JString>,  destKey:JString):JLong;
 
     /**
      * 计算给定的一个或多个有序集的交集并将结果集存储在新的有序集合 key 中
@@ -1274,7 +1218,8 @@ export interface RedisDataSource extends JObject {
      * @param otherKeys otherKeys
      * @param destKey   destKey
      */
-    public Long zsIntersectAndStore(String key, String[] otherKeys, String destKey) {
+    zsIntersectAndStore(String key, String[] otherKeys, String destKey):JLong;
+    public Long  {
         return delegate.zsIntersectAndStore(key, Arrays.asList(otherKeys), destKey);
     }
 
