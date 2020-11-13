@@ -1,0 +1,38 @@
+{
+  "name": "@hinny/data-redis",
+  "version": "0.0.1",
+  "description": "clever-hinny与Redis交互js模块",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "data-redis-tsc": "tsc -w",
+    "data-redis-publish": "tsc && npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lzw2016/clever-hinny-js.git"
+  },
+  "keywords": [
+    "jdbc",
+    "redis",
+    "elasticsearch",
+    "rabbitmq",
+    "kafka",
+    "graaljs",
+    "j2v8",
+    "nashorn",
+    "serverjs",
+    "hinny",
+    "clever-hinny",
+    "java",
+    "js",
+    "javascript",
+    "typescript"
+  ],
+  "author": "lizw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lzw2016/clever-hinny-js/issues"
+  },
+  "homepage": "https://github.com/Lzw2016/clever-hinny-js#readme"
+}
