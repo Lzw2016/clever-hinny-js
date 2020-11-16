@@ -16,7 +16,11 @@ export enum RedisDataType {
     Hash = "hash",
 }
 
-export interface ZSetValue<T extends object = object> {
+type RedisData = object;
+type RedisMKey = string;
+type RedisMValue = object;
+
+export interface ZSetValue<T extends object = RedisData> {
     /** 排序值 */
     getScore(): JDouble;
 
@@ -30,7 +34,7 @@ export interface ZSetValue<T extends object = object> {
     setValue(value: T): void;
 }
 
-export interface PointValue<T extends object = object> {
+export interface PointValue<T extends object = RedisData> {
     /** x轴位置(经度) */
     getX(): JDouble;
 
@@ -56,7 +60,7 @@ export interface PointValue<T extends object = object> {
  * @param item 数据项
  * @return 是否需要中断迭代
  */
-export type ScanCallback<T> = (item: T) => JBoolean;
+export type ScanCallback<T> = (item: T) => JBoolean | void;
 
 export interface RedisMetric {
     org_springframework_data_geo_Metric: "org.springframework.data.geo.Metric";
@@ -247,7 +251,7 @@ export interface RedisDataSource extends JObject {
      * @param key   key
      * @param value value
      */
-    vSet(key: JString, value: object): void;
+    vSet<V extends object = RedisData>(key: JString, value: V): void;
 
     /**
      * 将值 value 关联到 key ，并将 key 的过期时间设为 seconds (以毫秒为单位)
@@ -256,7 +260,7 @@ export interface RedisDataSource extends JObject {
      * @param value   value
      * @param timeout 过期时间毫秒
      */
-    vSet(key: JString, value: object, timeout: number): void;
+    vSet<V extends object = RedisData>(key: JString, value: V, timeout: number): void;
 
     /**
      * 只有在 key 不存在时设置 key 的值
@@ -264,21 +268,21 @@ export interface RedisDataSource extends JObject {
      * @param key   key
      * @param value value
      */
-    vSetIfAbsent(key: JString, value: object): JBoolean;
+    vSetIfAbsent<V extends object = RedisData>(key: JString, value: V): JBoolean;
 
     /**
      * @param key     key
      * @param value   value
      * @param timeout 过期时间毫秒
      */
-    vSetIfAbsent(key: JString, value: object, timeout: number): JBoolean;
+    vSetIfAbsent<V extends object = RedisData>(key: JString, value: V, timeout: number): JBoolean;
 
     /**
      * 获取Value的值
      *
      * @param key key
      */
-    vGet(key: JString): object;
+    vGet<V extends object = RedisData>(key: JString): V;
 
     /**
      * 返回 key 中字符串值的子字符
@@ -295,7 +299,7 @@ export interface RedisDataSource extends JObject {
      * @param key   key
      * @param value value
      */
-    vGetAndSet(key: JString, value: object): object;
+    vGetAndSet<V extends object = RedisData>(key: JString, value: V): V;
 
     /**
      * 对 key 所储存的字符串值，获取指定偏移量上的位(bit)
@@ -310,14 +314,14 @@ export interface RedisDataSource extends JObject {
      *
      * @param keys keys
      */
-    vMultiGet(keys: JCollection<JString>): JList<object>;
+    vMultiGet<V extends object = RedisData>(keys: JCollection<JString>): JList<V>;
 
     /**
      * 获取所有(一个或多个)给定 key 的值
      *
      * @param keys keys
      */
-    vMultiGet(...keys: JString[]): JList<object>
+    vMultiGet<V extends object = RedisData>(...keys: JString[]): JList<V>
 
     /**
      * 对 key 所储存的字符串值，设置或清除指定偏移量上的位(bit)
@@ -335,7 +339,7 @@ export interface RedisDataSource extends JObject {
      * @param value  value
      * @param offset 偏移量
      */
-    vSetRange(key: JString, value: object, offset: number): void;
+    vSetRange<V extends object = RedisData>(key: JString, value: V, offset: number): void;
 
     /**
      * 返回 key 所储存的字符串值的长度
@@ -349,14 +353,14 @@ export interface RedisDataSource extends JObject {
      *
      * @param map 多个 key-value 对
      */
-    vMultiSet(map: JMap<JString, object>): void;
+    vMultiSet<V extends object = RedisData>(map: JMap<JString, V>): void;
 
     /**
      * 同时设置一个或多个 key-value 对，当且仅当所有给定 key 都不存在
      *
      * @param map 多个 key-value 对
      */
-    vMultiSetIfAbsent(map: JMap<JString, object>): void;
+    vMultiSetIfAbsent<V extends object = RedisData>(map: JMap<JString, V>): void;
 
     /**
      * 将 key 中储存的数字值增 1
@@ -406,7 +410,7 @@ export interface RedisDataSource extends JObject {
      * @param key      key
      * @param hashKeys hashKeys
      */
-    hDelete(key: JString, ...hashKeys: object[]): JLong;
+    hDelete<MK = RedisMKey>(key: JString, ...hashKeys: MK[]): JLong;
 
     /**
      * 删除一个或多个哈希表字段
@@ -414,7 +418,7 @@ export interface RedisDataSource extends JObject {
      * @param key      key
      * @param hashKeys hashKeys
      */
-    hDelete(key: JString, hashKeys: JCollection<object>): JLong;
+    hDelete<MK = RedisMKey>(key: JString, hashKeys: JCollection<MK>): JLong;
 
     /**
      * 查看哈希表 key 中，指定的字段是否存在
@@ -422,7 +426,7 @@ export interface RedisDataSource extends JObject {
      * @param key     key
      * @param hashKey hashKey
      */
-    hHasKey(key: JString, hashKey: object): JBoolean;
+    hHasKey<MK = RedisMKey>(key: JString, hashKey: MK): JBoolean;
 
     /**
      * 获取存储在哈希表中指定字段的值
@@ -430,7 +434,7 @@ export interface RedisDataSource extends JObject {
      * @param key     key
      * @param hashKey hashKey
      */
-    hGet(key: JString, hashKey: object): object;
+    hGet<MK = RedisMKey>(key: JString, hashKey: MK): MK;
 
     /**
      * 获取所有给定字段的值
@@ -438,7 +442,7 @@ export interface RedisDataSource extends JObject {
      * @param key      key
      * @param hashKeys hashKeys
      */
-    hMultiGet(key: JString, hashKeys: JCollection<object>): JList<object>;
+    hMultiGet<MK = RedisMKey, MV = RedisMValue>(key: JString, hashKeys: JCollection<MK>): JList<MV>;
 
     /**
      * 获取所有给定字段的值
@@ -446,7 +450,7 @@ export interface RedisDataSource extends JObject {
      * @param key      key
      * @param hashKeys hashKeys
      */
-    hMultiGet(key: JString, ...hashKeys: object[]): JList<object>;
+    hMultiGet<MK = RedisMKey, MV = RedisMValue>(key: JString, ...hashKeys: MK[]): JList<MV>;
 
     /**
      * 为哈希表 key 中的指定字段的整数值加上增量 increment
@@ -455,14 +459,14 @@ export interface RedisDataSource extends JObject {
      * @param hashKey hashKey
      * @param delta   增量
      */
-    hIncrement(key: JString, hashKey: object, delta: JLong | JInt | JDouble): JLong;
+    hIncrement<MK = RedisMKey>(key: JString, hashKey: MK, delta: JLong | JInt | JDouble): JLong;
 
     /**
      * 获取所有哈希表中的字段
      *
      * @param key key
      */
-    hKeys(key: JString): JSet<object>;
+    hKeys<MV = RedisMValue>(key: JString): JSet<MV>;
 
     /**
      * 返回与hashKey关联的值的长度。如果键或hashKey不存在，则返回0
@@ -470,7 +474,7 @@ export interface RedisDataSource extends JObject {
      * @param key     key
      * @param hashKey hashKey
      */
-    hLengthOfValue(key: JString, hashKey: object): JLong;
+    hLengthOfValue<MK = RedisMKey>(key: JString, hashKey: MK): JLong;
 
     /**
      * 获取哈希表中字段的数量
@@ -485,7 +489,7 @@ export interface RedisDataSource extends JObject {
      * @param key key
      * @param m   field-value
      */
-    hPutAll(key: JString, m: JMap<object, object>): void;
+    hPutAll<MK = RedisMKey, MV = RedisMValue>(key: JString, m: JMap<MK, MV>): void;
 
     /**
      * 将哈希表 key 中的字段 field 的值设为 value
@@ -494,7 +498,7 @@ export interface RedisDataSource extends JObject {
      * @param hashKey field
      * @param value   value
      */
-    hPut(key: JString, hashKey: object, value: object): void;
+    hPut<MK = RedisMKey, MV = RedisMValue>(key: JString, hashKey: MK, value: MV): void;
 
     /**
      * 只有在字段 field 不存在时，设置哈希表字段的值
@@ -503,21 +507,21 @@ export interface RedisDataSource extends JObject {
      * @param hashKey field
      * @param value   字段的值
      */
-    hPutIfAbsent(key: JString, hashKey: object, value: object): JBoolean;
+    hPutIfAbsent<MK = RedisMKey, MV = RedisMValue>(key: JString, hashKey: MK, value: MV): JBoolean;
 
     /**
      * 获取哈希表中所有值
      *
      * @param key key
      */
-    hValues(key: JString): JList<object>;
+    hValues<MV = RedisMValue>(key: JString): JList<MV>;
 
     /**
      * 将整个散列存储在键上
      *
      * @param key key
      */
-    hEntries(key: JString): JMap<object, object>;
+    hEntries<MK = RedisMKey, MV = RedisMValue>(key: JString): JMap<MK, MV>;
 
     /**
      * 迭代哈希表中的键值对
@@ -527,7 +531,7 @@ export interface RedisDataSource extends JObject {
      * @param pattern  字段匹配字符串
      * @param callback 数据迭代回调
      */
-    // TODO hScan( key:JString,  count:number,  pattern:JString,  callback: Value):void;
+    hScan<MK = RedisMKey, MV = RedisMValue>(key: JString, count: number, pattern: JString, callback: ScanCallback<JMapEntry<MK, MV>>): void;
 
     // --------------------------------------------------------------------------------------------
     // List 操作
@@ -540,7 +544,7 @@ export interface RedisDataSource extends JObject {
      * @param start start
      * @param end   end
      */
-    lRange(key: JString, start: number, end: number): JList<Object>;
+    lRange<V extends object = RedisData>(key: JString, start: number, end: number): JList<V>;
 
     /**
      * 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除
@@ -564,7 +568,7 @@ export interface RedisDataSource extends JObject {
      * @param key   key
      * @param value value
      */
-    lLeftPush(key: JString, value: object): JLong;
+    lLeftPush<V extends object = RedisData>(key: JString, value: V): JLong;
 
     /**
      * 将一个或多个值插入到列表头部
@@ -572,7 +576,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    lLeftPushAll(key: JString, ...values: object[]): JLong;
+    lLeftPushAll<V extends object = RedisData>(key: JString, ...values: V[]): JLong;
 
     /**
      * 将一个或多个值插入到列表头部
@@ -580,7 +584,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    lLeftPushAll(key: JString, values: JCollection<object>): JLong;
+    lLeftPushAll<V extends object = RedisData>(key: JString, values: JCollection<V>): JLong;
 
     /**
      * 将一个值插入到已存在的列表头部
@@ -588,7 +592,7 @@ export interface RedisDataSource extends JObject {
      * @param key   key
      * @param value value
      */
-    lLeftPushIfPresent(key: JString, value: object): JLong;
+    lLeftPushIfPresent<V extends object = RedisData>(key: JString, value: V): JLong;
 
     /**
      * 将值前置到键值之前
@@ -597,7 +601,7 @@ export interface RedisDataSource extends JObject {
      * @param pivot pivot
      * @param value value
      */
-    lLeftPush(key: JString, pivot: object, value: object): JLong;
+    lLeftPush<V extends object = RedisData>(key: JString, pivot: V, value: V): JLong;
 
     /**
      * 在列表中添加一个或多个值
@@ -605,7 +609,7 @@ export interface RedisDataSource extends JObject {
      * @param key   key
      * @param value value
      */
-    lRightPush(key: JString, value: object): JLong;
+    lRightPush<V extends object = RedisData>(key: JString, value: V): JLong;
 
     /**
      * 在列表中添加一个或多个值
@@ -613,7 +617,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    lRightPushAll(key: JString, ...values: object[]): JLong;
+    lRightPushAll<V extends object = RedisData>(key: JString, ...values: V[]): JLong;
 
     /**
      * 在列表中添加一个或多个值
@@ -621,7 +625,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    lRightPushAll(key: JString, values: JCollection<object>): JLong;
+    lRightPushAll<V extends object = RedisData>(key: JString, values: JCollection<V>): JLong;
 
     /**
      * 仅当列表存在时才向键追加值
@@ -629,7 +633,7 @@ export interface RedisDataSource extends JObject {
      * @param key   key
      * @param value value
      */
-    lRightPushIfPresent(key: JString, value: object): JLong;
+    lRightPushIfPresent<V extends object = RedisData>(key: JString, value: V): JLong;
 
     /**
      * 在键值之前追加值
@@ -638,7 +642,7 @@ export interface RedisDataSource extends JObject {
      * @param pivot pivot
      * @param value value
      */
-    lRightPush(key: JString, pivot: object, value: object): JLong;
+    lRightPush<V extends object = RedisData>(key: JString, pivot: V, value: V): JLong;
 
     /**
      * 通过索引设置列表元素的值
@@ -647,7 +651,7 @@ export interface RedisDataSource extends JObject {
      * @param index 索引
      * @param value value
      */
-    lSet(key: JString, index: number, value: object): void;
+    lSet<V extends object = RedisData>(key: JString, index: number, value: V): void;
 
     /**
      * 移除列表元素，从存储在键上的列表中删除第一次出现的值计数
@@ -656,7 +660,7 @@ export interface RedisDataSource extends JObject {
      * @param count count
      * @param value value
      */
-    lRemove(key: JString, count: number, value: object): JLong;
+    lRemove<V extends object = RedisData>(key: JString, count: number, value: V): JLong;
 
     /**
      * 通过索引获取列表中的元素
@@ -664,14 +668,14 @@ export interface RedisDataSource extends JObject {
      * @param key   key
      * @param index 索引
      */
-    lIndex(key: JString, index: number): object;
+    lIndex<V extends object = RedisData>(key: JString, index: number): V;
 
     /**
      * 移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      *
      * @param key key
      */
-    lLeftPop(key: JString): object;
+    lLeftPop<V extends object = RedisData>(key: JString): V;
 
     /**
      * 移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
@@ -679,14 +683,14 @@ export interface RedisDataSource extends JObject {
      * @param key     key
      * @param timeout timeout 毫秒
      */
-    lLeftPop(key: JString, timeout: number): object;
+    lLeftPop<V extends object = RedisData>(key: JString, timeout: number): V;
 
     /**
      * 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
      *
      * @param key key
      */
-    lRightPop(key: JString): object;
+    lRightPop<V extends object = RedisData>(key: JString): V;
 
     /**
      * 移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
@@ -694,7 +698,7 @@ export interface RedisDataSource extends JObject {
      * @param key     key
      * @param timeout timeout 毫秒
      */
-    lRightPop(key: JString, timeout: number): object;
+    lRightPop<V extends object = RedisData>(key: JString, timeout: number): V;
 
     /**
      * 从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
@@ -702,7 +706,7 @@ export interface RedisDataSource extends JObject {
      * @param sourceKey      sourceKey
      * @param destinationKey destinationKey
      */
-    lRightPopAndLeftPush(sourceKey: JString, destinationKey: JString): object;
+    lRightPopAndLeftPush<V extends object = RedisData>(sourceKey: JString, destinationKey: JString): V;
 
     /**
      * 从列表中弹出一个值，将弹出的元素插入到另外一个列表中并返回它； 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
@@ -711,7 +715,7 @@ export interface RedisDataSource extends JObject {
      * @param destinationKey destinationKey
      * @param timeout        timeout 毫秒
      */
-    lRightPopAndLeftPush(sourceKey: JString, destinationKey: JString, timeout: number): object;
+    lRightPopAndLeftPush<V extends object = RedisData>(sourceKey: JString, destinationKey: JString, timeout: number): V;
 
     // --------------------------------------------------------------------------------------------
     // Set 操作
@@ -723,7 +727,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    sAdd(key: JString, ...values: object[]): JLong;
+    sAdd<V extends object = RedisData>(key: JString, ...values: V[]): JLong;
 
     /**
      * 向集合添加一个或多个成员
@@ -731,7 +735,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    sAdd(key: JString, values: JCollection<object>): JLong;
+    sAdd<V extends object = RedisData>(key: JString, values: JCollection<V>): JLong;
 
     /**
      * 移除集合中一个或多个成员
@@ -739,7 +743,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    sRemove(key: JString, ...values: object[]): JLong;
+    sRemove<V extends object = RedisData>(key: JString, ...values: V[]): JLong;
 
     /**
      * 移除集合中一个或多个成员
@@ -747,14 +751,14 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    sRemove(key: JString, values: JCollection<object>): JLong;
+    sRemove<V extends object = RedisData>(key: JString, values: JCollection<V>): JLong;
 
     /**
      * 移除并返回集合中的一个随机元素
      *
      * @param key key
      */
-    sPop(key: JString): object;
+    sPop<V extends object = RedisData>(key: JString): V;
 
     /**
      * 移除并返回集合中的count个随机元素
@@ -762,7 +766,7 @@ export interface RedisDataSource extends JObject {
      * @param key   key
      * @param count count
      */
-    sPop(key: JString, count: number): JList<object>;
+    sPop<V extends object = RedisData>(key: JString, count: number): JList<V>;
 
     /**
      * 将 value 元素从 key 集合移动到 destKey 集合
@@ -771,7 +775,7 @@ export interface RedisDataSource extends JObject {
      * @param value   value
      * @param destKey destKey
      */
-    sMove(key: JString, value: object, destKey: JString): JBoolean;
+    sMove<V extends object = RedisData>(key: JString, value: V, destKey: JString): JBoolean;
 
     /**
      * 获取集合的成员数
@@ -786,7 +790,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param member member 元素
      */
-    sIsMember(key: JString, member: object): JBoolean;
+    sIsMember<V extends object = RedisData>(key: JString, member: V): JBoolean;
 
     /**
      * 返回给定所有集合的交集
@@ -794,7 +798,7 @@ export interface RedisDataSource extends JObject {
      * @param key      key
      * @param otherKey otherKey
      */
-    sIntersect(key: JString, otherKey: JString): JSet<object>;
+    sIntersect<V extends object = RedisData>(key: JString, otherKey: JString): JSet<V>;
 
     /**
      * 返回给定所有集合的交集
@@ -802,7 +806,7 @@ export interface RedisDataSource extends JObject {
      * @param key       key
      * @param otherKeys otherKeys
      */
-    sIntersect(key: JString, otherKeys: JCollection<JString>): JSet<object>;
+    sIntersect<V extends object = RedisData>(key: JString, otherKeys: JCollection<JString>): JSet<V>;
 
     /**
      * 返回给定所有集合的交集
@@ -810,7 +814,7 @@ export interface RedisDataSource extends JObject {
      * @param key       key
      * @param otherKeys otherKeys
      */
-    sIntersect(key: JString, ...otherKeys: JString[]): JSet<object>;
+    sIntersect<V extends object = RedisData>(key: JString, ...otherKeys: JString[]): JSet<V>;
 
     /**
      * 返回给定所有集合的交集并存储在 destination 中
@@ -845,7 +849,7 @@ export interface RedisDataSource extends JObject {
      * @param key      key
      * @param otherKey otherKey
      */
-    sUnion(key: JString, otherKey: JString): JSet<object>;
+    sUnion<V extends object = RedisData>(key: JString, otherKey: JString): JSet<V>;
 
     /**
      * 返回所有给定集合的并集
@@ -853,7 +857,7 @@ export interface RedisDataSource extends JObject {
      * @param key       key
      * @param otherKeys otherKey
      */
-    sUnion(key: JString, otherKeys: JCollection<String>): JSet<object>;
+    sUnion<V extends object = RedisData>(key: JString, otherKeys: JCollection<String>): JSet<V>;
 
     /**
      * 返回所有给定集合的并集
@@ -861,7 +865,7 @@ export interface RedisDataSource extends JObject {
      * @param key       key
      * @param otherKeys otherKeys
      */
-    sUnion(key: JString, ...otherKeys: JString[]): JSet<object>;
+    sUnion<V extends object = RedisData>(key: JString, ...otherKeys: JString[]): JSet<V>;
 
     /**
      * 所有给定集合的并集存储在 destKey 集合中
@@ -896,7 +900,7 @@ export interface RedisDataSource extends JObject {
      * @param key      key
      * @param otherKey otherKey
      */
-    sDifference(key: JString, otherKey: JString): JSet<object>;
+    sDifference<V extends object = RedisData>(key: JString, otherKey: JString): JSet<V>;
 
     /**
      * 返回给定所有集合的差集
@@ -904,7 +908,7 @@ export interface RedisDataSource extends JObject {
      * @param key      key
      * @param otherKey otherKey
      */
-    sDifference(key: JString, otherKey: JCollection<String>): JSet<Object>;
+    sDifference<V extends object = RedisData>(key: JString, otherKey: JCollection<String>): JSet<V>;
 
     /**
      * 返回给定所有集合的差集
@@ -912,7 +916,7 @@ export interface RedisDataSource extends JObject {
      * @param key      key
      * @param otherKey otherKey
      */
-    sDifference(key: JString, ...otherKey: JString[]): JSet<object>;
+    sDifference<V extends object = RedisData>(key: JString, ...otherKey: JString[]): JSet<V>;
 
     /**
      * 返回给定所有集合的差集并存储在 destKey 中
@@ -946,14 +950,14 @@ export interface RedisDataSource extends JObject {
      *
      * @param key key
      */
-    sMembers(key: JString): JSet<object>;
+    sMembers<V extends object = RedisData>(key: JString): JSet<V>;
 
     /**
      * 返回集合中一个或多个随机数
      *
      * @param key key
      */
-    sRandomMember(key: JString): object;
+    sRandomMember<V extends object = RedisData>(key: JString): V;
 
     /**
      * 从集合中获取不同的随机元素
@@ -961,7 +965,7 @@ export interface RedisDataSource extends JObject {
      * @param key   key
      * @param count 数量
      */
-    sDistinctRandomMembers(key: JString, count: number): JSet<object>;
+    sDistinctRandomMembers<V extends object = RedisData>(key: JString, count: number): JSet<V>;
 
     /**
      * 返回集合中一个或多个随机数
@@ -969,7 +973,7 @@ export interface RedisDataSource extends JObject {
      * @param key   key
      * @param count 数量
      */
-    sRandomMembers(key: JString, count: number): JList<object>;
+    sRandomMembers<V extends object = RedisData>(key: JString, count: number): JList<V>;
 
     /**
      * 迭代集合中的元素
@@ -979,7 +983,7 @@ export interface RedisDataSource extends JObject {
      * @param pattern  pattern
      * @param callback 数据迭代回调函数
      */
-    // sScan( key:JString,  count:number,  pattern:JString,  callback:Value):void;
+    sScan<V extends object = RedisData>(key: JString, count: number, pattern: JString, callback: ScanCallback<V>): void;
 
     // --------------------------------------------------------------------------------------------
     // Sorted Set 操作
@@ -992,7 +996,7 @@ export interface RedisDataSource extends JObject {
      * @param value value
      * @param score score
      */
-    zsAdd(key: JString, value: object, score: number): JBoolean;
+    zsAdd<V extends object = RedisData>(key: JString, value: V, score: number): JBoolean;
 
     /**
      * 向有序集合添加一个或多个成员，或者更新已存在成员的分数
@@ -1016,7 +1020,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    zsRemove(key: JString, ...values: object[]): JLong;
+    zsRemove<V extends object = RedisData>(key: JString, ...values: V[]): JLong;
 
     /**
      * 移除有序集合中的一个或多个成员
@@ -1024,7 +1028,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    zsRemove(key: JString, values: JCollection<object>): JLong;
+    zsRemove<V extends object = RedisData>(key: JString, values: JCollection<V>): JLong;
 
     /**
      * 有序集合中对指定成员的分数加上增量 increment
@@ -1033,7 +1037,7 @@ export interface RedisDataSource extends JObject {
      * @param value value
      * @param delta increment
      */
-    zsIncrementScore(key: JString, value: object, delta: number): JDouble;
+    zsIncrementScore<V extends object = RedisData>(key: JString, value: V, delta: number): JDouble;
 
     /**
      * 返回有序集合中指定成员的索引
@@ -1041,7 +1045,7 @@ export interface RedisDataSource extends JObject {
      * @param key key
      * @param o   o
      */
-    zsRank(key: JString, o: object): JLong;
+    zsRank<V extends object = RedisData>(key: JString, o: V): JLong;
 
     /**
      * 确定元素的索引值在排序集时得分从高到低
@@ -1049,7 +1053,7 @@ export interface RedisDataSource extends JObject {
      * @param key key
      * @param o   o
      */
-    zsReverseRank(key: JString, o: object): JLong;
+    zsReverseRank<V extends object = RedisData>(key: JString, o: V): JLong;
 
     /**
      * 从已排序集获取开始和结束之间的元素
@@ -1058,7 +1062,7 @@ export interface RedisDataSource extends JObject {
      * @param start start
      * @param end   end
      */
-    zsRange(key: JString, start: number, end: number): JSet<object>;
+    zsRange<V extends object = RedisData>(key: JString, start: number, end: number): JSet<V>;
 
     /**
      * 从已排序集获取开始和结束之间的元素
@@ -1076,7 +1080,7 @@ export interface RedisDataSource extends JObject {
      * @param min min
      * @param max max
      */
-    zsRangeByScore(key: JString, min: number, max: number): JSet<object>;
+    zsRangeByScore<V extends object = RedisData>(key: JString, min: number, max: number): JSet<V>;
 
     /**
      * 从排序后的集合中获取得分介于最小值和最大值之间的元素
@@ -1096,7 +1100,7 @@ export interface RedisDataSource extends JObject {
      * @param offset offset
      * @param count  count
      */
-    zsRangeByScore(key: JString, min: number, max: number, offset: number, count: number): JSet<object>;
+    zsRangeByScore<V extends object = RedisData>(key: JString, min: number, max: number, offset: number, count: number): JSet<V>;
 
     /**
      * 获取从开始到结束的范围内的元素，其中得分在排序集的最小值和最大值之间
@@ -1116,7 +1120,7 @@ export interface RedisDataSource extends JObject {
      * @param start start
      * @param end   end
      */
-    zsReverseRange(key: JString, start: number, end: number): JSet<object>;
+    zsReverseRange<V extends object = RedisData>(key: JString, start: number, end: number): JSet<V>;
 
     /**
      * 获取范围从开始到结束的元素，从高到低排序的集合
@@ -1134,7 +1138,7 @@ export interface RedisDataSource extends JObject {
      * @param min min
      * @param max max
      */
-    zsReverseRangeByScore(key: JString, min: number, max: number): JSet<object>
+    zsReverseRangeByScore<V extends object = RedisData>(key: JString, min: number, max: number): JSet<V>
 
     /**
      * 获取得分介于最小值和最大值之间的元素，从高到低排序
@@ -1154,7 +1158,7 @@ export interface RedisDataSource extends JObject {
      * @param offset offset
      * @param count  count
      */
-    zsReverseRangeByScore(key: JString, min: number, max: number, offset: number, count: number): JSet<object>;
+    zsReverseRangeByScore<V extends object = RedisData>(key: JString, min: number, max: number, offset: number, count: number): JSet<V>;
 
     /**
      * 获取从开始到结束的范围内的元素，其中得分在最小和最大之间，排序集高 -> 低
@@ -1196,7 +1200,7 @@ export interface RedisDataSource extends JObject {
      * @param key key
      * @param o   o
      */
-    zsScore(key: JString, o: object): JDouble;
+    zsScore<V extends object = RedisData>(key: JString, o: V): JDouble;
 
     /**
      * 从按键排序的集合中删除开始和结束之间范围内的元素
@@ -1278,8 +1282,7 @@ export interface RedisDataSource extends JObject {
      * @param pattern  pattern
      * @param callback 数据迭代回调函数
      */
-
-    // zsScan( key:JString,  count:number,  pattern:JString,  callback:Value):void;
+    zsScan(key: JString, count: number, pattern: JString, callback: ScanCallback<ZSetValue>): void;
 
     /**
      * 通过字典区间返回有序集合的成员
@@ -1290,7 +1293,7 @@ export interface RedisDataSource extends JObject {
      * @param maxValue  maxValue
      * @param equalsMax equalsMax
      */
-    zsRangeByLex(key: JString, minValue: object, equalsMin: JBoolean, maxValue: object, equalsMax: JBoolean): JSet<object>;
+    zsRangeByLex<V extends object = RedisData>(key: JString, minValue: V, equalsMin: JBoolean, maxValue: V, equalsMax: JBoolean): JSet<V>;
 
     /**
      * 通过字典区间返回有序集合的成员
@@ -1303,7 +1306,7 @@ export interface RedisDataSource extends JObject {
      * @param count     count
      * @param offset    offset
      */
-    zsRangeByLex(key: JString, minValue: object, equalsMin: JBoolean, maxValue: object, equalsMax: JBoolean, count: number, offset: number): JSet<object>;
+    zsRangeByLex<V extends object = RedisData>(key: JString, minValue: V, equalsMin: JBoolean, maxValue: V, equalsMax: JBoolean, count: number, offset: number): JSet<V>;
 
     // --------------------------------------------------------------------------------------------
     // HyperLogLog  操作
@@ -1315,7 +1318,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    hyperLogLogAdd(key: JString, ...values: object[]): JLong;
+    hyperLogLogAdd<V extends object = RedisData>(key: JString, ...values: V[]): JLong;
 
     /**
      * 添加指定元素到 HyperLogLog 中
@@ -1323,7 +1326,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    hyperLogLogAdd(key: JString, values: JCollection<object>): JLong;
+    hyperLogLogAdd<V extends object = RedisData>(key: JString, values: JCollection<V>): JLong;
 
     /**
      * 获取键中元素的当前数目
@@ -1374,7 +1377,7 @@ export interface RedisDataSource extends JObject {
      * @param y      y
      * @param member member
      */
-    geoAdd(key: JString, x: number, y: number, member: object): JLong;
+    geoAdd<V extends object = RedisData>(key: JString, x: number, y: number, member: V): JLong;
 
     /**
      * 将指定成员名的点添加到键上
@@ -1407,7 +1410,7 @@ export interface RedisDataSource extends JObject {
      * @param member1 member1
      * @param member2 member2
      */
-    geoDistance(key: JString, member1: object, member2: object): RedisDistance;
+    geoDistance<V extends object = RedisData>(key: JString, member1: V, member2: V): RedisDistance;
 
     /**
      * 获取一个或多个成员位置的GeoHash表示
@@ -1415,7 +1418,7 @@ export interface RedisDataSource extends JObject {
      * @param key     key
      * @param members members
      */
-    geoHash(key: JString, ...members: object[]): JList<JString>;
+    geoHash<V extends object = RedisData>(key: JString, ...members: V[]): JList<JString>;
 
     /**
      * 获取一个或多个成员位置的GeoHash表示
@@ -1423,7 +1426,7 @@ export interface RedisDataSource extends JObject {
      * @param key     key
      * @param members members
      */
-    geoHash(key: JString, members: JCollection<object>): JList<JString>;
+    geoHash<V extends object = RedisData>(key: JString, members: JCollection<V>): JList<JString>;
 
     /**
      * 获取一个或多个成员的位置的点表示
@@ -1431,7 +1434,7 @@ export interface RedisDataSource extends JObject {
      * @param key     key
      * @param members members
      */
-    geoPosition(key: JString, ...members: object[]): JList<RedisPoint>
+    geoPosition<V extends object = RedisData>(key: JString, ...members: V[]): JList<RedisPoint>
 
     /**
      * 获取一个或多个成员的位置的点表示
@@ -1439,7 +1442,7 @@ export interface RedisDataSource extends JObject {
      * @param key     key
      * @param members members
      */
-    geoPosition(key: JString, members: JCollection<object>): JList<RedisPoint>;
+    geoPosition<V extends object = RedisData>(key: JString, members: JCollection<V>): JList<RedisPoint>;
 
     // --------------------------------------------------------------------------------------------
     // 其它 操作
