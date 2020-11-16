@@ -2,12 +2,17 @@ import { RedisInfo } from "./RedisInfo";
 import { RedisDataSourceStatus } from "./RedisDataSourceStatus";
 
 export enum RedisDataType {
-    NotExists = "NotExists",
+    /** key不存在 */
     None = "none",
+    /** String结构 */
     String = "string",
+    /** List结构 */
     List = "list",
+    /** Set结构 */
     Set = "set",
+    /** ZSet结构 */
     ZSet = "zset",
+    /** Hash结构 */
     Hash = "hash",
 }
 
@@ -53,7 +58,7 @@ export interface PointValue<T extends object = object> {
  */
 export type ScanCallback<T> = (item: T) => JBoolean;
 
-export interface Metric {
+export interface RedisMetric {
     org_springframework_data_geo_Metric: "org.springframework.data.geo.Metric";
 
     /** 返回从基本刻度计算度量值的乘数 */
@@ -63,7 +68,7 @@ export interface Metric {
     getAbbreviation(): JString;
 }
 
-export interface Distance extends JComparable<Distance> {
+export interface RedisDistance extends JComparable<RedisDistance> {
     org_springframework_data_geo_Distance: "org.springframework.data.geo.Distance";
 
     /** 当前度量中的距离值 */
@@ -76,10 +81,10 @@ export interface Distance extends JComparable<Distance> {
     getNormalizedValue(): JDouble;
 
     /** Metric */
-    getMetric(): Metric;
+    getMetric(): RedisMetric;
 }
 
-export interface Point {
+export interface RedisPoint {
     /** 返回点的x坐标 */
     getX(): JDouble;
 
@@ -1402,7 +1407,7 @@ export interface RedisDataSource extends JObject {
      * @param member1 member1
      * @param member2 member2
      */
-    geoDistance(key: JString, member1: object, member2: object): Distance;
+    geoDistance(key: JString, member1: object, member2: object): RedisDistance;
 
     /**
      * 获取一个或多个成员位置的GeoHash表示
@@ -1426,7 +1431,7 @@ export interface RedisDataSource extends JObject {
      * @param key     key
      * @param members members
      */
-    geoPosition(key: JString, ...members: object[]): JList<Point>
+    geoPosition(key: JString, ...members: object[]): JList<RedisPoint>
 
     /**
      * 获取一个或多个成员的位置的点表示
@@ -1434,7 +1439,7 @@ export interface RedisDataSource extends JObject {
      * @param key     key
      * @param members members
      */
-    geoPosition(key: JString, members: JCollection<object>): JList<Point>;
+    geoPosition(key: JString, members: JCollection<object>): JList<RedisPoint>;
 
     // --------------------------------------------------------------------------------------------
     // 其它 操作
