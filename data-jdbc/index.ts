@@ -5,5 +5,7 @@ export * from './JdbcDataSourceStatus';
 export * from './JdbcDatabase';
 export * from './JdbcDatabaseManage';
 export * from './JdbcDataSource';
+export * from './MyBatisMapperSql';
 export * from './MyBatisJdbcDatabase';
+export * from './MyBatisJdbcDatabaseManage';
 export * from './MyBatisJdbcDataSource';

@@ -40,13 +40,6 @@ export interface MyBatisJdbcDatabase {
     add(name: JString, config: JdbcConfig): MyBatisJdbcDataSource;
 
     /**
-     * 删除数据源
-     *
-     * @param name 数据源名称
-     */
-    del(name: JString): JBoolean;
-
-    /**
      * 获取所有数据源名称
      */
     allNames(): JSet<JString>;
