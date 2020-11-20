@@ -23,7 +23,7 @@ export * from './SendMailUtils';
 export * from './PinyinUtils';
 export * from './DataSizeUtils';
 export * from './IPAddressUtils';
-export * from './IdCardUtils';
+export * from './IDCardUtils';
 export * from './RMBUtils';
 export * from './TypeUtils';
 export * from './IOUtils';

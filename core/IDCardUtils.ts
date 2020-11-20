@@ -1,11 +1,11 @@
-export interface IdCardUtils {
+export interface IDCardUtils {
     /**
      * 将15位身份证号码转换为18位
      *
      * @param idCard 15位身份编码
      * @return 18位身份编码，失败返回null
      */
-    conver15CardTo18(idCard: JString): JString;
+    convert15CardTo18(idCard: JString): JString;
 
     /**
      * 验证身份证是否合法
@@ -123,7 +123,7 @@ export interface IdCardUtils {
     getProvinceByIdCard(idCard: JString): JString;
 }
 
-const idCardUtils: IdCardUtils = Java.type('org.clever.hinny.core.IdCardUtils').Instance;
+const idCardUtils: IDCardUtils = Java.type('org.clever.hinny.core.IDCardUtils').Instance;
 
 export {
     idCardUtils,
