@@ -20,7 +20,7 @@ type RedisData = any;
 type RedisMKey = string;
 type RedisMValue = any;
 
-export interface ZSetValue<T extends object = RedisData> {
+export interface ZSetValue<T extends any = RedisData> {
     /** 排序值 */
     getScore(): JDouble;
 
@@ -34,7 +34,7 @@ export interface ZSetValue<T extends object = RedisData> {
     setValue(value: T): void;
 }
 
-export interface PointValue<T extends object = RedisData> {
+export interface PointValue<T extends any = RedisData> {
     /** x轴位置(经度) */
     getX(): JDouble;
 
@@ -1004,7 +1004,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    zsAdd(key: JString, values: JCollection<ZSetValue>): JLong;
+    zsAdd<V = RedisData>(key: JString, values: JCollection<ZSetValue<V>>): JLong;
 
     /**
      * 向有序集合添加一个或多个成员，或者更新已存在成员的分数
@@ -1012,7 +1012,7 @@ export interface RedisDataSource extends JObject {
      * @param key    key
      * @param values values
      */
-    zsAdd(key: JString, values: ZSetValue[]): JLong;
+    zsAdd<V = RedisData>(key: JString, values: ZSetValue<V>[]): JLong;
 
     /**
      * 移除有序集合中的一个或多个成员
@@ -1071,7 +1071,7 @@ export interface RedisDataSource extends JObject {
      * @param start start
      * @param end   end
      */
-    zsRangeWithScores(key: JString, start: number, end: number): JList<ZSetValue>;
+    zsRangeWithScores<V = RedisData>(key: JString, start: number, end: number): JList<ZSetValue<V>>;
 
     /**
      * 从排序后的集合中获取得分介于最小值和最大值之间的元素
@@ -1089,7 +1089,7 @@ export interface RedisDataSource extends JObject {
      * @param min min
      * @param max max
      */
-    zsRangeByScoreWithScores(key: JString, min: number, max: number): JList<ZSetValue>;
+    zsRangeByScoreWithScores<V = RedisData>(key: JString, min: number, max: number): JList<ZSetValue<V>>;
 
     /**
      * 获取从开始到结束的范围内的元素，其中得分在排序集的最小值和最大值之间
@@ -1111,7 +1111,7 @@ export interface RedisDataSource extends JObject {
      * @param offset offset
      * @param count  count
      */
-    zsRangeByScoreWithScores(key: JString, min: number, max: number, offset: number, count: number): JList<ZSetValue>;
+    zsRangeByScoreWithScores<V = RedisData>(key: JString, min: number, max: number, offset: number, count: number): JList<ZSetValue<V>>;
 
     /**
      * 获取范围从开始到结束的元素，从高到低排序的集合
@@ -1129,7 +1129,7 @@ export interface RedisDataSource extends JObject {
      * @param start start
      * @param end   end
      */
-    zsReverseRangeWithScores(key: JString, start: number, end: number): JList<ZSetValue>;
+    zsReverseRangeWithScores<V = RedisData>(key: JString, start: number, end: number): JList<ZSetValue<V>>;
 
     /**
      * 获取得分介于最小值和最大值之间的元素，从高到低排序
@@ -1147,7 +1147,7 @@ export interface RedisDataSource extends JObject {
      * @param min min
      * @param max max
      */
-    zsReverseRangeByScoreWithScores(key: JString, min: number, max: number): JList<ZSetValue>;
+    zsReverseRangeByScoreWithScores<V = RedisData>(key: JString, min: number, max: number): JList<ZSetValue<V>>;
 
     /**
      * 获取从开始到结束的范围内的元素，其中得分在最小和最大之间，排序集高 -> 低
@@ -1169,7 +1169,7 @@ export interface RedisDataSource extends JObject {
      * @param offset offset
      * @param count  count
      */
-    zsReverseRangeByScoreWithScores(key: JString, min: number, max: number, offset: number, count: number): JList<ZSetValue>;
+    zsReverseRangeByScoreWithScores<V = RedisData>(key: JString, min: number, max: number, offset: number, count: number): JList<ZSetValue<V>>;
 
     /**
      * 用最小值和最大值之间的值计算排序集中的元素数
@@ -1282,7 +1282,7 @@ export interface RedisDataSource extends JObject {
      * @param pattern  pattern
      * @param callback 数据迭代回调函数
      */
-    zsScan(key: JString, count: number, pattern: JString, callback: ScanCallback<ZSetValue>): void;
+    zsScan<V = RedisData>(key: JString, count: number, pattern: JString, callback: ScanCallback<ZSetValue<V>>): void;
 
     /**
      * 通过字典区间返回有序集合的成员
