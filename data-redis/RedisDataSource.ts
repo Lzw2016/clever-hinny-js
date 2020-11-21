@@ -1385,7 +1385,7 @@ export interface RedisDataSource extends JObject {
      * @param key        key
      * @param pointValue pointValue
      */
-    geoAdd(key: JString, pointValue: PointValue): JLong;
+    geoAdd<V = RedisData>(key: JString, pointValue: PointValue<V>): JLong;
 
     /**
      * 将指定成员名的点添加到键上
@@ -1393,7 +1393,7 @@ export interface RedisDataSource extends JObject {
      * @param key         key
      * @param pointValues pointValues
      */
-    geoAdd(key: JString, pointValues: JCollection<PointValue>): JLong;
+    geoAdd<V = RedisData>(key: JString, pointValues: JCollection<PointValue<V>>): JLong;
 
     /**
      * 将指定成员名的点添加到键上
@@ -1401,7 +1401,7 @@ export interface RedisDataSource extends JObject {
      * @param key         key
      * @param pointValues pointValues
      */
-    geoAdd(key: JString, pointValues: PointValue[]): JLong;
+    geoAdd<V = RedisData>(key: JString, pointValues: PointValue<V>[]): JLong;
 
     /**
      * 返回两个给定位置之间的距离
