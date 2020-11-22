@@ -34,14 +34,16 @@
     "core/**/*",
     "data-jdbc/**/*",
     "meta-data/**/*",
-    "mvc/**/*"
+    "mvc/**/*",
+    "data-redis/**/*"
   ],
   "exclude": [
     "types/dist",
     "core/dist",
     "data-jdbc/dist",
     "meta-data/dist",
-    "mvc/dist"
+    "mvc/dist",
+    "data-redis/dist"
   ],
   "typedocOptions": {
     "mode": "library",

@@ -19,6 +19,7 @@ module.exports = {
                     './data-jdbc',
                     './meta-data',
                     './mvc',
+                    './data-redis',
                 ],
 
                 // out directory relative to docs folder (defaults to `api`)
