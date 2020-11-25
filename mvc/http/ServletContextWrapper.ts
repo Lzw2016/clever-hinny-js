@@ -7,7 +7,7 @@ export interface ServletContextWrapper extends JObject {
     /**
      * 返回一个于服务器上指定的URL进行通信的 ServletContext 对象
      */
-    getContext(uripath: JString): ServletContextWrapper;
+    getContext(uriPath: JString): ServletContextWrapper;
 
     /**
      * Web应用程序的上下文路径，或者为根上下文“”

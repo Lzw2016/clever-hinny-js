@@ -14,13 +14,13 @@ interface Interop extends JObject {
      * 创建一个Java Class对象
      * @param className Java Class Name全名称
      */
-    newJObject(className: string): JObject;
+    newJObject<T = any>(className: string): JObject;
 
     /**
      * 创建一个Java Class对象
      * @param clazz Java Class对象
      */
-    newJObject(clazz: JClass): JObject;
+    newJObject<T = any>(clazz: JClass): JObject;
 
     /**
      * 创建Java byte 值 (-128~127)
